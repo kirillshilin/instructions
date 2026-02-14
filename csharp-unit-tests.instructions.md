@@ -28,6 +28,11 @@ public void Should_ReturnExpectedResult_WhenConditionMet()
 #endregion
 ```
 
+# Test Folder Structure
+- Test folder structure MUST mimic the folder structure in the main project.
+- Example: If main project has `Services/UserService.cs`, test project should have `Services/UserServiceTests.cs`.
+- Maintain the same namespace hierarchy between main and test projects.
+
 # Test Structure
 - Use Arrange-Act-Assert (AAA) pattern.
 - Keep tests focused and single-purpose.
