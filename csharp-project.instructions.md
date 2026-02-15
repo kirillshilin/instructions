@@ -15,10 +15,10 @@ applyTo: "**/*.cs"
 
 - Classes that have both generic and non-generic versions MUST be split into separate files.
 - Non-generic version: Use the class name as-is (e.g., `Class.cs`).
-- Generic version: Append a backtick to the file name (e.g., ``Class`.cs``).
+- Generic version: Append a single backtick character to the file name (e.g., `Class`.cs with a backtick before the extension).
 - Example:
   - `Result.cs` - Contains the non-generic `Result` class
-  - ``Result`.cs`` - Contains the generic `Result<T>` class
+  - `Result`.cs` - Contains the generic `Result<T>` class (note the backtick after "Result")
 
 # Nested Classes and Private Classes
 
