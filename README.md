@@ -16,22 +16,25 @@ Strict TypeScript configuration and project structure guidelines, including mode
 ### 2. 📦 [Package.json Scripts](package-json-scripts.instructions.md)
 Standard NPM script conventions for development, testing, linting, and deployment.
 
-### 3. 🧪 [C# Unit Tests](csharp-unit-tests.instructions.md)
+### 3. 🔷 [C# Project](csharp-project.instructions.md)
+C# project organization with partial class file splitting, generic class naming, and nested class file organization.
+
+### 4. 🧪 [C# Unit Tests](csharp-unit-tests.instructions.md)
 C# testing conventions with `Should_` naming pattern and region-based test organization.
 
-### 4. 🧪 [TypeScript Tests](typescript-tests.instructions.md)
+### 5. 🧪 [TypeScript Tests](typescript-tests.instructions.md)
 TypeScript/JavaScript testing conventions using describe blocks for test organization.
 
-### 5. 🚀 [Node.js Scaffolding](nodejs-scaffold.instructions.md)
+### 6. 🚀 [Node.js Scaffolding](nodejs-scaffold.instructions.md)
 Complete setup instructions for new Node.js projects with Jest, TypeScript, ESLint, and Prettier (Windows CRLF).
 
-### 6. 📝 [README Style Guide](readme-style.instructions.md)
+### 7. 📝 [README Style Guide](readme-style.instructions.md)
 README formatting guidelines with emoji conventions for better readability.
 
-### 7. ⚛️ [React Components](react-components.instructions.md)
+### 8. ⚛️ [React Components](react-components.instructions.md)
 React component guidelines with 50-60 line code limit and component composition patterns.
 
-### 8. 🅰️ [Angular Components](angular-components.instructions.md)
+### 9. 🅰️ [Angular Components](angular-components.instructions.md)
 Angular component guidelines with 50-60 line code limit and component composition patterns.
 
 ## 💻 Usage
@@ -85,6 +88,7 @@ cp readme-style.instructions.md .github/instructions/
 #### For a C# Project
 
 ```bash
+cp csharp-project.instructions.md .github/instructions/
 cp csharp-unit-tests.instructions.md .github/instructions/
 cp readme-style.instructions.md .github/instructions/
 ```
@@ -96,6 +100,7 @@ When you work on a file, Copilot automatically applies matching instructions:
 - **Editing `User.ts`** → TypeScript Project instructions apply
 - **Editing `Button.tsx`** → React Components + TypeScript Project instructions apply
 - **Editing `app.component.ts`** → Angular Components instructions apply
+- **Editing `UserService.cs`** → C# Project instructions apply
 - **Editing `UserTests.cs`** → C# Unit Tests instructions apply
 - **Editing `README.md`** → README Style instructions apply
 - **Editing `package.json`** → Package.json Scripts instructions apply
