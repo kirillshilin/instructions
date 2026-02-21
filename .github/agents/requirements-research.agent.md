@@ -63,7 +63,7 @@ on the task.
 | Field | Value |
 |---|---|
 | **Priority** | Must / Should / Could / Won't |
-| **Category** | <category> |
+| **Category** | Functional / Non-Functional / Technical |
 | **Source** | <user story, stakeholder, research> |
 | **Status** | Draft / Reviewed / Approved |
 
