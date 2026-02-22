@@ -150,6 +150,38 @@ applyTo: "**/*.ts"
 - Rule 2
 ```
 
+## 🤖 Copilot Agents
+
+Custom agent profiles for GitHub Copilot, located in `.github/agents/`.
+
+| Agent | Description |
+|-------|-------------|
+| [Agent Builder](`.github/agents/agent-builder.agent.md`) | Meta-agent for scaffolding new agents and skills in this repository |
+| [Requirements Research](`.github/agents/requirements-research.agent.md`) | Investigate, plan, and structure product requirements |
+| [Product Management](`.github/agents/product-management.agent.md`) | Write specs, run metrics reviews, manage roadmaps, craft stakeholder updates, synthesise research, and produce competitive briefs |
+| [Data Analysis](`.github/agents/data-analysis.agent.md`) | Explore datasets, write queries, identify trends, and produce data-driven reports |
+| [Marketing](`.github/agents/marketing.agent.md`) | Draft copy, plan campaigns, define positioning, and create go-to-market materials |
+
+## 🧰 Copilot Skills
+
+Reusable skill definitions for GitHub Copilot, located in `.github/skills/`.
+
+| Skill | Description |
+|-------|-------------|
+| [create-agent](`.github/skills/create-agent/SKILL.md`) | Scaffold a new GitHub Copilot custom agent profile |
+| [create-skill](`.github/skills/create-skill/SKILL.md`) | Scaffold a new GitHub Copilot skill definition |
+| [requirements-documentation](`.github/skills/requirements-documentation/SKILL.md`) | Structure and format product requirements into organised markdown files |
+| [requirements-prioritization](`.github/skills/requirements-prioritization/SKILL.md`) | Prioritise requirements using MoSCoW, RICE, or Kano frameworks |
+| [requirements-research](`.github/skills/requirements-research/SKILL.md`) | Research and discover product requirements from documentation and the web |
+| [pm-competitive-analysis](`.github/skills/pm-competitive-analysis/SKILL.md`) | Analyse competitors with feature matrices, positioning analysis, and win/loss methodology |
+| [pm-feature-spec](`.github/skills/pm-feature-spec/SKILL.md`) | Write structured PRDs with problem statements, user stories, and success metrics |
+| [pm-metrics-tracking](`.github/skills/pm-metrics-tracking/SKILL.md`) | Define, track, and analyse product metrics with OKRs and dashboard design |
+| [pm-roadmap-management](`.github/skills/pm-roadmap-management/SKILL.md`) | Plan and prioritise product roadmaps using RICE, MoSCoW, and ICE frameworks |
+| [pm-stakeholder-comms](`.github/skills/pm-stakeholder-comms/SKILL.md`) | Draft audience-tailored stakeholder updates using ROAM risk framework |
+| [pm-user-research-synthesis](`.github/skills/pm-user-research-synthesis/SKILL.md`) | Synthesise user research into structured insights, themes, and opportunity areas |
+| [data-analysis](`.github/skills/data-analysis/SKILL.md`) | Explore, query, and analyse datasets to extract insights and trends |
+| [marketing-strategy](`.github/skills/marketing-strategy/SKILL.md`) | Plan marketing activities including positioning, campaigns, and go-to-market |
+
 ## 🤝 Contributing
 
 Feel free to add more instruction templates or improve existing ones to cover additional use cases and project patterns.
