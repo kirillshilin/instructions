@@ -37,6 +37,9 @@ React component guidelines with 50-60 line code limit and component composition 
 ### 9. 🅰️ [Angular Components](angular-components.instructions.md)
 Angular component guidelines with 50-60 line code limit and component composition patterns.
 
+### 10. 🗂️ [TypeScript Workspace](typescript-workspace.instructions.md)
+Monorepo workspace setup with shared TypeScript, ESLint, and Prettier configuration across backend, frontend (React/Angular), and Firebase packages, with common root-level build/lint/test scripts.
+
 ## 💻 Usage
 
 ### 🚀 Quick Start
@@ -91,6 +94,19 @@ cp readme-style.instructions.md .github/instructions/
 cp csharp-project.instructions.md .github/instructions/
 cp csharp-unit-tests.instructions.md .github/instructions/
 cp readme-style.instructions.md .github/instructions/
+```
+
+#### For a TypeScript Workspace (Monorepo)
+
+```bash
+cp typescript-workspace.instructions.md .github/instructions/
+cp typescript-project.instructions.md .github/instructions/
+cp typescript-tests.instructions.md .github/instructions/
+cp package-json-scripts.instructions.md .github/instructions/
+cp readme-style.instructions.md .github/instructions/
+# Add frontend-specific instructions as needed:
+cp react-components.instructions.md .github/instructions/
+cp angular-components.instructions.md .github/instructions/
 ```
 
 ### 📝 How It Works
