@@ -40,6 +40,11 @@ Angular component guidelines with 50-60 line code limit and component compositio
 ### 10. 🗂️ [TypeScript Workspace](typescript-workspace.instructions.md)
 Monorepo workspace setup with shared TypeScript, ESLint, and Prettier configuration across backend, frontend (React/Angular), and Firebase packages, with common root-level build/lint/test scripts.
 
+## 📖 Guides
+
+### 🤖 [Claude Code .NET Setup Guide](claude-code-setup.guide.md)
+End-to-end guide for setting up the most efficient AI-assisted coding workflow with Claude Code, focused on .NET development. Covers CLAUDE.md, MCP servers, custom agents, skills, VS Code extensions, and further customisation.
+
 ## 💻 Usage
 
 ### 🚀 Quick Start
