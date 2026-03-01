@@ -45,6 +45,9 @@ Monorepo workspace setup with shared TypeScript, ESLint, and Prettier configurat
 ### 🤖 [Claude Code .NET Setup Guide](claude-code-setup.guide.md)
 End-to-end guide for setting up the most efficient AI-assisted coding workflow with Claude Code, focused on .NET development. Covers CLAUDE.md, MCP servers, custom agents, skills, VS Code extensions, and further customisation.
 
+### 🔗 [Sharing Instructions via Git Submodule](git-submodule-sharing.guide.md)
+Step-by-step guide for including instructions, agents, and skills from this repository into any other repository using a git submodule, so edits can be committed back to this shared repo and all projects stay in sync.
+
 ## 💻 Usage
 
 ### 🚀 Quick Start
