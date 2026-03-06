@@ -174,6 +174,32 @@ applyTo: "**/*.ts"
 - Rule 2
 ```
 
+## 💼 Microsoft 365 Copilot Agents — Change Management
+
+Ready-to-use agent definitions for **Microsoft 365 Copilot**, located
+in `Copilot/`. Copy the instructions from each file and paste them into
+[Copilot Studio](https://copilotstudio.microsoft.com/) or the M365 Copilot
+agent builder to deploy the agent.
+
+| Agent | File | Description |
+|-------|------|-------------|
+| **Copilot Agent Builder** | [`Copilot/meta-agent.agent.md`](Copilot/meta-agent.agent.md) | Meta-agent that designs and writes new M365 Copilot agent definitions for change management consultants |
+| **Presentation Planner** | [`Copilot/presentation-planner.agent.md`](Copilot/presentation-planner.agent.md) | Creates slide-by-slide presentation outlines with titles, theses, and speaker notes for stakeholder decks |
+| **Event Planner** | [`Copilot/event-planner.agent.md`](Copilot/event-planner.agent.md) | Plans large-scale workshops with time-blocked agendas, run-of-show schedules, and participant cohort assignments |
+| **Email Analyser and Action Planner** | [`Copilot/email-analyser.agent.md`](Copilot/email-analyser.agent.md) | Analyses an inbox snapshot and returns the top 5 action items, 5 draft responses, and a daily summary |
+
+### 📋 How to Use
+
+1. Open the desired `*.agent.md` file in `Copilot/`.
+2. Copy the content below the YAML frontmatter (the `# Purpose` section
+   onwards) into the **Instructions** field in Copilot Studio or the M365
+   Copilot agent configuration panel.
+3. Use the **Starter Prompts** section as conversation starters in the agent.
+4. Optionally copy the `name` and `description` frontmatter fields into the
+   corresponding fields in the Copilot Studio UI.
+
+---
+
 ## 🤖 Copilot Agents
 
 Custom agent profiles for GitHub Copilot, located in `.github/agents/`.
