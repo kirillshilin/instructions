@@ -50,7 +50,59 @@ Step-by-step guide for including instructions, agents, and skills from this repo
 
 ## 💻 Usage
 
-### 🚀 Quick Start
+### 🚀 Quick Start — `npx instructions`
+
+Install instructions for your project in one command — no cloning required:
+
+```bash
+# GitHub Copilot (default) — copies .instructions.md files + updates .vscode/settings.json
+npx instructions nodejs
+npx instructions react
+npx instructions angular tailwind
+npx instructions react dotnet
+npx instructions typescript
+npx instructions csharp
+npx instructions workspace
+
+# Claude Code — copies agents to .claude/agents/, skills to .claude/skills/, writes CLAUDE.md
+npx instructions nodejs --claude
+npx instructions react firebase --claude
+npx instructions dotnet playwright --claude
+npx instructions react dotnet --copilot   # explicit flag
+```
+
+Run `npx instructions --help` for the full list of supported technologies.
+
+#### Supported technologies
+
+| Technology | Alias | Description |
+|---|---|---|
+| `nodejs` | — | Node.js project (TypeScript, Jest, ESLint, Prettier) |
+| `react` | — | React components (TypeScript) |
+| `angular` | — | Angular components (TypeScript) |
+| `typescript` | — | TypeScript project |
+| `csharp` | `dotnet` | C# / .NET project |
+| `firebase` | — | Firebase + TypeScript workspace |
+| `tailwind` | — | Tailwind CSS (React + TypeScript) |
+| `playwright` | — | Playwright end-to-end testing |
+| `workspace` | `monorepo` | TypeScript monorepo |
+
+#### What gets installed
+
+**`--copilot` (default)**
+
+- `.github/instructions/<name>.instructions.md` — instruction files that GitHub Copilot picks up automatically
+- `.vscode/settings.json` — sets `useInstructionFiles` and `includeApplyingInstructions` to `true`
+
+**`--claude`**
+
+- `.claude/agents/<name>.md` — custom Claude Code agent profiles (where available)
+- `.claude/skills/<name>/SKILL.md` — reusable Claude Code skill workflows (where available)
+- `CLAUDE.md` — project instructions generated from the coding guidelines
+
+### 📋 Manual Installation
+
+You can still copy files manually if you prefer:
 
 #### For a TypeScript Project
 
@@ -61,7 +113,6 @@ Step-by-step guide for including instructions, agents, and skills from this repo
 
 2. **Copy relevant instruction files:**
    ```bash
-   # For TypeScript project
    cp typescript-project.instructions.md .github/instructions/
    cp typescript-tests.instructions.md .github/instructions/
    cp package-json-scripts.instructions.md .github/instructions/
