@@ -1,0 +1,24 @@
+{
+  "name": "instructions",
+  "version": "1.0.0",
+  "description": "Install GitHub Copilot or Claude Code instructions for your project via npx",
+  "bin": {
+    "instructions": "./bin/instructions.js"
+  },
+  "files": [
+    "bin/",
+    "*.instructions.md",
+    "claude/"
+  ],
+  "keywords": [
+    "github-copilot",
+    "claude",
+    "ai",
+    "instructions",
+    "copilot-instructions"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  }
+}
