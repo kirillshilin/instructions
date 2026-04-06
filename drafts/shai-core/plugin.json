@@ -1,0 +1,35 @@
+{
+  "name": "shai-core",
+  "displayName": "SHAI Core",
+  "description": "Cross-cutting coding standards, general-purpose agents, and universal workflows. Every project should install this.",
+  "version": "0.1.0",
+  "publisher": "shai",
+  "skills": [
+    "skills/shai-code-review",
+    "skills/shai-tdd-feature",
+    "skills/shai-add-feature",
+    "skills/shai-scaffold-component",
+    "skills/shai-setup-tailwind",
+    "skills/shai-setup-shadcn",
+    "skills/shai-create-skill",
+    "skills/shai-create-agent",
+    "skills/shai-pr-preparation",
+    "skills/shai-research-docs",
+    "skills/shai-security-audit",
+    "skills/shai-software-design"
+  ],
+  "agents": [
+    "agents/shai-architect.agent.md",
+    "agents/shai-planner.agent.md",
+    "agents/shai-code-reviewer.agent.md",
+    "agents/shai-scaffolder.agent.md",
+    "agents/shai-doc-writer.agent.md",
+    "agents/shai-orchestrator.agent.md"
+  ],
+  "hooks": [
+    "hooks/shai-format-on-edit.json",
+    "hooks/shai-lint-on-edit.json",
+    "hooks/shai-dangerous-command-guard.json",
+    "hooks/shai-session-audit-log.json"
+  ]
+}
