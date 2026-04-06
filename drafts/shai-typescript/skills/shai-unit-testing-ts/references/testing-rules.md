@@ -219,8 +219,9 @@ src/
     └── tax-calculator.edge-cases.json
 ```
 
+`__test-data__/tax-calculator.valid-orders.json`:
+
 ```json
-// __test-data__/tax-calculator.valid-orders.json
 [
   {
     "scenario": "domestic order with standard tax",
@@ -290,9 +291,9 @@ describe('TaxCalculator', () => {
 - Each test must be independent — no test should depend on another's state
 - Use `beforeEach` for setup, not `beforeAll` (unless setup is truly expensive
   AND stateless, like reading a fixture file)
-- **Create all mock objects inside `beforeEach`** — mocks declared at the
-  `describe` scope and only assigned in `beforeEach` ensures no shared state
-  leaks between tests. Do not declare and initialize mocks at the top level:
+- **Create all mock objects inside `beforeEach`** — declare mock variables at
+  the `describe` scope, but create the mock objects themselves fresh inside
+  `beforeEach`. This ensures no shared state leaks between tests:
 
 ```typescript
 describe('OrderService', () => {
