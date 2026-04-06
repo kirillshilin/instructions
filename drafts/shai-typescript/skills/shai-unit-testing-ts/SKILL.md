@@ -81,7 +81,7 @@ import { ClassName } from './class-name';
 
 describe('ClassName', () => {
   // shared setup
-  let sut: ClassName;
+  let service: ClassName;
   let mockDependency: jest.Mocked<DependencyType>;
 
   beforeEach(() => {
@@ -90,7 +90,7 @@ describe('ClassName', () => {
       methodB: jest.fn(),
     } as jest.Mocked<DependencyType>;
 
-    sut = new ClassName(mockDependency);
+    service = new ClassName(mockDependency);
   });
 
   describe('methodName', () => {
@@ -99,14 +99,14 @@ describe('ClassName', () => {
       const input = createValidInput();
 
       // Act
-      const result = sut.methodName(input);
+      const result = service.methodName(input);
 
       // Assert
       expect(result).toEqual(expectedOutput);
     });
 
     it('should throw when input is null', () => {
-      expect(() => sut.methodName(null!)).toThrow();
+      expect(() => service.methodName(null!)).toThrow();
     });
   });
 });
@@ -199,7 +199,7 @@ reconstruction is clearer than implicit state reset.
 it('should fetch user data', async () => {
   mockApi.getUser.mockResolvedValue(mockUser);
 
-  const result = await sut.fetchUser('123');
+  const result = await service.fetchUser('123');
 
   expect(result).toEqual(mockUser);
 });
@@ -208,7 +208,7 @@ it('should fetch user data', async () => {
 it('should throw when API fails', async () => {
   mockApi.getUser.mockRejectedValue(new Error('Network error'));
 
-  await expect(sut.fetchUser('123')).rejects.toThrow('Network error');
+  await expect(service.fetchUser('123')).rejects.toThrow('Network error');
 });
 ```
 
@@ -247,8 +247,9 @@ should:
 - **Don't couple tests to implementation details** — test behavior (inputs →
   outputs), not internal method call order. If refactoring the internals breaks
   tests without changing behavior, the tests are too coupled.
-- **`sut` naming** — use `sut` (system under test) for the primary object being
-  tested. It makes the test's focus immediately clear.
+- **Natural naming** — name the object under test naturally (e.g., `service`,
+  `calculator`, `validator`). Avoid abstract names like `sut` — a descriptive
+  name communicates the test's subject immediately.
 - **Timer-dependent code** — use `jest.useFakeTimers()` and
   `jest.advanceTimersByTime()` instead of real `setTimeout`/`setInterval`.
 - **File naming** — always `.spec.ts`, not `.test.ts`. This project uses

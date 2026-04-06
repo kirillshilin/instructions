@@ -46,7 +46,7 @@ beforeEach(() => {
   mockRepo.save = jest.fn();
   mockRepo.delete = jest.fn();
 
-  sut = new UserService(mockRepo);
+  service = new UserService(mockRepo);
 });
 ```
 
@@ -144,7 +144,7 @@ const mockLogger: jest.Mocked<Logger> = {
   error: jest.fn(),
 };
 
-const sut = new OrderService(mockRepo, mockEmailer, mockLogger);
+const orderService = new OrderService(mockRepo, mockEmailer, mockLogger);
 ```
 
 ### Date and time
@@ -155,7 +155,7 @@ it('should use current date for creation timestamp', () => {
   jest.useFakeTimers();
   jest.setSystemTime(fixedDate);
 
-  const order = sut.createOrder(items);
+  const order = orderService.createOrder(items);
 
   expect(order.createdAt).toEqual(fixedDate);
 
@@ -183,16 +183,16 @@ afterEach(() => {
 it('should call onSuccess callback with result', () => {
   const onSuccess = jest.fn();
 
-  sut.process(data, { onSuccess });
+  processor.process(data, { onSuccess });
 
   expect(onSuccess).toHaveBeenCalledWith({ status: 'done', count: 3 });
 });
 
 it('should emit "complete" event after processing', () => {
   const handler = jest.fn();
-  sut.on('complete', handler);
+  emitter.on('complete', handler);
 
-  sut.process(data);
+  emitter.process(data);
 
   expect(handler).toHaveBeenCalledTimes(1);
   expect(handler).toHaveBeenCalledWith({ result: 'success' });

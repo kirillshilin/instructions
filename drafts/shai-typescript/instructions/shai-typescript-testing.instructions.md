@@ -53,12 +53,12 @@ will apply on top of these rules.
 **Preferred:**
 ```typescript
 describe('UserService', () => {
-  let sut: UserService;
+  let service: UserService;
   let mockRepo: jest.Mocked<UserRepository>;
 
   beforeEach(() => {
     mockRepo = { findById: jest.fn(), save: jest.fn() } as jest.Mocked<UserRepository>;
-    sut = new UserService(mockRepo);
+    service = new UserService(mockRepo);
   });
 
   describe('findById', () => {
@@ -67,7 +67,7 @@ describe('UserService', () => {
       mockRepo.findById.mockResolvedValue(mockUser);
 
       // Act
-      const result = await sut.findById('user-1');
+      const result = await service.findById('user-1');
 
       // Assert
       expect(result).toEqual(mockUser);
@@ -101,7 +101,8 @@ no AAA comments, creates service inline instead of in `beforeEach`.
 
 - Use `jest.Mocked<T>` for type-safe mock objects
 - Reconstruct mocks in `beforeEach` — prefer explicit setup over `jest.clearAllMocks()`
-- Use `sut` (system under test) for the primary object being tested
+- Name the object under test naturally (e.g., `service`, `calculator`, `validator`) —
+  avoid abstract names like `sut`
 - Avoid `as any` to silence mock type errors — use proper typing instead
 
 ---
@@ -119,6 +120,10 @@ no AAA comments, creates service inline instead of in `beforeEach`.
 - Use factory functions with `Partial<T>` overrides for complex test objects
 - Use `it.each` for declarative, data-driven test cases
 - Provide sensible defaults — each test only overrides what it needs
+- For large, multi-property, or deeply nested test data, store inputs and
+  expected outputs in JSON files under a `__test-data__/` folder next to the
+  spec file. See the [shai-unit-testing-ts skill](../skills/shai-unit-testing-ts/SKILL.md)
+  for the full pattern.
 
 ---
 

@@ -38,7 +38,7 @@ it('should calculate total with tax', () => {
   const taxRate = 0.1;
 
   // Act
-  const total = sut.calculateTotal(items, taxRate);
+  const total = calculator.calculateTotal(items, taxRate);
 
   // Assert
   expect(total).toBe(330);
@@ -52,7 +52,7 @@ it('should calculate total with tax', () => {
 - `// Act` and `// Assert` may be combined for one-liner assertions:
   ```typescript
   it('should throw when input is null', () => {
-    expect(() => sut.process(null!)).toThrow(ArgumentError);
+    expect(() => processor.process(null!)).toThrow(ArgumentError);
   });
   ```
 
@@ -153,12 +153,12 @@ expect(result !== null).toBeTruthy();           // hides intent
 
 ```typescript
 // Sync errors
-expect(() => sut.validate(badInput)).toThrow(ValidationError);
-expect(() => sut.validate(badInput)).toThrow('Email is required');
+expect(() => validator.validate(badInput)).toThrow(ValidationError);
+expect(() => validator.validate(badInput)).toThrow('Email is required');
 
 // Async errors
-await expect(sut.fetchUser('bad-id')).rejects.toThrow(NotFoundError);
-await expect(sut.fetchUser('bad-id')).rejects.toThrow('User not found');
+await expect(service.fetchUser('bad-id')).rejects.toThrow(NotFoundError);
+await expect(service.fetchUser('bad-id')).rejects.toThrow('User not found');
 ```
 
 ---
@@ -200,32 +200,138 @@ it.each([
   { input: 'abc',    expected: true,  scenario: 'minimum length' },
   { input: 'abcdef', expected: true,  scenario: 'normal length' },
 ])('should return $expected when input is $scenario', ({ input, expected }) => {
-  expect(sut.isValid(input)).toBe(expected);
+  expect(validator.isValid(input)).toBe(expected);
 });
 ```
 
+**JSON file-based test cases for large data:**
+
+When test inputs or expected outputs are large objects, deeply nested, or
+multi-property structures, store them in JSON files instead of inlining them.
+This keeps test files readable and makes test data reusable.
+
+```
+src/
+├── tax-calculator.ts
+├── tax-calculator.spec.ts
+└── __test-data__/
+    ├── tax-calculator.valid-orders.json
+    └── tax-calculator.edge-cases.json
+```
+
+```json
+// __test-data__/tax-calculator.valid-orders.json
+[
+  {
+    "scenario": "domestic order with standard tax",
+    "input": {
+      "items": [{ "name": "Widget", "price": 100, "quantity": 2 }],
+      "country": "US",
+      "state": "CA"
+    },
+    "expected": {
+      "subtotal": 200,
+      "tax": 17.5,
+      "total": 217.5
+    }
+  },
+  {
+    "scenario": "international order with zero tax",
+    "input": {
+      "items": [{ "name": "Gadget", "price": 50, "quantity": 1 }],
+      "country": "DE",
+      "state": null
+    },
+    "expected": {
+      "subtotal": 50,
+      "tax": 0,
+      "total": 50
+    }
+  }
+]
+```
+
+```typescript
+// tax-calculator.spec.ts
+import validOrders from './__test-data__/tax-calculator.valid-orders.json';
+
+describe('TaxCalculator', () => {
+  let calculator: TaxCalculator;
+
+  beforeEach(() => {
+    calculator = new TaxCalculator();
+  });
+
+  it.each(validOrders)(
+    'should calculate correctly for $scenario',
+    ({ input, expected }) => {
+      const result = calculator.calculate(input);
+
+      expect(result).toEqual(expected);
+    }
+  );
+});
+```
+
+**Rules for JSON test data:**
+- Place JSON files in a `__test-data__/` folder next to the spec file
+- Name files as `{source-file}.{scenario-group}.json`
+- Each JSON file is an array of test case objects with `scenario`, `input`,
+  and `expected` fields
+- Use JSON for data-only test cases — if the test needs custom setup or
+  assertions, keep it inline
+- Enable `resolveJsonModule: true` in `tsconfig.json` (or `tsconfig.test.json`)
+  to import JSON files directly
+
 ---
 
-## 7. Test Isolation
+## 8. Test Isolation
 
 - Each test must be independent — no test should depend on another's state
 - Use `beforeEach` for setup, not `beforeAll` (unless setup is truly expensive
   AND stateless, like reading a fixture file)
-- Reconstruct mocks in `beforeEach` rather than using `jest.clearAllMocks()`
+- **Create all mock objects inside `beforeEach`** — mocks declared at the
+  `describe` scope and only assigned in `beforeEach` ensures no shared state
+  leaks between tests. Do not declare and initialize mocks at the top level:
+
+```typescript
+describe('OrderService', () => {
+  let service: OrderService;
+  let mockRepo: jest.Mocked<OrderRepository>;
+  let mockEmailer: jest.Mocked<EmailService>;
+
+  beforeEach(() => {
+    // Fresh mock objects for every test — no shared state
+    mockRepo = {
+      findById: jest.fn(),
+      save: jest.fn(),
+    } as jest.Mocked<OrderRepository>;
+
+    mockEmailer = {
+      send: jest.fn(),
+    } as jest.Mocked<EmailService>;
+
+    service = new OrderService(mockRepo, mockEmailer);
+  });
+
+  // Each test gets its own mocks — completely isolated
+});
+```
+
 - Never rely on test execution order
 - Clean up side effects in `afterEach` if absolutely necessary (timers,
   global state)
 
 ---
 
-## 8. Async Testing
+## 9. Async Testing
 
 ```typescript
 // ✅ async/await — preferred
 it('should load user profile', async () => {
   mockRepo.findById.mockResolvedValue(mockUser);
 
-  const profile = await sut.loadProfile('user-1');
+  const profile = await service.loadProfile('user-1');
 
   expect(profile.name).toBe('Test User');
 });
@@ -234,7 +340,7 @@ it('should load user profile', async () => {
 it('should propagate repository errors', async () => {
   mockRepo.findById.mockRejectedValue(new DatabaseError('connection lost'));
 
-  await expect(sut.loadProfile('user-1')).rejects.toThrow('connection lost');
+  await expect(service.loadProfile('user-1')).rejects.toThrow('connection lost');
 });
 
 // ✅ Timers
@@ -243,7 +349,7 @@ it('should retry after delay', async () => {
   mockApi.fetch.mockRejectedValueOnce(new Error('timeout'));
   mockApi.fetch.mockResolvedValueOnce(mockData);
 
-  const promise = sut.fetchWithRetry();
+  const promise = retryClient.fetchWithRetry();
   jest.advanceTimersByTime(1000);
   const result = await promise;
 
