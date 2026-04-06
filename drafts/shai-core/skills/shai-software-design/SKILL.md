@@ -2,11 +2,13 @@
 name: shai-software-design
 description: >
   Software design advisor: proposes component structures, applies SOLID
-  principles, selects GoF design patterns, and enforces KISS/DRY/YAGNI.
-  Use this skill when the user asks how to design a module, class, or system;
-  wants to choose a design pattern; needs to refactor toward SOLID; asks about
-  composition vs inheritance; or when the shai-architect agent needs design
-  guidance for a new feature, service, or architectural boundary.
+  principles, selects GoF design patterns, and enforces KISS (Keep It Smart
+  Simple)/DRY/YAGNI. Use this skill when the user asks how to design a module,
+  class, or system within a single application; wants to choose a design
+  pattern; needs to refactor toward SOLID; asks about composition vs
+  inheritance; or when the shai-architect agent needs design guidance for a
+  new feature, service, or architectural boundary. For system design questions
+  (how services interact), use a system design skill instead.
 ---
 
 # shai-software-design
@@ -18,6 +20,19 @@ patterns, and produces a concrete structural proposal with clear reasoning.
 Designed to be invoked directly (`/shai-software-design`) or called by the
 [shai-architect](../../agents/shai-architect.agent.md) agent as a sub-skill
 during design sessions.
+
+## Scope: Software Design vs System Design
+
+This skill covers **software design** — how classes, modules, and components
+within a single application are structured and interact with each other.
+
+If the question is about **system design** — how separate services, applications,
+or distributed systems communicate with each other (APIs, message queues,
+microservices, data pipelines) — use a system design skill instead.
+
+> Examples of system design questions: "how should our microservices communicate?",
+> "where should we put the message queue?", "how do we handle distributed
+> transactions across services?" — those are out of scope here.
 
 ## When to Use
 
@@ -53,7 +68,7 @@ the full principle reference. Apply in this order:
 4. **ISP** — are interfaces focused? Is any consumer forced to depend on methods
    it doesn't use?
 5. **DIP** — do high-level modules depend on abstractions, not concretions?
-6. **KISS** — is the simplest design that solves the problem preferred?
+6. **KISS** — is this the smartest, simplest design that solves the problem?
 7. **DRY** — is there duplicated logic that should be extracted?
 8. **YAGNI** — is any proposed complexity solving a hypothetical future problem?
 
@@ -65,7 +80,19 @@ should be addable without touching existing code."
 
 Use the decision table below to match pressure points to candidate patterns.
 Read [references/pattern-selection.md](references/pattern-selection.md) for
-the full selection guide with tradeoffs.
+the full selection guide with per-pattern tradeoffs and a full index of all
+23 GoF patterns with links to deep-dive descriptions.
+
+**Before selecting any pattern — check whether a pattern is needed at all:**
+- If there is only one current concrete case with no known variation axis,
+  a plain function or direct method call is better than a pattern (YAGNI)
+- If the team would need to learn the pattern to read the code, and the
+  benefit is marginal, skip it
+- If you can't name the specific structural pressure the pattern relieves,
+  don't apply it
+
+> For detailed guidance, see
+> [When NOT to Use Design Patterns](references/pattern-selection.md#when-not-to-use-design-patterns).
 
 **Quick decision table:**
 

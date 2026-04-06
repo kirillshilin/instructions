@@ -26,6 +26,18 @@ independently, it has two responsibilities and should be split.
   sending
 - A `Report` class that both generates data *and* formats it for print/PDF
 
+**Violation indicators (code smells):**
+- **Constructor over-injection**: more than 3–4 constructor parameters is a
+  strong signal the class has too many responsibilities. Each dependency added
+  to a constructor represents a responsibility the class is taking on.
+  *Exception: orchestrators and facades legitimately coordinate many
+  collaborators — evaluate intent before splitting.*
+- The class name contains "And", "Manager", "Processor", or "Handler" and
+  does multiple unrelated things
+- The class has methods that clearly belong to different conceptual groups
+  (e.g., `save()` + `sendEmail()` + `generatePDF()`)
+- Unit tests for the class need many different kinds of mocks
+
 **How to apply:**
 1. List every *reason to change* the class has
 2. If there are more than one, extract each into its own class
@@ -62,6 +74,12 @@ Achieve this by depending on abstractions, not concretions.
   new variant is added
 - A class that must be modified every time a new type of payment/report/
   notification is added
+
+**Violation indicators (code smells):**
+- A `switch` or `if/else if` on a type/kind field that is modified whenever a
+  new type is introduced
+- Git blame shows the same file edited every time a new variant ships
+- Tests require modification in the "core" class when adding a new variant
 
 **How to apply:**
 1. Identify the axis of change (what varies)
@@ -103,7 +121,13 @@ work correctly when given an `S`. Violations make polymorphism unreliable.
 - A subclass strengthens preconditions or weakens postconditions
 - The classic "Square extends Rectangle" where `setWidth` breaks the contract
 
-**How to apply:**
+**Violation indicators (code smells):**
+- Code contains `if (obj instanceof SubclassName)` to special-case a subtype's
+  behavior — callers should not need to know the concrete type
+- A subclass overrides a method with an empty body or a `throw`
+- Subclass tests must disable or skip assertions that apply to the parent
+- The parent's contract comment says "subclasses may override" but one subclass
+  returns `null` where the parent guarantees a value
 1. Check that every override respects the parent's invariants
 2. If a subclass must "opt out" of a method, inheritance is wrong — use
    composition instead
@@ -127,6 +151,13 @@ stub or throw for methods they don't need. Prefer small, focused interfaces.
   where most consumers only need `find` + `save`
 - A `IWorker` with `work()` and `eat()` implemented by a `Robot` that must
   stub `eat()`
+
+**Violation indicators (code smells):**
+- An interface implementation throws `UnsupportedOperationException` or returns
+  a stub `null` / `[]` for methods it doesn't need
+- A consumer imports an interface but only calls 1–2 of its 6+ methods
+- Adding a method to an interface forces updates to many implementing classes
+  that have no use for the new method
 
 **How to apply:**
 1. Group interface methods by *which client uses them*
@@ -165,6 +196,16 @@ systems. Introduce an interface at the boundary; both sides depend on it.
 - Business logic that imports and calls `fs.readFile` or `fetch` directly
 - Hard-coded class dependencies that prevent test doubles
 
+**Violation indicators (code smells):**
+- A business-logic class `import`s (or `require`s) a concrete infrastructure
+  class (e.g., `PostgresRepository`, `SendGridMailer`, `StripeClient`) directly
+- A class creates its own dependencies with `new` inside methods rather than
+  receiving them through the constructor
+- Unit tests require a real database, network, or file system because the
+  dependency cannot be replaced with a test double
+- The class is hard to instantiate in isolation (test setup is 30+ lines just
+  to create the object under test)
+
 **How to apply:**
 1. Identify the boundary between business logic and infrastructure
 2. Introduce an interface (or abstract class) owned by the business layer
@@ -191,9 +232,15 @@ class OrderService {
 
 ## Complementary Principles
 
-### KISS — Keep It Simple, Stupid
+### KISS — Keep It Smart Simple
 
-> **Prefer the simplest design that correctly solves the problem.**
+> **Prefer the smartest design that is also the simplest one that correctly
+> solves the problem.**
+
+The goal is not naive simplicity — it's *smart* simplicity: a design that is
+elegant, intentional, and easy to understand without being dumbed down. Avoid
+accidental complexity (complexity that crept in without purpose), not essential
+complexity (complexity that is genuinely demanded by the problem).
 
 Complexity is the primary enemy of maintainability. Every level of abstraction,
 every design pattern, every framework integration is a complexity cost that must
@@ -205,8 +252,9 @@ pay for itself.
 - If a new developer can't understand the design in < 5 minutes, it's too complex
 - Favor readable over clever
 - Methods should fit on a screen; classes should have one screen of methods
+- Prefer a well-named function over a comment that explains what complex code does
 
-**Test:** Can you explain the design to a junior developer in 2 sentences?
+**Test:** Can you explain the design to a new team member in 2 sentences?
 
 ---
 
@@ -231,6 +279,24 @@ multiple edits and drift is guaranteed.
 - Use shared types/schemas where possible
 - *Exception*: incidental similarity (two snippets that look alike but will
   diverge over time) should NOT be unified — wait for the pattern to solidify
+
+**Shared / utils / extensions folders:**
+All `utils/`, `helpers/`, `extensions/`, `shared/`, and similar common folders
+**must contain a `README.md`** that indexes the reusable units (functions,
+classes, hooks, extensions) they export — with a one-line description of each.
+
+Before implementing a new helper, utility, or shared element: **read the
+relevant folder's README.md first** to check whether something equivalent
+already exists. Duplication in shared code is especially harmful because it
+creates competing implementations that drift apart silently.
+
+```
+utils/
+├── README.md       ← index of all utilities + one-line descriptions
+├── format-date.ts
+├── debounce.ts
+└── parse-query.ts
+```
 
 ---
 

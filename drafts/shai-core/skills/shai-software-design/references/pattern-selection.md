@@ -3,8 +3,41 @@
 Extended reference for `shai-software-design`. Load this file when selecting
 GoF design patterns or comparing pattern tradeoffs.
 
-> Full per-pattern detail is in `research/gof-patterns/` — read the specific
-> pattern file when you need implementation notes or code examples.
+> Full per-pattern detail is in [`gof-patterns/`](gof-patterns/README.md) —
+> read the specific pattern file when you need intent, structure, code examples,
+> or tradeoffs for a particular pattern. Always check there before recommending
+> a pattern to ensure you're citing the correct intent and constraints.
+
+## Pattern Index (quick navigation)
+
+| Pattern                 | Category   | Deep-dive file                                                            |
+| ----------------------- | ---------- | ------------------------------------------------------------------------- |
+| Factory Method          | Creational | [gof-patterns/factory-method.md](gof-patterns/factory-method.md)         |
+| Abstract Factory        | Creational | [gof-patterns/abstract-factory.md](gof-patterns/abstract-factory.md)     |
+| Builder                 | Creational | [gof-patterns/builder.md](gof-patterns/builder.md)                       |
+| Prototype               | Creational | [gof-patterns/prototype.md](gof-patterns/prototype.md)                   |
+| Singleton               | Creational | [gof-patterns/singleton.md](gof-patterns/singleton.md)                   |
+| Adapter                 | Structural | [gof-patterns/adapter.md](gof-patterns/adapter.md)                       |
+| Bridge                  | Structural | [gof-patterns/bridge.md](gof-patterns/bridge.md)                         |
+| Composite               | Structural | [gof-patterns/composite.md](gof-patterns/composite.md)                   |
+| Decorator               | Structural | [gof-patterns/decorator.md](gof-patterns/decorator.md)                   |
+| Facade                  | Structural | [gof-patterns/facade.md](gof-patterns/facade.md)                         |
+| Flyweight               | Structural | [gof-patterns/flyweight.md](gof-patterns/flyweight.md)                   |
+| Proxy                   | Structural | [gof-patterns/proxy.md](gof-patterns/proxy.md)                           |
+| Chain of Responsibility | Behavioral | [gof-patterns/chain-of-responsibility.md](gof-patterns/chain-of-responsibility.md) |
+| Command                 | Behavioral | [gof-patterns/command.md](gof-patterns/command.md)                       |
+| Iterator                | Behavioral | [gof-patterns/iterator.md](gof-patterns/iterator.md)                     |
+| Mediator                | Behavioral | [gof-patterns/mediator.md](gof-patterns/mediator.md)                     |
+| Memento                 | Behavioral | [gof-patterns/memento.md](gof-patterns/memento.md)                       |
+| Observer                | Behavioral | [gof-patterns/observer.md](gof-patterns/observer.md)                     |
+| State                   | Behavioral | [gof-patterns/state.md](gof-patterns/state.md)                           |
+| Strategy                | Behavioral | [gof-patterns/strategy.md](gof-patterns/strategy.md)                     |
+| Template Method         | Behavioral | [gof-patterns/template-method.md](gof-patterns/template-method.md)       |
+| Visitor                 | Behavioral | [gof-patterns/visitor.md](gof-patterns/visitor.md)                       |
+
+When a pattern shortlist is ambiguous, load the relevant deep-dive file(s) to
+resolve. Each file contains: intent, structure diagram, when to use/avoid,
+implementation notes, and real-world examples.
 
 ---
 
@@ -282,6 +315,29 @@ infrastructure object or a hardware interface wrapper).
 
 ---
 
+## When NOT to Use Design Patterns
+
+Patterns add indirection. Indirection increases cognitive complexity — the
+mental effort needed to trace what the code does. A pattern is worth applying
+only when the flexibility it provides clearly outweighs its reading cost.
+
+**Skip patterns when:**
+- The problem has exactly one current variant with no imminent variation axis
+  (YAGNI applies — don't abstract a single case)
+- The codebase is small or short-lived (a script, a prototype, a one-off tool)
+- The team would need to learn the pattern to read the code, and the benefit
+  doesn't justify the onboarding cost
+- A plain function, a simple `if/else`, or a direct method call solves it —
+  patterns are not inherently superior to straightforward code
+- The pattern would be applied "by the book" without a real structural pressure
+  it relieves (pattern-for-pattern's-sake)
+
+> **Rule of thumb:** If you can't name the specific problem the pattern solves
+> in one sentence, don't apply it. Patterns are solutions to named problems,
+> not decorations.
+
+---
+
 ## Anti-Pattern Checklist
 
 Before recommending any pattern, verify:
@@ -291,6 +347,8 @@ Before recommending any pattern, verify:
 - [ ] The team is familiar with the pattern (or the learning cost is justified)
 - [ ] The indirection cost (extra classes, interfaces) is outweighed by the
       flexibility gained
+- [ ] The pattern does **not increase cognitive complexity** unnecessarily —
+      a reader unfamiliar with the pattern can still trace the code's intent
 - [ ] The pattern is not being used to add complexity that signals "engineering"
       to reviewers (resume-driven development)
 
