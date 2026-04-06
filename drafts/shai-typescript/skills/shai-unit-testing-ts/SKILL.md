@@ -82,15 +82,15 @@ import { ClassName } from './class-name';
 describe('ClassName', () => {
   // shared setup
   let service: ClassName;
-  let mockDependency: jest.Mocked<DependencyType>;
+  let dependency: jest.Mocked<DependencyType>;
 
   beforeEach(() => {
-    mockDependency = {
+    dependency = {
       methodA: jest.fn(),
       methodB: jest.fn(),
-    } as jest.Mocked<DependencyType>;
+    };
 
-    service = new ClassName(mockDependency);
+    service = new ClassName(dependency);
   });
 
   describe('methodName', () => {
@@ -165,7 +165,7 @@ full mocking reference. Key patterns:
 **Manual mocks (preferred for most cases):**
 
 ```typescript
-const mockRepo: jest.Mocked<UserRepository> = {
+const userRepository: jest.Mocked<UserRepository> = {
   findById: jest.fn(),
   save: jest.fn(),
   delete: jest.fn(),
@@ -188,8 +188,8 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.get.mockResolvedValue({ data: mockResponse });
 ```
 
-**Mock reset:** Always use `beforeEach` to reset mocks. Prefer
-`jest.fn()` in `beforeEach` over `jest.clearAllMocks()` — explicit
+**Mock reset:** Always use `beforeEach` to reconstruct mocks. Prefer
+rebuilding the full mock object over `jest.clearAllMocks()` — explicit
 reconstruction is clearer than implicit state reset.
 
 ### Step 5: Handle Async Code
@@ -197,7 +197,7 @@ reconstruction is clearer than implicit state reset.
 ```typescript
 // async/await — preferred
 it('should fetch user data', async () => {
-  mockApi.getUser.mockResolvedValue(mockUser);
+  api.getUser.mockResolvedValue(mockUser);
 
   const result = await service.fetchUser('123');
 
@@ -206,7 +206,7 @@ it('should fetch user data', async () => {
 
 // rejected promises
 it('should throw when API fails', async () => {
-  mockApi.getUser.mockRejectedValue(new Error('Network error'));
+  api.getUser.mockRejectedValue(new Error('Network error'));
 
   await expect(service.fetchUser('123')).rejects.toThrow('Network error');
 });

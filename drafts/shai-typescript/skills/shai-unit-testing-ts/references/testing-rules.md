@@ -214,12 +214,12 @@ This keeps test files readable and makes test data reusable.
 src/
 ├── tax-calculator.ts
 ├── tax-calculator.spec.ts
-└── __test-data__/
+└── test-cases/
     ├── tax-calculator.valid-orders.json
     └── tax-calculator.edge-cases.json
 ```
 
-`__test-data__/tax-calculator.valid-orders.json`:
+`test-cases/tax-calculator.valid-orders.json`:
 
 ```json
 [
@@ -254,7 +254,7 @@ src/
 
 ```typescript
 // tax-calculator.spec.ts
-import validOrders from './__test-data__/tax-calculator.valid-orders.json';
+import validOrders from './test-cases/tax-calculator.valid-orders.json';
 
 describe('TaxCalculator', () => {
   let calculator: TaxCalculator;
@@ -275,7 +275,7 @@ describe('TaxCalculator', () => {
 ```
 
 **Rules for JSON test data:**
-- Place JSON files in a `__test-data__/` folder next to the spec file
+- Place JSON files in a `test-cases/` folder next to the spec file
 - Name files as `{source-file}.{scenario-group}.json`
 - Each JSON file is an array of test case objects with `scenario`, `input`,
   and `expected` fields
@@ -298,26 +298,32 @@ describe('TaxCalculator', () => {
 ```typescript
 describe('OrderService', () => {
   let service: OrderService;
-  let mockRepo: jest.Mocked<OrderRepository>;
-  let mockEmailer: jest.Mocked<EmailService>;
+  let orderRepository: jest.Mocked<OrderRepository>;
+  let emailService: jest.Mocked<EmailService>;
 
   beforeEach(() => {
-    // Fresh mock objects for every test — no shared state
-    mockRepo = {
+    // Reconstruct full mock objects — no shared state, fully type-safe
+    orderRepository = {
       findById: jest.fn(),
       save: jest.fn(),
-    } as jest.Mocked<OrderRepository>;
+    };
 
-    mockEmailer = {
+    emailService = {
       send: jest.fn(),
-    } as jest.Mocked<EmailService>;
+    };
 
-    service = new OrderService(mockRepo, mockEmailer);
+    service = new OrderService(orderRepository, emailService);
   });
 
   // Each test gets its own mocks — completely isolated
 });
 ```
+
+**Why no `as` assertion?** The `let` declaration already types the variable
+as `jest.Mocked<T>`. TypeScript checks the assignment against that type —
+if the interface adds a method, the test won't compile until the mock
+includes it. Using `as jest.Mocked<T>` on the object literal bypasses this
+check, which defeats the purpose of typed mocks.
 
 - Never rely on test execution order
 - Clean up side effects in `afterEach` if absolutely necessary (timers,
@@ -330,7 +336,7 @@ describe('OrderService', () => {
 ```typescript
 // ✅ async/await — preferred
 it('should load user profile', async () => {
-  mockRepo.findById.mockResolvedValue(mockUser);
+  repository.findById.mockResolvedValue(mockUser);
 
   const profile = await service.loadProfile('user-1');
 
@@ -339,7 +345,7 @@ it('should load user profile', async () => {
 
 // ✅ Rejected promises
 it('should propagate repository errors', async () => {
-  mockRepo.findById.mockRejectedValue(new DatabaseError('connection lost'));
+  repository.findById.mockRejectedValue(new DatabaseError('connection lost'));
 
   await expect(service.loadProfile('user-1')).rejects.toThrow('connection lost');
 });
@@ -347,8 +353,8 @@ it('should propagate repository errors', async () => {
 // ✅ Timers
 it('should retry after delay', async () => {
   jest.useFakeTimers();
-  mockApi.fetch.mockRejectedValueOnce(new Error('timeout'));
-  mockApi.fetch.mockResolvedValueOnce(mockData);
+  api.fetch.mockRejectedValueOnce(new Error('timeout'));
+  api.fetch.mockResolvedValueOnce(mockData);
 
   const promise = retryClient.fetchWithRetry();
   jest.advanceTimersByTime(1000);

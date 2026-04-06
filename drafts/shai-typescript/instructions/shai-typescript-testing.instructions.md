@@ -54,17 +54,17 @@ will apply on top of these rules.
 ```typescript
 describe('UserService', () => {
   let service: UserService;
-  let mockRepo: jest.Mocked<UserRepository>;
+  let userRepository: jest.Mocked<UserRepository>;
 
   beforeEach(() => {
-    mockRepo = { findById: jest.fn(), save: jest.fn() } as jest.Mocked<UserRepository>;
-    service = new UserService(mockRepo);
+    userRepository = { findById: jest.fn(), save: jest.fn() };
+    service = new UserService(userRepository);
   });
 
   describe('findById', () => {
     it('should return user when ID exists', async () => {
       // Arrange
-      mockRepo.findById.mockResolvedValue(mockUser);
+      userRepository.findById.mockResolvedValue(mockUser);
 
       // Act
       const result = await service.findById('user-1');
@@ -94,16 +94,22 @@ no AAA comments, creates service inline instead of in `beforeEach`.
 - `should <expected behavior> when <condition>`
 - Name specific return values, error types, or side effects
 - Avoid generic names like `works`, `returns data`, `test method`
+- Name the object under test naturally (e.g., `service`, `calculator`,
+  `validator`) — avoid abstract names like `sut`
 
 ---
 
 ## Mocking
 
-- Use `jest.Mocked<T>` for type-safe mock objects
+- Use `jest.Mocked<T>` for type-safe mock objects — always use type annotation
+  (`: jest.Mocked<T>`), not `as` assertions, so interface changes break the test build
 - Reconstruct mocks in `beforeEach` — prefer explicit setup over `jest.clearAllMocks()`
-- Name the object under test naturally (e.g., `service`, `calculator`, `validator`) —
-  avoid abstract names like `sut`
+- Name mock variables using the dependency's natural name (e.g., `userRepository`,
+  `emailService`, `logger`) — avoid the `mock` prefix unless it's a module mock wrapper
 - Avoid `as any` to silence mock type errors — use proper typing instead
+- **Prefer implicit verification** — assert the final result that uses mock data
+  rather than checking `toHaveBeenCalled`. Use explicit mock call assertions only
+  for void methods or when there's no return value to verify
 
 ---
 
@@ -121,7 +127,7 @@ no AAA comments, creates service inline instead of in `beforeEach`.
 - Use `it.each` for declarative, data-driven test cases
 - Provide sensible defaults — each test only overrides what it needs
 - For large, multi-property, or deeply nested test data, store inputs and
-  expected outputs in JSON files under a `__test-data__/` folder next to the
+  expected outputs in JSON files under a `test-cases/` folder next to the
   spec file. See the [shai-unit-testing-ts skill](../skills/shai-unit-testing-ts/SKILL.md)
   for the full pattern.
 
