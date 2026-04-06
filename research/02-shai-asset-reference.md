@@ -60,7 +60,6 @@ Every project should install this.
 | C-I03 | `shai-documentation-standards`  | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"                    |
 | C-I04 | `shai-logging-conventions`      | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"                       |
 | C-I05 | `shai-git-conventions`          | instruction | `**`      | Should   | 🔴      | Branch naming, commit message format, PR description template                                                 | "Conventional commits: feat(scope): description"                             |
-| C-I06 | `shai-software-design`          | instruction | `**`      | Must     | 🔴      | SOLID principles, KISS, DRY, YAGNI, GoF patterns (strategy, observer, factory), composition over inheritance  | "Favour composition, apply SRP, use Strategy for interchangeable algorithms" |
 
 ### 1.2 Agents
 
@@ -88,6 +87,7 @@ Every project should install this.
 | C-S09 | `shai-pr-preparation`     | skill | Should   | 🔴      | Prepares PR: generates description, checks diff, suggests reviewers, validates CI readiness                             | `/shai-pr-preparation`                            |
 | C-S10 | `shai-research-docs`      | skill | Could    | 🔴      | Looks up official documentation on the web for a given library/framework, summarizes relevant parts                     | `/shai-research-docs react-hook-form validation`  |
 | C-S11 | `shai-security-audit`     | skill | Should   | 🔴      | Security review: OWASP top 10 checks, secret detection, input validation audit, auth pattern review                     | `/shai-security-audit for the auth module`        |
+| C-S12 | `shai-software-design`    | skill | Must     | 🟢      | Propose software design, select GoF patterns, enforce SOLID/KISS/DRY/YAGNI, composition over inheritance. Usable by `shai-architect` | `/shai-software-design for the payment module` |
 
 ### 1.4 Hooks
 
@@ -282,7 +282,7 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 
 | Plugin              | Instructions | Agents | Skills | Hooks | Prompts | Total  |
 | ------------------- | ------------ | ------ | ------ | ----- | ------- | ------ |
-| **shai-core**       | 6            | 6      | 11     | 4     | 3       | **30** |
+| **shai-core**       | 5            | 6      | 12     | 4     | 3       | **30** |
 | **shai-typescript** | 3            | —      | 2      | —     | —       | **5**  |
 | **shai-react**      | 3            | —      | 3      | —     | —       | **6**  |
 | **shai-angular**    | 3            | —      | 2      | —     | —       | **5**  |
@@ -290,7 +290,7 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 | **shai-node**       | 2            | —      | 1      | —     | —       | **3**  |
 | **shai-firebase**   | 2            | —      | 3      | —     | —       | **5**  |
 | **shai-playwright** | 2            | 3      | 4      | —     | —       | **9**  |
-| **TOTAL**           | **26**       | **13** | **30** | **4** | **3**   | **76** |
+| **TOTAL**           | **25**       | **13** | **31** | **4** | **3**   | **76** |
 
 ### Asset counts by priority (MoSCoW)
 
