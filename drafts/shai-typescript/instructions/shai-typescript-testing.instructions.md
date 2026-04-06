@@ -62,7 +62,7 @@ describe('UserService', () => {
   });
 
   describe('findById', () => {
-    it('should return user when ID exists', () => {
+    it('should return user when ID exists', async () => {
       // Arrange
       mockRepo.findById.mockResolvedValue(mockUser);
 
