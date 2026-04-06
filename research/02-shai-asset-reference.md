@@ -118,7 +118,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 | ----- | ----------------------------- | ----------- | --------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | T-I01 | `shai-typescript-conventions` | instruction | `**/*.ts,**/*.tsx`          | Must     | 🟡      | Strict TS rules: prefer `interface` over `type` for objects, use discriminated unions, no `any`, barrel files, path aliases | "Use `interface` for data shapes, `type` for unions/intersections"           |
 | T-I02 | `shai-typescript-testing`     | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟡      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
-| T-I03 | `shai-tsconfig-standards`     | instruction | `**/tsconfig*.json`         | Could    | 🔴      | Strict mode, path aliases, module resolution, recommended compiler options                                                  | "Always enable strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes" |
+| T-I03 | `shai-tsconfig-standards`     | instruction | `**/tsconfig*.json`         | Could    | 🟢      | Strict mode, path aliases, module resolution, recommended compiler options                                                  | "Always enable strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes" |
 
 ### 2.2 Skills
 
