@@ -117,7 +117,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 | #     | Asset Name                    | Type        | applyTo                     | Priority | Status | Purpose                                                                                                                     | Example                                                                      |
 | ----- | ----------------------------- | ----------- | --------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | T-I01 | `shai-typescript-conventions` | instruction | `**/*.ts,**/*.tsx`          | Must     | 🟡      | Strict TS rules: prefer `interface` over `type` for objects, use discriminated unions, no `any`, barrel files, path aliases | "Use `interface` for data shapes, `type` for unions/intersections"           |
-| T-I02 | `shai-typescript-testing`     | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟡      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
+| T-I02 | `shai-typescript-testing`     | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟢      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
 | T-I03 | `shai-tsconfig-standards`     | instruction | `**/tsconfig*.json`         | Could    | 🔴      | Strict mode, path aliases, module resolution, recommended compiler options                                                  | "Always enable strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes" |
 
 ### 2.2 Skills
@@ -125,7 +125,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 | #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                  |
 | ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------- |
 | T-S01 | `shai-scaffold-ts-project` | skill | Should   | 🟡      | Scaffold a TypeScript project: tsconfig, eslint, prettier, jest/vitest, folder structure |
-| T-S02 | `shai-unit-testing-ts`     | skill | Should   | 🟡      | Write unit tests for TS code: mocking strategy, test utilities, coverage targets         |
+| T-S02 | `shai-unit-testing-ts`     | skill | Should   | 🟢      | Write unit tests for TS code: mocking strategy, test utilities, coverage targets         |
 
 ---
 
@@ -316,9 +316,9 @@ The following assets have prior work in the `obsolete/` folder that can be used 
 | C-S07    | shai-create-skill             | `obsolete/dotgithub/skills/create-skill/`                 |
 | C-S08    | shai-create-agent             | `obsolete/dotgithub/skills/create-agent/`                 |
 | T-I01    | shai-typescript-conventions   | `obsolete/typescript-project.instructions.md`             |
-| T-I02    | shai-typescript-testing       | `obsolete/typescript-tests.instructions.md`               |
+| T-I02    | shai-typescript-testing       | ~~`obsolete/typescript-tests.instructions.md`~~ (deleted — consumed)  |
 | T-S01    | shai-scaffold-ts-project      | `obsolete/typescript-workspace.instructions.md`           |
-| T-S02    | shai-unit-testing-ts          | `obsolete/typescript-tests.instructions.md`               |
+| T-S02    | shai-unit-testing-ts          | ~~`obsolete/typescript-tests.instructions.md`~~ (deleted — consumed)  |
 | R-I01    | shai-react-components         | `obsolete/react-components.instructions.md`               |
 | R-S01    | shai-scaffold-react-app       | `obsolete/react-components.instructions.md` (partial)     |
 | A-I01    | shai-angular-components       | `obsolete/angular-components.instructions.md`             |
