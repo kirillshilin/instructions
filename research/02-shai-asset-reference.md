@@ -20,7 +20,8 @@ shai/                               ← marketplace repo
 │   ├── shai-dotnet/                ← .NET / C# ecosystem
 │   ├── shai-node/                  ← Node.js / Express
 │   ├── shai-firebase/              ← Firebase ecosystem
-│   └── shai-playwright/            ← E2E testing with Playwright
+│   ├── shai-playwright/            ← E2E testing with Playwright
+│   └── shai-product/               ← product discovery: idea → features → stories → tasks
 ```
 
 Each plugin contains a `plugin.json` + any combination of:
@@ -65,7 +66,7 @@ Every project should install this.
 
 | #     | Asset Name           | Type  | Tools                                                       | Priority | Status | Purpose                                                                                                                            | Example trigger                                                       |
 | ----- | -------------------- | ----- | ----------------------------------------------------------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| C-A01 | `shai-architect`     | agent | `search/codebase`, `web/fetch`, `search/usages` (read-only) | Must     | 🟡      | High-level software design: system structure, component boundaries, tech stack decisions, design patterns. Handoff → `implementer` | "Design an event-driven architecture for the order processing module" |
+| C-A01 | `shai-architect`     | agent | `search/codebase`, `web/fetch`, `search/usages` (read-only) | Must     | 🟡      | High-level software design: system structure, component boundaries, tech stack decisions, design patterns. Handoff → `implementer`. Also called by `shai-feature-mapping` (V-S02) for technical feasibility input | "Design an event-driven architecture for the order processing module" |
 | C-A02 | `shai-planner`       | agent | `search/codebase`, `web/fetch` (read-only)                  | Must     | 🔴      | Generates implementation plans from feature descriptions. Breaks into tasks. Handoff → `agent`                                     | "Plan the implementation of user authentication with OAuth2"          |
 | C-A03 | `shai-code-reviewer` | agent | `search/codebase`, `search/usages` (read-only)              | Should   | 🟡      | Security, performance, maintainability review. Outputs issues by severity                                                          | "Review the changes in the auth module for security issues"           |
 | C-A04 | `shai-scaffolder`    | agent | `edit`, `terminal`, `search/codebase`                       | Should   | 🔴      | Orchestrates project/component scaffolding using appropriate tech-specific skills. Asks clarifying questions about stack, features | "Scaffold a new microservice for user management"                     |
@@ -276,6 +277,32 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 
 ---
 
+## 9. shai-product
+
+Product discovery and planning pipeline: from raw idea to actionable development tasks.
+Use this plugin at the start of any new feature or product initiative.
+
+> **Pipeline**: Skills are designed to pass results downstream in sequence:
+> `shai-idea-evaluation` → `shai-feature-mapping` → `shai-story-decomposition` → `shai-task-breakdown`.
+> `shai-feature-mapping` may also call `shai-architect` (C-A01) for technical feasibility and design input.
+
+### 9.1 Skills
+
+| #     | Asset Name                  | Type  | Priority | Status | Purpose                                                                                                                                                                  | Example invocation                                                              |
+| ----- | --------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| V-S01 | `shai-idea-evaluation`      | skill | Must     | 🔴      | Evaluate and investigate a raw idea: assess feasibility, value proposition, key risks, and strategic fit. Produces a structured evaluation report. Handoff → `shai-feature-mapping` | `/shai-idea-evaluation "real-time collaborative whiteboard"`                    |
+| V-S02 | `shai-feature-mapping`      | skill | Must     | 🔴      | Map the features and capabilities the application needs for the idea to work. Groups features by domain area. May call `shai-architect` (C-A01) for technical design input. Handoff → `shai-story-decomposition` | `/shai-feature-mapping using idea-evaluation report for "real-time collaborative whiteboard"` |
+| V-S03 | `shai-story-decomposition`  | skill | Must     | 🔴      | Decompose a feature or capability into user stories (use cases) for different roles and personas. Follows standard "As a … I want … So that …" format. Handoff → `shai-task-breakdown` | `/shai-story-decomposition for "real-time collaboration" feature`               |
+| V-S04 | `shai-task-breakdown`       | skill | Must     | 🔴      | Break down user stories into concrete, scoped development tasks ready for assignment to a developer or AI agent session. Produces an ordered task list with acceptance criteria | `/shai-task-breakdown for story "As a user, I can share a whiteboard link"`     |
+
+### 9.2 Agents
+
+| #     | Asset Name              | Type  | Tools                                      | Priority | Status | Purpose                                                                                                                                             |
+| ----- | ----------------------- | ----- | ------------------------------------------ | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| V-A01 | `shai-product-owner`    | agent | `search/codebase`, `web/fetch` (read-only) | Should   | 🔴      | Orchestrates the full product discovery pipeline in sequence: idea evaluation → feature mapping (with architect handoff) → story decomposition → task breakdown |
+
+---
+
 ## Summary
 
 ### Asset counts by plugin
@@ -290,14 +317,15 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 | **shai-node**       | 2            | —      | 1      | —     | —       | **3**  |
 | **shai-firebase**   | 2            | —      | 3      | —     | —       | **5**  |
 | **shai-playwright** | 2            | 3      | 4      | —     | —       | **9**  |
-| **TOTAL**           | **25**       | **13** | **31** | **4** | **3**   | **76** |
+| **shai-product**    | —            | 1      | 4      | —     | —       | **5**  |
+| **TOTAL**           | **25**       | **14** | **35** | **4** | **3**   | **81** |
 
 ### Asset counts by priority (MoSCoW)
 
 | Priority   | Count | Description                                                                                    |
 | ---------- | ----- | ---------------------------------------------------------------------------------------------- |
-| **Must**   | ~18   | Essential: core standards, primary agents, key scaffolding — system doesn't work without these |
-| **Should** | ~35   | High-value: testing, reviews, feature workflows — expected for a complete experience           |
+| **Must**   | ~22   | Essential: core standards, primary agents, key scaffolding, product discovery skills (V-S01–V-S04) — system doesn't work without these |
+| **Should** | ~36   | High-value: testing, reviews, feature workflows — expected for a complete experience           |
 | **Could**  | ~18   | Nice-to-have: advanced config, deployment, utility skills — included if time permits           |
 | **Won't**  | ~5    | Deferred: orchestrator, audit logging — planned for future phases, not this iteration          |
 
@@ -355,26 +383,28 @@ These are external MCP servers that shai skills/agents may reference as tools:
 2. `shai-core` agents — `shai-architect` (C-A01), `shai-planner` (C-A02)
 3. Framework instructions — one per active stack (T-I01, R-I01, A-I01, D-I01, D-I02, N-I01, F-I01, P-I01)
 4. Key scaffolding skills (R-S01 shai-scaffold-react-app, D-S01 shai-scaffold-dotnet-app, P-S01 shai-setup-playwright)
+5. `shai-product` discovery skills (V-S01 shai-idea-evaluation, V-S02 shai-feature-mapping, V-S03 shai-story-decomposition, V-S04 shai-task-breakdown)
 
 ### Phase 2 — Should Have
-5. Testing instructions & skills across stacks
-6. `shai-code-review` skill and `shai-code-reviewer` agent
-7. `shai-tdd-feature` and `shai-add-feature` skills
-8. `shai-scaffolder` agent + framework-specific component skills
-9. `shai-pr-preparation` skill
-10. `shai-security-audit` skill (C-S11)
-11. Hooks: `shai-format-on-edit`, `shai-dangerous-command-guard`
-12. Remaining framework-specific agents (shai-dotnet-tester, shai-playwright-tester/architect)
+6. Testing instructions & skills across stacks
+7. `shai-code-review` skill and `shai-code-reviewer` agent
+8. `shai-tdd-feature` and `shai-add-feature` skills
+9. `shai-scaffolder` agent + framework-specific component skills
+10. `shai-pr-preparation` skill
+11. `shai-security-audit` skill (C-S11)
+12. Hooks: `shai-format-on-edit`, `shai-dangerous-command-guard`
+13. Remaining framework-specific agents (shai-dotnet-tester, shai-playwright-tester/architect)
+14. `shai-product-owner` agent (V-A01) — orchestrates the full product discovery pipeline
 
 ### Phase 3 — Could Have
-13. Remaining instructions (logging, API design, advanced config)
-14. Firebase deployment & setup skills (F-S02, F-S03)
-15. Utility skills (shai-research-docs, shai-setup-tailwind, shai-setup-shadcn)
-16. Hook: `shai-lint-on-edit`
-17. Remaining agents (shai-doc-writer, shai-dotnet-debugger, shai-dotnet-migrator, shai-playwright-debugger)
+15. Remaining instructions (logging, API design, advanced config)
+16. Firebase deployment & setup skills (F-S02, F-S03)
+17. Utility skills (shai-research-docs, shai-setup-tailwind, shai-setup-shadcn)
+18. Hook: `shai-lint-on-edit`
+19. Remaining agents (shai-doc-writer, shai-dotnet-debugger, shai-dotnet-migrator, shai-playwright-debugger)
 
 ### Phase 4 — Won't Have (this iteration)
-18. `shai-orchestrator` meta-agent with subagent coordination
-19. Audit hooks (shai-session-audit-log)
-20. Claude Code dual-format export
-21. Plugin marketplace publishing & documentation
+20. `shai-orchestrator` meta-agent with subagent coordination
+21. Audit hooks (shai-session-audit-log)
+22. Claude Code dual-format export
+23. Plugin marketplace publishing & documentation
