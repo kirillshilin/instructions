@@ -27,4 +27,16 @@ Index of summarized Gang of Four design patterns, sourced from [refactoring.guru
 
 ## Behavioral Patterns
 
-_None yet._
+| #   | Pattern                 | File                                                     | Description                                                                                |
+| --- | ----------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| —   | Overview                | [behavioral-patterns.md](behavioral-patterns.md)         | Overview of all 10 behavioral patterns with comparison matrix and grouping by concern.     |
+| 1   | Chain of Responsibility | [chain-of-responsibility.md](chain-of-responsibility.md) | Passes requests along a chain of handlers until one processes it.                          |
+| 2   | Command                 | [command.md](command.md)                                 | Turns a request into a stand-alone object, enabling undo, queuing, and deferred execution. |
+| 3   | Iterator                | [iterator.md](iterator.md)                               | Traverses elements of a collection without exposing its underlying representation.         |
+| 4   | Mediator                | [mediator.md](mediator.md)                               | Reduces chaotic dependencies by forcing objects to communicate only via a mediator.        |
+| 5   | Memento                 | [memento.md](memento.md)                                 | Saves and restores an object's previous state without revealing implementation details.    |
+| 6   | Observer                | [observer.md](observer.md)                               | Defines a subscription mechanism to notify multiple objects about events.                  |
+| 7   | State                   | [state.md](state.md)                                     | Lets an object alter its behavior when its internal state changes.                         |
+| 8   | Strategy                | [strategy.md](strategy.md)                               | Defines a family of algorithms, encapsulates each, and makes them interchangeable.         |
+| 9   | Template Method         | [template-method.md](template-method.md)                 | Defines an algorithm skeleton in a superclass; subclasses override specific steps.         |
+| 10  | Visitor                 | [visitor.md](visitor.md)                                 | Separates algorithms from objects they operate on using double dispatch.                   |
