@@ -117,7 +117,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 | #     | Asset Name                    | Type        | applyTo                     | Priority | Status | Purpose                                                                                                                     | Example                                                                      |
 | ----- | ----------------------------- | ----------- | --------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | T-I01 | `shai-typescript-conventions` | instruction | `**/*.ts,**/*.tsx`          | Must     | 🟡      | Strict TS rules: prefer `interface` over `type` for objects, use discriminated unions, no `any`, barrel files, path aliases | "Use `interface` for data shapes, `type` for unions/intersections"           |
-| T-I02 | `shai-typescript-testing`     | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟡      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
+| T-I02 | `shai-typescript-testing`     | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟢      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
 | T-I03 | `shai-tsconfig-standards`     | instruction | `**/tsconfig*.json`         | Could    | 🟢      | Strict mode, path aliases, module resolution, recommended compiler options                                                  | "Always enable strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes" |
 
 ### 2.2 Skills
@@ -125,7 +125,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 | #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                  |
 | ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------- |
 | T-S01 | `shai-scaffold-ts-project` | skill | Should   | 🟡      | Scaffold a TypeScript project: tsconfig, eslint, prettier, jest/vitest, folder structure |
-| T-S02 | `shai-unit-testing-ts`     | skill | Should   | 🟡      | Write unit tests for TS code: mocking strategy, test utilities, coverage targets         |
+| T-S02 | `shai-unit-testing-ts`     | skill | Should   | 🟢      | Write unit tests for TS code: mocking strategy, test utilities, coverage targets         |
 
 ---
 
