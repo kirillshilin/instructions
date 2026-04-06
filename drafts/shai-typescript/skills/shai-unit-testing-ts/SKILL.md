@@ -14,10 +14,10 @@ description: >
 
 Write high-quality unit tests for general-purpose TypeScript code using Jest.
 Covers test file structure, naming conventions, mocking strategy, assertion
-patterns, and coverage rules. For Angular-specific testing (TestBed,
-component harness) or React-specific testing (Testing Library, render hooks),
-use the corresponding framework testing skills — they build on top of this
-skill's foundations.
+patterns, coverage rules, and test execution. For Angular-specific testing
+(TestBed, component harness) or React-specific testing (Testing Library,
+render hooks), use the corresponding framework testing skills — they build
+on top of this skill's foundations.
 
 See also: [shai-typescript-testing instruction](../../instructions/shai-typescript-testing.instructions.md)
 for the condensed rule set applied automatically to `*.spec.ts` files.
@@ -222,10 +222,48 @@ After writing tests, verify:
 - [ ] All mocks are properly typed (`jest.Mocked<T>`)
 - [ ] Test file compiles without type errors
 
+### Step 7: Run Tests
+
+Always run the tests after writing them. Never finish without executing the
+test suite to confirm everything passes:
+
+```bash
+npx jest path/to/file.spec.ts
+```
+
+If any test fails, fix the test or the source code and re-run until all tests
+pass. Do not leave failing tests behind.
+
+**Coverage (only when explicitly requested):**
+If the user asks for coverage information, run with the `--coverage` flag:
+
+```bash
+npx jest path/to/file.spec.ts --coverage
+```
+
+Report the coverage numbers in the output. Do not run coverage by default —
+only when the user explicitly asks for it.
+
 ## Output Format
 
-Produce a complete `.spec.ts` file ready to run with `npx jest`. The file
-should:
+Produce a complete `.spec.ts` file ready to run with `npx jest`. After
+writing and running the tests, report the results summary:
+
+```
+## Test Results for {FileName}
+
+- **Tests created**: {N} (list new `it` blocks added)
+- **Total tests**: {N} (including any pre-existing tests)
+- **Test run**: ✅ All passed | ❌ {N} failed (details)
+```
+
+If coverage was explicitly requested, append:
+
+```
+- **Coverage**: {statements}% statements, {branches}% branches, {functions}% functions, {lines}% lines
+```
+
+The `.spec.ts` file itself should:
 - Import the system under test and its dependencies
 - Set up typed mocks in `beforeEach`
 - Cover every public method / exported function
