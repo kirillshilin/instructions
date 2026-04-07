@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "skills": {
+    "brainstorm-ideas-new": {
+      "source": "phuryn/pm-skills",
+      "sourceType": "github",
+      "computedHash": "9cac3d00cb4414cdc2e02802af8c153c49cdfc2e925a22c5020c24587a31bce0"
+    },
+    "customer-persona": {
+      "source": "inferen-sh/skills",
+      "sourceType": "github",
+      "computedHash": "d80432cb95febb9590f355c8503876eb1cbadb90fb32391ad0c1e930a75c9a56"
+    },
+    "startup-ideation": {
+      "source": "refoundai/lenny-skills",
+      "sourceType": "github",
+      "computedHash": "bd99c0a5a75d765153ee7d27cd5858406a3b2e34ccafe680cd9826fead644c5a"
+    }
+  }
+}

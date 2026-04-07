@@ -201,7 +201,7 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 | #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                               |
 | ----- | -------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------- |
 | D-S01 | `shai-scaffold-dotnet-app` | skill | Must     | 🟡      | Scaffold .NET solution: Clean Architecture layers, projects, base classes, DI wiring  |
-| D-S02 | `shai-unit-testing-dotnet` | skill | Should   | 🟡      | Write .NET unit tests: fixture setup, mocking, assertion patterns, test data builders |
+| D-S02 | `shai-unit-testing-dotnet` | skill | Should   | �      | Write .NET unit tests: fixture setup, mocking, assertion patterns, test data builders |
 | D-S03 | `shai-add-migration`       | skill | Should   | 🟡      | EF Core migration workflow: create migration, review SQL, update database             |
 | D-S04 | `shai-dotnet-package`      | skill | Could    | 🟡      | Package & publish NuGet: versioning, csproj config, CI integration                    |
 

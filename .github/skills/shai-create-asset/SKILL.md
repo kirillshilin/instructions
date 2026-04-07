@@ -99,17 +99,17 @@ The find-skills workflow:
 3. Verify quality: prefer 1K+ installs, known sources (`vercel-labs`, `anthropics`, `microsoft`)
 4. For promising finds, install the skill locally to read the full SKILL.md:
    `npx -y skills add https://github.com/{owner}/{repo} --skill {skill-name}`
-   Then read the installed SKILL.md from `.agents/skills/{skill-name}/SKILL.md`
+   Then read the installed SKILL.md from `.github/skills/{skill-name}/SKILL.md`
 
 **Proven reference skills for VS Code customization:**
 - **`vscode-copilot-customization`** (danielsitek) — decision matrix for choosing
   asset types, templates per type, file naming conventions, settings references.
   Install: `npx -y skills add https://github.com/danielsitek/skills --skill vscode-copilot-customization`
-  Read from: `.agents/skills/vscode-copilot-customization/SKILL.md`
+  Read from: `.github/skills/vscode-copilot-customization/SKILL.md`
 - **`custom-agent-creator`** (prulloac) — 6-step agent creation workflow, validation
   checklist (5 categories), concrete examples (security reviewer, docs writer, etc).
   Install: `npx -y skills add https://github.com/prulloac/agent-skills --skill custom-agent-creator`
-  Read from: `.agents/skills/custom-agent-creator/SKILL.md`
+  Read from: `.github/skills/custom-agent-creator/SKILL.md`
 
 When using these as sources, always read their full SKILL.md. For any other
 domain-specific asset, search for skills in that domain too.
