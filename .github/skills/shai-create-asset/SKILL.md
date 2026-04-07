@@ -49,8 +49,8 @@ Purpose: {purpose}
 Based on the asset type, read the corresponding reference file. These contain
 the full format spec, templates, and writing patterns for each type.
 
-| Asset type  | Reference file                                        |
-| ----------- | ----------------------------------------------------- |
+| Asset type  | Reference file                                         |
+| ----------- | ------------------------------------------------------ |
 | instruction | [references/instruction.md](references/instruction.md) |
 | skill       | [references/skill.md](references/skill.md)             |
 | agent       | [references/agent.md](references/agent.md)             |
@@ -64,6 +64,11 @@ fields, templates, and asset-specific writing guidance.
 
 Run these research steps in parallel where possible. The goal is to arrive at the
 interview step with concrete proposals, not blank questions.
+
+**Track every source.** As you work through 3a–3d, mentally note which sources you
+consulted, what you extracted (or didn't), and why. You'll report this in the
+Resource Provenance Summary at the end — the user needs to see exactly where the
+asset's content came from.
 
 ### 3a. Check for legacy drafts
 
@@ -90,17 +95,21 @@ A skill about "code review workflows" can feed an agent persona. A skill about
 
 The find-skills workflow:
 1. Check the [skills.sh leaderboard](https://skills.sh/) first for well-known skills
-2. Run `npx skills find "<relevant keywords for this asset>"` for broader search
+2. Run `npx -y skills find "<relevant keywords for this asset>"` for broader search
 3. Verify quality: prefer 1K+ installs, known sources (`vercel-labs`, `anthropics`, `microsoft`)
-4. For promising finds, fetch the full SKILL.md from `https://skills.sh/{owner}/{repo}/{skill-name}`
+4. For promising finds, install the skill locally to read the full SKILL.md:
+   `npx -y skills add https://github.com/{owner}/{repo} --skill {skill-name}`
+   Then read the installed SKILL.md from `.agents/skills/{skill-name}/SKILL.md`
 
 **Proven reference skills for VS Code customization:**
 - **`vscode-copilot-customization`** (danielsitek) — decision matrix for choosing
   asset types, templates per type, file naming conventions, settings references.
-  Fetch from: `https://skills.sh/danielsitek/copilot-skills/vscode-copilot-customization`
+  Install: `npx -y skills add https://github.com/danielsitek/skills --skill vscode-copilot-customization`
+  Read from: `.agents/skills/vscode-copilot-customization/SKILL.md`
 - **`custom-agent-creator`** (prulloac) — 6-step agent creation workflow, validation
   checklist (5 categories), concrete examples (security reviewer, docs writer, etc).
-  Fetch from: `https://skills.sh/prulloac/agent-skills/custom-agent-creator`
+  Install: `npx -y skills add https://github.com/prulloac/agent-skills --skill custom-agent-creator`
+  Read from: `.agents/skills/custom-agent-creator/SKILL.md`
 
 When using these as sources, always read their full SKILL.md. For any other
 domain-specific asset, search for skills in that domain too.
@@ -271,9 +280,54 @@ When creating a skill, use the `/skill-creator` methodology:
 
 After writing the file:
 1. Display the full generated content to the user
-2. Report the quality checklist results
-3. Ask: "Ready to finalize, or do you want to adjust anything?"
-4. Update the asset's status in the reference doc from 🔴 to 🟢 (or 🟡 to 🟢) once the user approves
+2. Show the **Resource Provenance Summary** (see below)
+3. Report the quality checklist results
+4. Ask: "Ready to finalize, or do you want to adjust anything?"
+5. Update the asset's status in the reference doc from 🔴 to 🟢 (or 🟡 to 🟢) once the user approves
+
+### Resource Provenance Summary
+
+Always show this summary after presenting the generated asset. It gives the user
+full visibility into what shaped the output — which sources contributed content
+and which were consulted but didn't make the cut. This matters because the user
+needs to trust and verify the asset's origins, not wonder where things came from.
+
+Use exactly this format:
+
+```
+## Resource Provenance Summary
+
+### What was done
+- {1-3 sentence summary of the overall creation process for this specific asset}
+
+### Sources
+
+| #   | Source                                   | Status                      | Details                                         |
+| --- | ---------------------------------------- | --------------------------- | ----------------------------------------------- |
+| 1   | **Legacy draft** (`obsolete/{file}`)     | ✅ Used / ⏭️ Not available    | What was extracted or why skipped               |
+| 2   | **Community skills** (`npx skills find`) | ✅ Used / ⏭️ No relevant hits | Skill name, what patterns were borrowed         |
+| 3   | **Web documentation** (fetched URL)      | ✅ Used / ⏭️ Skipped          | What was fetched and what it contributed        |
+| 4   | **User recommendations** (interview)     | ✅ Used / ⏭️ No input         | Key preferences that shaped the asset           |
+| 5   | **Workspace analysis**                   | ✅ Used / ⏭️ Not applicable   | Conventions or patterns found in codebase       |
+| 6   | **Other**                                | ✅ Used / ⏭️ N/A              | Any additional sources (reference skills, etc.) |
+```
+
+**Rules for the summary:**
+- Every row must appear — show `⏭️` with the reason if a source wasn't used.
+  The user should see what *wasn't* consulted, not just what was.
+- For "Community skills", list the actual skill names and install counts found
+  via `npx skills find`. If skills were found but not used, explain why (e.g.
+  low quality, irrelevant domain, outdated).
+- For "Web documentation", list the actual URLs fetched. If no fetch was needed,
+  say why (e.g. "asset is framework-agnostic").
+- For "Legacy draft", name the specific file from `obsolete/` or state that the
+  reference doc marked the asset as 🔴 (no legacy).
+- For "User recommendations", summarize the key decisions from the interview
+  that influenced the output (scope, prescriptiveness, patterns kept/discarded).
+- For "Other", include reference skills like `vscode-copilot-customization` or
+  `custom-agent-creator` if consulted, cross-referenced assets, or any source
+  not covered above.
+- Keep each Details cell to 1-2 sentences. Link to files/URLs where possible.
 
 ## Gotchas
 

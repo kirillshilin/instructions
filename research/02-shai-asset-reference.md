@@ -54,41 +54,41 @@ Every project should install this.
 
 ### 1.1 Instructions
 
-| #     | Asset Name                      | Type        | applyTo   | Priority | Status | Purpose                                                                                                       | Example                                                                      |
-| ----- | ------------------------------- | ----------- | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| C-I01 | `shai-general-coding-standards` | instruction | `**`      | Must     | 🟡      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const"          |
-| C-I02 | `shai-error-handling`           | instruction | `**`      | Should   | 🔴      | Try/catch patterns, error boundaries, logging errors with context, custom error classes                       | "Always log errors with contextual info, use typed error classes"            |
-| C-I03 | `shai-documentation-standards`  | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"                    |
-| C-I04 | `shai-logging-conventions`      | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"                       |
-| C-I05 | `shai-git-conventions`          | instruction | `**`      | Should   | 🔴      | Branch naming, commit message format, PR description template                                                 | "Conventional commits: feat(scope): description"                             |
+| #     | Asset Name                      | Type        | applyTo   | Priority | Status | Purpose                                                                                                       | Example                                                             |
+| ----- | ------------------------------- | ----------- | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| C-I01 | `shai-general-coding-standards` | instruction | `**`      | Must     | 🟡      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const" |
+| C-I02 | `shai-error-handling`           | instruction | `**`      | Should   | 🔴      | Try/catch patterns, error boundaries, logging errors with context, custom error classes                       | "Always log errors with contextual info, use typed error classes"   |
+| C-I03 | `shai-documentation-standards`  | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"           |
+| C-I04 | `shai-logging-conventions`      | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"              |
+| C-I05 | `shai-git-conventions`          | instruction | `**`      | Should   | 🔴      | Branch naming, commit message format, PR description template                                                 | "Conventional commits: feat(scope): description"                    |
 
 ### 1.2 Agents
 
-| #     | Asset Name           | Type  | Tools                                                       | Priority | Status | Purpose                                                                                                                            | Example trigger                                                       |
-| ----- | -------------------- | ----- | ----------------------------------------------------------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| #     | Asset Name           | Type  | Tools                                                       | Priority | Status | Purpose                                                                                                                                                                                                           | Example trigger                                                       |
+| ----- | -------------------- | ----- | ----------------------------------------------------------- | -------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | C-A01 | `shai-architect`     | agent | `search/codebase`, `web/fetch`, `search/usages` (read-only) | Must     | 🟡      | High-level software design: system structure, component boundaries, tech stack decisions, design patterns. Handoff → `implementer`. Also called by `shai-feature-mapping` (V-S02) for technical feasibility input | "Design an event-driven architecture for the order processing module" |
-| C-A02 | `shai-planner`       | agent | `search/codebase`, `web/fetch` (read-only)                  | Must     | 🔴      | Generates implementation plans from feature descriptions. Breaks into tasks. Handoff → `agent`                                     | "Plan the implementation of user authentication with OAuth2"          |
-| C-A03 | `shai-code-reviewer` | agent | `search/codebase`, `search/usages` (read-only)              | Should   | 🟡      | Security, performance, maintainability review. Outputs issues by severity                                                          | "Review the changes in the auth module for security issues"           |
-| C-A04 | `shai-scaffolder`    | agent | `edit`, `terminal`, `search/codebase`                       | Should   | 🔴      | Orchestrates project/component scaffolding using appropriate tech-specific skills. Asks clarifying questions about stack, features | "Scaffold a new microservice for user management"                     |
-| C-A05 | `shai-doc-writer`    | agent | `search/codebase`, `edit`, `web/fetch`                      | Could    | 🔴      | Writes & updates documentation: READMEs, API docs, architecture decision records                                                   | "Write the README for this project following our standards"           |
-| C-A06 | `shai-orchestrator`  | agent | `agent` (subagent access to all others)                     | Won't    | 🔴      | Meta-agent that coordinates workflows: plan → scaffold → implement → test → review. Uses subagents                                 | "Build the login feature end-to-end"                                  |
+| C-A02 | `shai-planner`       | agent | `search/codebase`, `web/fetch` (read-only)                  | Must     | 🔴      | Generates implementation plans from feature descriptions. Breaks into tasks. Handoff → `agent`                                                                                                                    | "Plan the implementation of user authentication with OAuth2"          |
+| C-A03 | `shai-code-reviewer` | agent | `search/codebase`, `search/usages` (read-only)              | Should   | 🟡      | Security, performance, maintainability review. Outputs issues by severity                                                                                                                                         | "Review the changes in the auth module for security issues"           |
+| C-A04 | `shai-scaffolder`    | agent | `edit`, `terminal`, `search/codebase`                       | Should   | 🔴      | Orchestrates project/component scaffolding using appropriate tech-specific skills. Asks clarifying questions about stack, features                                                                                | "Scaffold a new microservice for user management"                     |
+| C-A05 | `shai-doc-writer`    | agent | `search/codebase`, `edit`, `web/fetch`                      | Could    | 🔴      | Writes & updates documentation: READMEs, API docs, architecture decision records                                                                                                                                  | "Write the README for this project following our standards"           |
+| C-A06 | `shai-orchestrator`  | agent | `agent` (subagent access to all others)                     | Won't    | 🔴      | Meta-agent that coordinates workflows: plan → scaffold → implement → test → review. Uses subagents                                                                                                                | "Build the login feature end-to-end"                                  |
 
 ### 1.3 Skills
 
-| #     | Asset Name                | Type  | Priority | Status | Purpose                                                                                                                 | Example invocation                                |
-| ----- | ------------------------- | ----- | -------- | ------ | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| C-S01 | `shai-code-review`        | skill | Should   | 🟡      | Step-by-step code review workflow: check architecture, security, performance, style. Includes review checklist template | `/shai-code-review for the auth module`           |
-| C-S02 | `shai-tdd-feature`        | skill | Should   | 🔴      | TDD workflow: write failing tests → implement → refactor. Includes test-first templates per framework                   | `/shai-tdd-feature add discount code to checkout` |
-| C-S03 | `shai-add-feature`        | skill | Should   | 🟡      | Feature implementation workflow: understand requirements → find relevant code → implement → test → document             | `/shai-add-feature user profile page`             |
-| C-S04 | `shai-scaffold-component` | skill | Should   | 🔴      | Generic component/class scaffolding: creates files, tests, barrel exports. Delegates to framework-specific patterns     | `/shai-scaffold-component UserCard`               |
-| C-S05 | `shai-setup-tailwind`     | skill | Could    | 🔴      | Install & configure Tailwind CSS in an existing project. Config file, PostCSS, purge settings                           | `/shai-setup-tailwind`                            |
-| C-S06 | `shai-setup-shadcn`       | skill | Could    | 🔴      | Install shadcn/ui library, configure components.json, add initial components                                            | `/shai-setup-shadcn`                              |
-| C-S07 | `shai-create-skill`       | skill | Could    | 🟡      | Meta-skill: creates new SKILL.md files following the agent skills spec                                                  | `/shai-create-skill for database migration`       |
-| C-S08 | `shai-create-agent`       | skill | Could    | 🟡      | Meta-skill: creates new .agent.md files with proper frontmatter, tools, handoffs                                        | `/shai-create-agent security-reviewer`            |
-| C-S09 | `shai-pr-preparation`     | skill | Should   | 🔴      | Prepares PR: generates description, checks diff, suggests reviewers, validates CI readiness                             | `/shai-pr-preparation`                            |
-| C-S10 | `shai-research-docs`      | skill | Could    | 🔴      | Looks up official documentation on the web for a given library/framework, summarizes relevant parts                     | `/shai-research-docs react-hook-form validation`  |
-| C-S11 | `shai-security-audit`     | skill | Should   | 🔴      | Security review: OWASP top 10 checks, secret detection, input validation audit, auth pattern review                     | `/shai-security-audit for the auth module`        |
-| C-S12 | `shai-software-design`    | skill | Must     | 🟢      | Propose software design, select GoF patterns, enforce SOLID/KISS/DRY/YAGNI, composition over inheritance. Usable by `shai-architect` | `/shai-software-design for the payment module` |
+| #     | Asset Name                | Type  | Priority | Status | Purpose                                                                                                                              | Example invocation                                |
+| ----- | ------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| C-S01 | `shai-code-review`        | skill | Should   | 🟡      | Step-by-step code review workflow: check architecture, security, performance, style. Includes review checklist template              | `/shai-code-review for the auth module`           |
+| C-S02 | `shai-tdd-feature`        | skill | Should   | 🔴      | TDD workflow: write failing tests → implement → refactor. Includes test-first templates per framework                                | `/shai-tdd-feature add discount code to checkout` |
+| C-S03 | `shai-add-feature`        | skill | Should   | 🟡      | Feature implementation workflow: understand requirements → find relevant code → implement → test → document                          | `/shai-add-feature user profile page`             |
+| C-S04 | `shai-scaffold-component` | skill | Should   | 🔴      | Generic component/class scaffolding: creates files, tests, barrel exports. Delegates to framework-specific patterns                  | `/shai-scaffold-component UserCard`               |
+| C-S05 | `shai-setup-tailwind`     | skill | Could    | 🔴      | Install & configure Tailwind CSS in an existing project. Config file, PostCSS, purge settings                                        | `/shai-setup-tailwind`                            |
+| C-S06 | `shai-setup-shadcn`       | skill | Could    | 🔴      | Install shadcn/ui library, configure components.json, add initial components                                                         | `/shai-setup-shadcn`                              |
+| C-S07 | `shai-create-skill`       | skill | Could    | 🟡      | Meta-skill: creates new SKILL.md files following the agent skills spec                                                               | `/shai-create-skill for database migration`       |
+| C-S08 | `shai-create-agent`       | skill | Could    | 🟡      | Meta-skill: creates new .agent.md files with proper frontmatter, tools, handoffs                                                     | `/shai-create-agent security-reviewer`            |
+| C-S09 | `shai-pr-preparation`     | skill | Should   | 🔴      | Prepares PR: generates description, checks diff, suggests reviewers, validates CI readiness                                          | `/shai-pr-preparation`                            |
+| C-S10 | `shai-research-docs`      | skill | Could    | 🔴      | Looks up official documentation on the web for a given library/framework, summarizes relevant parts                                  | `/shai-research-docs react-hook-form validation`  |
+| C-S11 | `shai-security-audit`     | skill | Should   | 🔴      | Security review: OWASP top 10 checks, secret detection, input validation audit, auth pattern review                                  | `/shai-security-audit for the auth module`        |
+| C-S12 | `shai-software-design`    | skill | Must     | 🟢      | Propose software design, select GoF patterns, enforce SOLID/KISS/DRY/YAGNI, composition over inheritance. Usable by `shai-architect` | `/shai-software-design for the payment module`    |
 
 ### 1.4 Hooks
 
@@ -288,18 +288,18 @@ Use this plugin at the start of any new feature or product initiative.
 
 ### 9.1 Skills
 
-| #     | Asset Name                  | Type  | Priority | Status | Purpose                                                                                                                                                                  | Example invocation                                                              |
-| ----- | --------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| V-S01 | `shai-idea-evaluation`      | skill | Must     | 🔴      | Evaluate and investigate a raw idea: assess feasibility, value proposition, key risks, and strategic fit. Produces a structured evaluation report. Handoff → `shai-feature-mapping` | `/shai-idea-evaluation "real-time collaborative whiteboard"`                    |
-| V-S02 | `shai-feature-mapping`      | skill | Must     | 🔴      | Map the features and capabilities the application needs for the idea to work. Groups features by domain area. May call `shai-architect` (C-A01) for technical design input. Handoff → `shai-story-decomposition` | `/shai-feature-mapping using idea-evaluation report for "real-time collaborative whiteboard"` |
-| V-S03 | `shai-story-decomposition`  | skill | Must     | 🔴      | Decompose a feature or capability into user stories (use cases) for different roles and personas. Follows standard "As a … I want … So that …" format. Handoff → `shai-task-breakdown` | `/shai-story-decomposition for "real-time collaboration" feature`               |
-| V-S04 | `shai-task-breakdown`       | skill | Must     | 🔴      | Break down user stories into concrete, scoped development tasks ready for assignment to a developer or AI agent session. Produces an ordered task list with acceptance criteria | `/shai-task-breakdown for story "As a user, I can share a whiteboard link"`     |
+| #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                                                                                                                                          | Example invocation                                                                            |
+| ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| V-S01 | `shai-idea-evaluation`     | skill | Must     | 🔴      | Evaluate and investigate a raw idea: assess feasibility, value proposition, key risks, and strategic fit. Produces a structured evaluation report. Handoff → `shai-feature-mapping`                              | `/shai-idea-evaluation "real-time collaborative whiteboard"`                                  |
+| V-S02 | `shai-feature-mapping`     | skill | Must     | 🔴      | Map the features and capabilities the application needs for the idea to work. Groups features by domain area. May call `shai-architect` (C-A01) for technical design input. Handoff → `shai-story-decomposition` | `/shai-feature-mapping using idea-evaluation report for "real-time collaborative whiteboard"` |
+| V-S03 | `shai-story-decomposition` | skill | Must     | 🔴      | Decompose a feature or capability into user stories (use cases) for different roles and personas. Follows standard "As a … I want … So that …" format. Handoff → `shai-task-breakdown`                           | `/shai-story-decomposition for "real-time collaboration" feature`                             |
+| V-S04 | `shai-task-breakdown`      | skill | Must     | 🔴      | Break down user stories into concrete, scoped development tasks ready for assignment to a developer or AI agent session. Produces an ordered task list with acceptance criteria                                  | `/shai-task-breakdown for story "As a user, I can share a whiteboard link"`                   |
 
 ### 9.2 Agents
 
-| #     | Asset Name              | Type  | Tools                                      | Priority | Status | Purpose                                                                                                                                             |
-| ----- | ----------------------- | ----- | ------------------------------------------ | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| V-A01 | `shai-product-owner`    | agent | `search/codebase`, `web/fetch` (read-only) | Should   | 🔴      | Orchestrates the full product discovery pipeline in sequence: idea evaluation → feature mapping (with architect handoff) → story decomposition → task breakdown |
+| #     | Asset Name           | Type  | Tools                                      | Priority | Status | Purpose                                                                                                                                                         |
+| ----- | -------------------- | ----- | ------------------------------------------ | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| V-A01 | `shai-product-owner` | agent | `search/codebase`, `web/fetch` (read-only) | Should   | 🔴      | Orchestrates the full product discovery pipeline in sequence: idea evaluation → feature mapping (with architect handoff) → story decomposition → task breakdown |
 
 ---
 
@@ -322,12 +322,12 @@ Use this plugin at the start of any new feature or product initiative.
 
 ### Asset counts by priority (MoSCoW)
 
-| Priority   | Count | Description                                                                                    |
-| ---------- | ----- | ---------------------------------------------------------------------------------------------- |
+| Priority   | Count | Description                                                                                                                            |
+| ---------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | **Must**   | ~22   | Essential: core standards, primary agents, key scaffolding, product discovery skills (V-S01–V-S04) — system doesn't work without these |
-| **Should** | ~36   | High-value: testing, reviews, feature workflows — expected for a complete experience           |
-| **Could**  | ~18   | Nice-to-have: advanced config, deployment, utility skills — included if time permits           |
-| **Won't**  | ~5    | Deferred: orchestrator, audit logging — planned for future phases, not this iteration          |
+| **Should** | ~36   | High-value: testing, reviews, feature workflows — expected for a complete experience                                                   |
+| **Could**  | ~18   | Nice-to-have: advanced config, deployment, utility skills — included if time permits                                                   |
+| **Won't**  | ~5    | Deferred: orchestrator, audit logging — planned for future phases, not this iteration                                                  |
 
 ### Assets with existing legacy drafts (🟡)
 
@@ -408,3 +408,126 @@ These are external MCP servers that shai skills/agents may reference as tools:
 21. Audit hooks (shai-session-audit-log)
 22. Claude Code dual-format export
 23. Plugin marketplace publishing & documentation
+
+---
+
+## Asset Tree
+
+Full hierarchy of all 81 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
+
+```
+shai/
+├── shai-core/
+│   ├── instructions/
+│   │   ├── C-I01  shai-general-coding-standards     🟡  Must
+│   │   ├── C-I02  shai-error-handling               🔴  Should
+│   │   ├── C-I03  shai-documentation-standards      🟡  Should
+│   │   ├── C-I04  shai-logging-conventions          🔴  Could
+│   │   └── C-I05  shai-git-conventions              🔴  Should
+│   ├── agents/
+│   │   ├── C-A01  shai-architect                    🟡  Must
+│   │   ├── C-A02  shai-planner                      🔴  Must
+│   │   ├── C-A03  shai-code-reviewer                🟡  Should
+│   │   ├── C-A04  shai-scaffolder                   🔴  Should
+│   │   ├── C-A05  shai-doc-writer                   🔴  Could
+│   │   └── C-A06  shai-orchestrator                 🔴  Won't
+│   ├── skills/
+│   │   ├── C-S01  shai-code-review                  🟡  Should
+│   │   ├── C-S02  shai-tdd-feature                  🔴  Should
+│   │   ├── C-S03  shai-add-feature                  🟡  Should
+│   │   ├── C-S04  shai-scaffold-component           🔴  Should
+│   │   ├── C-S05  shai-setup-tailwind               🔴  Could
+│   │   ├── C-S06  shai-setup-shadcn                 🔴  Could
+│   │   ├── C-S07  shai-create-skill                 🟡  Could
+│   │   ├── C-S08  shai-create-agent                 🟡  Could
+│   │   ├── C-S09  shai-pr-preparation               🔴  Should
+│   │   ├── C-S10  shai-research-docs                🔴  Could
+│   │   ├── C-S11  shai-security-audit               🔴  Should
+│   │   └── C-S12  shai-software-design              🟢  Must
+│   ├── hooks/
+│   │   ├── C-H01  shai-format-on-edit               🔴  Should
+│   │   ├── C-H02  shai-lint-on-edit                 🔴  Could
+│   │   ├── C-H03  shai-dangerous-command-guard      🔴  Should
+│   │   └── C-H04  shai-session-audit-log            🔴  Won't
+│   └── prompts/
+│       ├── C-P01  shai-quick-plan                   🔴  Should
+│       ├── C-P02  shai-explain-codebase             🔴  Could
+│       └── C-P03  shai-fix-ci                       🔴  Could
+├── shai-typescript/
+│   ├── instructions/
+│   │   ├── T-I01  shai-typescript-conventions       🟡  Must
+│   │   ├── T-I02  shai-typescript-testing           🟡  Should
+│   │   └── T-I03  shai-tsconfig-standards           🟢  Could
+│   └── skills/
+│       ├── T-S01  shai-scaffold-ts-project          🟡  Should
+│       └── T-S02  shai-unit-testing-ts              🟡  Should
+├── shai-react/
+│   ├── instructions/
+│   │   ├── R-I01  shai-react-components             🟡  Must
+│   │   ├── R-I02  shai-react-state-management       🔴  Should
+│   │   └── R-I03  shai-react-testing                🔴  Should
+│   └── skills/
+│       ├── R-S01  shai-scaffold-react-app           🟡  Must
+│       ├── R-S02  shai-create-react-component       🟡  Should
+│       └── R-S03  shai-setup-react-testing          🔴  Could
+├── shai-angular/
+│   ├── instructions/
+│   │   ├── A-I01  shai-angular-components           🟡  Must
+│   │   ├── A-I02  shai-angular-services             🔴  Should
+│   │   └── A-I03  shai-angular-testing              🔴  Should
+│   └── skills/
+│       ├── A-S01  shai-scaffold-angular-app         🟡  Should
+│       └── A-S02  shai-create-angular-component     🔴  Should
+├── shai-dotnet/
+│   ├── instructions/
+│   │   ├── D-I01  shai-csharp-conventions           🟡  Must
+│   │   ├── D-I02  shai-dotnet-architecture          🟡  Must
+│   │   ├── D-I03  shai-dotnet-testing               🟡  Should
+│   │   ├── D-I04  shai-dotnet-di                    🔴  Could
+│   │   └── D-I05  shai-dotnet-api-design            🔴  Could
+│   ├── agents/
+│   │   ├── D-A01  shai-dotnet-architect             🟡  Must
+│   │   ├── D-A02  shai-dotnet-tester                🟡  Should
+│   │   ├── D-A03  shai-dotnet-debugger              🟡  Could
+│   │   └── D-A04  shai-dotnet-migrator              🟡  Could
+│   └── skills/
+│       ├── D-S01  shai-scaffold-dotnet-app          🟡  Must
+│       ├── D-S02  shai-unit-testing-dotnet          🟡  Should
+│       ├── D-S03  shai-add-migration                🟡  Should
+│       └── D-S04  shai-dotnet-package               🟡  Could
+├── shai-node/
+│   ├── instructions/
+│   │   ├── N-I01  shai-nodejs-conventions           🟡  Must
+│   │   └── N-I02  shai-express-patterns             🔴  Should
+│   └── skills/
+│       └── N-S01  shai-scaffold-node-app            🟡  Should
+├── shai-firebase/
+│   ├── instructions/
+│   │   ├── F-I01  shai-firebase-conventions         🔴  Must
+│   │   └── F-I02  shai-firestore-modeling           🔴  Should
+│   └── skills/
+│       ├── F-S01  shai-scaffold-firebase-app        🟡  Should
+│       ├── F-S02  shai-setup-firebase               🔴  Could
+│       └── F-S03  shai-deploy-firebase              🔴  Could
+├── shai-playwright/
+│   ├── instructions/
+│   │   ├── P-I01  shai-playwright-conventions       🟡  Must
+│   │   └── P-I02  shai-playwright-config            🔴  Could
+│   ├── agents/
+│   │   ├── P-A01  shai-playwright-architect         🟡  Should
+│   │   ├── P-A02  shai-playwright-tester            🟡  Should
+│   │   └── P-A03  shai-playwright-debugger          🟡  Could
+│   └── skills/
+│       ├── P-S01  shai-setup-playwright             🟡  Must
+│       ├── P-S02  shai-write-e2e-test               🟡  Should
+│       ├── P-S03  shai-debug-e2e-test               🟡  Should
+│       └── P-S04  shai-page-object-model            🟡  Should
+└── shai-product/
+    ├── agents/
+    │   └── V-A01  shai-product-owner                🔴  Should
+    └── skills/
+        ├── V-S01  shai-idea-evaluation              🔴  Must
+        ├── V-S02  shai-feature-mapping              🔴  Must
+        ├── V-S03  shai-story-decomposition          🔴  Must
+        └── V-S04  shai-task-breakdown               🔴  Must
+```
