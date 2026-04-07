@@ -1,0 +1,9 @@
+{
+  "name": "@shai/instructions",
+  "version": "0.1.0",
+  "description": "Composable instruction sets for AI coding assistants",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js"
+  }
+}
