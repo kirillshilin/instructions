@@ -26,18 +26,19 @@ for a single use case.
 
 ## Rules
 
-Rules are maintained as individual files in [`rules/`](../rules/) so they can
-grow independently. Each rule has its own `applyTo` scope.
+{rules/01-naming.rule.md}
 
-| Rule             | File                                                                                      | Summary                                                                                               |
-| ---------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Naming           | [01-naming.rule.md](../rules/01-naming.rule.md)                                           | Short meaningful names, no abbreviations (with exceptions), plural for collections, `_private` fields |
-| — TypeScript     | [typescript/01-naming.rule.md](../rules/typescript/01-naming.rule.md)                     | No `I` prefix, boolean prefixes, event handler naming, enums                                          |
-| — C#             | [csharp/01-naming.rule.md](../rules/csharp/01-naming.rule.md)                             | `_camelCase` fields, `I` prefix, `Async` suffix                                                       |
-| Member ordering  | [02-member-ordering.rule.md](../rules/02-member-ordering.rule.md)                         | Public first, private last. One item per file.                                                        |
-| Folder structure | [03-folder-structure.rule.md](../rules/03-folder-structure.rule.md)                       | Flat semantic folders — hooks, models, services, etc.                                                 |
-| — TypeScript     | [typescript/03-folder-structure.rule.md](../rules/typescript/03-folder-structure.rule.md) | Feature-based layout for frontend projects                                                            |
-| — C#             | [csharp/03-folder-structure.rule.md](../rules/csharp/03-folder-structure.rule.md)         | Per-project flat structure, split by layer                                                            |
+{rules/typescript/01-naming.rule.md}
+
+{rules/csharp/01-naming.rule.md}
+
+{rules/02-member-ordering.rule.md}
+
+{rules/03-folder-structure.rule.md}
+
+{rules/typescript/03-folder-structure.rule.md}
+
+{rules/csharp/03-folder-structure.rule.md}
 
 ## Early Returns
 
