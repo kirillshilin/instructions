@@ -50,11 +50,12 @@ function resolvePartials(content, baseDir, seen) {
       return `<!-- missing: ${refPath} -->`;
     }
 
-    seen.add(resolved);
+    const branch = new Set(seen);
+    branch.add(resolved);
     const partialContent = fs.readFileSync(resolved, "utf-8");
 
     // Recursively resolve any partials inside the included file
-    return resolvePartials(partialContent, path.dirname(resolved), seen);
+    return resolvePartials(partialContent, path.dirname(resolved), branch);
   });
 }
 
