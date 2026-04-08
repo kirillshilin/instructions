@@ -136,9 +136,8 @@ shai/
 │   │   ├── F-I01  shai-firebase-conventions         🔴  Must
 │   │   └── F-I02  shai-firestore-modeling           🔴  Should
 │   └── skills/
-│       ├── F-S01  shai-scaffold-firebase-app        🟡  Should
-│       ├── F-S02  shai-setup-firebase               🔴  Could
-│       └── F-S03  shai-deploy-firebase              🔴  Could
+│       ├── F-S01  shai-add-firebase                 🟢  Done
+│       └── F-S02  shai-firebase-function            🟢  Done
 ├── shai-playwright/
 │   ├── instructions/
 │   │   ├── P-I01  shai-playwright-conventions       🟡  Must
@@ -354,11 +353,10 @@ Firebase ecosystem: Cloud Functions, Firestore, Hosting, security rules, emulato
 
 ### 7.2 Skills
 
-| #     | Asset Name                   | Type  | Priority | Status | Purpose                                                                         |
-| ----- | ---------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------- |
-| F-S01 | `shai-scaffold-firebase-app` | skill | Should   | 🟡      | Scaffold Firebase project: functions, hosting, Firestore rules, emulator config |
-| F-S02 | `shai-setup-firebase`        | skill | Could    | 🔴      | Add Firebase to an existing project: init, config, emulators                    |
-| F-S03 | `shai-deploy-firebase`       | skill | Could    | 🔴      | Firebase deployment workflow: build → test → deploy functions/hosting/rules     |
+| #     | Asset Name                   | Type  | Priority | Status | Purpose                                                                                                                    |
+| ----- | ---------------------------- | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------- |
+| F-S01 | `shai-add-firebase`          | skill | Should   | 🟢      | Add Firebase to a project via CLI: Functions, Hosting, emulator setup. Combines former scaffold + setup skills              |
+| F-S02 | `shai-firebase-function`     | skill | Should   | 🟢      | Scaffold a Cloud Function: .fn.ts facade, service layer, config constants, secrets via CI/CD, emulator-first development   |
 
 ---
 
@@ -430,10 +428,10 @@ Use this plugin at the start of any new feature or product initiative.
 | **shai-angular**    | 3            | —      | 2      | —     | —       | **5**  |
 | **shai-dotnet**     | 5            | 4      | 4      | —     | —       | **13** |
 | **shai-node**       | 2            | —      | 1      | —     | —       | **3**  |
-| **shai-firebase**   | 2            | —      | 3      | —     | —       | **5**  |
+| **shai-firebase**   | 2            | —      | 2      | —     | —       | **4**  |
 | **shai-playwright** | 2            | 3      | 4      | —     | —       | **9**  |
 | **shai-product**    | —            | 1      | 4      | —     | —       | **5**  |
-| **TOTAL**           | **25**       | **14** | **35** | **4** | **3**   | **81** |
+| **TOTAL**           | **25**       | **14** | **34** | **4** | **3**   | **80** |
 
 ### Asset counts by priority (MoSCoW)
 
@@ -471,7 +469,7 @@ The following assets have prior work in the `obsolete/` folder that can be used 
 | D-A01–04 | shai-dotnet-* agents             | `obsolete/claude/agents/dotnet-*.md`                                           |
 | D-S01–04 | shai-dotnet-* skills             | `obsolete/claude/skills/`                                                      |
 | N-S01    | shai-scaffold-node-app           | `obsolete/nodejs-scaffold.instructions.md`                                     |
-| F-S01    | shai-scaffold-firebase-app       | `obsolete/nodejs-scaffold.instructions.md` (partial)                           |
+| F-S01    | shai-add-firebase                | `obsolete/nodejs-scaffold.instructions.md` (partial); combines former F-S01, F-S02, F-S03 |
 | P-I01    | shai-playwright-conventions      | `obsolete/claude/skills/write-e2e-test/`                                       |
 | P-A01–03 | shai-playwright-* agents         | `obsolete/claude/agents/playwright-*.md`                                       |
 | P-S01–04 | shai-playwright-* skills         | `obsolete/claude/skills/`                                                      |
@@ -512,14 +510,13 @@ These are external MCP servers that shai skills/agents may reference as tools:
 
 ### Phase 3 — Could Have
 15. Remaining instructions (logging, API design, advanced config)
-16. Firebase deployment & setup skills (F-S02, F-S03)
-17. Utility skills (shai-research-docs, shai-setup-tailwind, shai-setup-shadcn)
-18. Hook: `shai-lint-on-edit`
-19. Remaining agents (shai-doc-writer, shai-dotnet-debugger, shai-dotnet-migrator, shai-playwright-debugger)
+16. Utility skills (shai-research-docs, shai-setup-tailwind, shai-setup-shadcn)
+17. Hook: `shai-lint-on-edit`
+18. Remaining agents (shai-doc-writer, shai-dotnet-debugger, shai-dotnet-migrator, shai-playwright-debugger)
 
 ### Phase 4 — Won't Have (this iteration)
-20. `shai-orchestrator` meta-agent with subagent coordination
-21. Audit hooks (shai-session-audit-log)
-22. Claude Code dual-format export
+19. `shai-orchestrator` meta-agent with subagent coordination
+20. Audit hooks (shai-session-audit-log)
+21. Claude Code dual-format export
 23. Plugin marketplace publishing & documentation
 

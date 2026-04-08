@@ -1,0 +1,11 @@
+{
+  "name": "shai-firebase",
+  "displayName": "SHAI — Firebase",
+  "description": "Firebase ecosystem: Cloud Functions, Hosting, emulators. Add Firebase to projects and scaffold well-structured Cloud Functions.",
+  "version": "0.1.0",
+  "publisher": "shai",
+  "skills": [
+    "skills/shai-add-firebase",
+    "skills/shai-firebase-function"
+  ]
+}
