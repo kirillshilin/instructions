@@ -47,17 +47,14 @@ Each plugin contains a `plugin.json` + any combination of:
 
 ## Asset Tree
 
-Full hierarchy of all 81 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
+Full hierarchy of all 78 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
 
 ```
 shai/
 ├── shai-core/
 │   ├── instructions/
-│   │   ├── C-I01  shai-general-coding-standards     🟡  Must
-│   │   ├── C-I02  shai-error-handling               🔴  Should
-│   │   ├── C-I03  shai-documentation-standards      🟡  Should
-│   │   ├── C-I04  shai-logging-conventions          🔴  Could
-│   │   └── C-I05  shai-git-conventions              🔴  Should
+│   │   ├── C-I01  shai-general-coding-standards     🟡  Must   (includes error-handling + logging rules)
+│   │   └── C-I03  shai-documentation-standards      🟡  Should
 │   ├── agents/
 │   │   ├── C-A01  shai-architect                    🟡  Must
 │   │   ├── C-A02  shai-planner                      🔴  Must
@@ -177,13 +174,12 @@ Every project should install this.
 
 ### 1.1 Instructions
 
-| #     | Asset Name                      | Type        | applyTo   | Priority | Status | Purpose                                                                                                       | Example                                                             |
-| ----- | ------------------------------- | ----------- | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| C-I01 | `shai-general-coding-standards` | instruction | `**`      | Must     | 🟡      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const" |
-| C-I02 | `shai-error-handling`           | instruction | `**`      | Should   | 🔴      | Try/catch patterns, error boundaries, logging errors with context, custom error classes                       | "Always log errors with contextual info, use typed error classes"   |
-| C-I03 | `shai-documentation-standards`  | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"           |
-| C-I04 | `shai-logging-conventions`      | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"              |
-| C-I05 | `shai-git-conventions`          | instruction | `**`      | Should   | 🔴      | Branch naming, commit message format, PR description template                                                 | "Conventional commits: feat(scope): description"                    |
+| #     | Asset Name                      | Type        | applyTo   | Priority | Status | Purpose                                                                                                                                                           | Example                                                             |
+| ----- | ------------------------------- | ----------- | --------- | -------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| C-I01 | `shai-general-coding-standards` | instruction | `**`      | Must     | 🟡      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering; includes error-handling and logging rules inline | "Use `_name` for private fields, no `#private`, ALL_CAPS for const" |
+| C-I03 | `shai-documentation-standards`  | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules                                                                  | "READMEs must have: title, brief, quick start, use cases"           |
+
+> **Rules in C-I01**: Error-handling (`rules/04-error-handling.rule.md`) and logging conventions (`rules/05-logging.rule.md`) are delivered as rules within `shai-general-coding-standards` rather than standalone instruction files. Git conventions are deferred from the current plan.
 
 ### 1.2 Agents
 
@@ -432,7 +428,7 @@ Use this plugin at the start of any new feature or product initiative.
 
 | Plugin              | Instructions | Agents | Skills | Hooks | Prompts | Total  |
 | ------------------- | ------------ | ------ | ------ | ----- | ------- | ------ |
-| **shai-core**       | 5            | 6      | 12     | 4     | 3       | **30** |
+| **shai-core**       | 2            | 6      | 12     | 4     | 3       | **27** |
 | **shai-typescript** | 3            | —      | 2      | —     | —       | **5**  |
 | **shai-react**      | 3            | —      | 3      | —     | —       | **6**  |
 | **shai-angular**    | 3            | —      | 2      | —     | —       | **5**  |
@@ -441,7 +437,7 @@ Use this plugin at the start of any new feature or product initiative.
 | **shai-firebase**   | 2            | —      | 3      | —     | —       | **5**  |
 | **shai-playwright** | 2            | 3      | 4      | —     | —       | **9**  |
 | **shai-product**    | —            | 1      | 4      | —     | —       | **5**  |
-| **TOTAL**           | **25**       | **14** | **35** | **4** | **3**   | **81** |
+| **TOTAL**           | **22**       | **14** | **35** | **4** | **3**   | **78** |
 
 ### Asset counts by priority (MoSCoW)
 
@@ -502,7 +498,7 @@ These are external MCP servers that shai skills/agents may reference as tools:
 ## Recommended Build Order
 
 ### Phase 1 — Must Have
-1. `shai-core` instructions (C-I01, C-I05 shai-git-conventions, C-I06 shai-software-design)
+1. `shai-core` instructions (C-I01 shai-general-coding-standards)
 2. `shai-core` agents — `shai-architect` (C-A01), `shai-planner` (C-A02)
 3. Framework instructions — one per active stack (T-I01, R-I01, A-I01, D-I01, D-I02, N-I01, F-I01, P-I01)
 4. Key scaffolding skills (R-S01 shai-scaffold-react-app, D-S01 shai-scaffold-dotnet-app, P-S01 shai-setup-playwright)
@@ -520,7 +516,7 @@ These are external MCP servers that shai skills/agents may reference as tools:
 14. `shai-product-owner` agent (V-A01) — orchestrates the full product discovery pipeline
 
 ### Phase 3 — Could Have
-15. Remaining instructions (logging, API design, advanced config)
+15. Remaining instructions (API design, advanced config)
 16. Firebase deployment & setup skills (F-S02, F-S03)
 17. Utility skills (shai-research-docs, shai-setup-tailwind, shai-setup-shadcn)
 18. Hook: `shai-lint-on-edit`
