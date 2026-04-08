@@ -9,7 +9,7 @@ Enforce the most demanding TypeScript compiler configuration to prevent `any`
 leakage, null-reference errors, and type ambiguity at compile time — not at
 runtime and not in code review.
 
-See also: [shai-typescript-conventions](./shai-typescript-conventions.instructions.md)
+See also: [shai-typescript-coding-standards](./shai-typescript-coding-standards.instructions.md)
 for code-level type rules.
 
 ---

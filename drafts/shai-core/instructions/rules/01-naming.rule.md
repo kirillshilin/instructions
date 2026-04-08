@@ -2,12 +2,12 @@
 applyTo: "**"
 ---
 
-# Naming Conventions
+## Naming Conventions
 
 Consistent, concise naming reduces cognitive load and makes code searchable.
 The goal: **shortest meaningful name that avoids ambiguity.**
 
-## Universal Principles
+### Universal Principles
 
 - **Short names** — use the shortest name that is still unambiguous in context.
   One word is ideal. Two or three words only when a single word would be unclear.
@@ -38,8 +38,3 @@ const errArr: string[] = [];
 ```
 Why: `userList` adds noise — the plural `users` already signals a collection.
 `orderResp` abbreviates without benefit. `errArr` is cryptic.
-
-## Language-Specific Extensions
-
-- TypeScript: [typescript/01-naming.rule.md](typescript/01-naming.rule.md)
-- C#: [csharp/01-naming.rule.md](csharp/01-naming.rule.md)

@@ -53,7 +53,7 @@ Full hierarchy of all 81 assets across all plugins. Status: 🔴 not started · 
 shai/
 ├── shai-core/
 │   ├── instructions/
-│   │   ├── C-I01  shai-general-coding-standards     🟡  Must
+│   │   ├── C-I01  shai-coding-standards             🟢  Must
 │   │   ├── C-I02  shai-error-handling               🔴  Should
 │   │   ├── C-I03  shai-documentation-standards      🟡  Should
 │   │   ├── C-I04  shai-logging-conventions          🔴  Could
@@ -64,7 +64,7 @@ shai/
 │   │   ├── C-A03  shai-code-reviewer                🟡  Should
 │   │   ├── C-A04  shai-scaffolder                   🔴  Should
 │   │   ├── C-A05  shai-doc-writer                   🔴  Could
-│   │   └── C-A06  shai-orchestrator                 🔴  Won't
+│   │   └── C-A06  shai-orchestrator                 🔴  Should
 │   ├── skills/
 │   │   ├── C-S01  shai-code-review                  🟡  Should
 │   │   ├── C-S02  shai-tdd-feature                  🔴  Should
@@ -89,7 +89,7 @@ shai/
 │       └── C-P03  shai-fix-ci                       🔴  Could
 ├── shai-typescript/
 │   ├── instructions/
-│   │   ├── T-I01  shai-typescript-conventions       🟡  Must
+│   │   ├── T-I01  shai-typescript-coding-standards  🟢  Must
 │   │   ├── T-I02  shai-typescript-testing           🟢  Should
 │   │   └── T-I03  shai-tsconfig-standards           🟢  Could
 │   └── skills/
@@ -114,7 +114,7 @@ shai/
 │       └── A-S02  shai-create-angular-component     🔴  Should
 ├── shai-dotnet/
 │   ├── instructions/
-│   │   ├── D-I01  shai-csharp-conventions           🟡  Must
+│   │   ├── D-I01  shai-dotnet-coding-standards      🟢  Must
 │   │   ├── D-I02  shai-dotnet-architecture          🟡  Must
 │   │   ├── D-I03  shai-dotnet-testing               🟡  Should
 │   │   ├── D-I04  shai-dotnet-di                    🔴  Could
@@ -177,13 +177,13 @@ Every project should install this.
 
 ### 1.1 Instructions
 
-| #     | Asset Name                      | Type        | applyTo   | Priority | Status | Purpose                                                                                                       | Example                                                             |
-| ----- | ------------------------------- | ----------- | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| C-I01 | `shai-general-coding-standards` | instruction | `**`      | Must     | 🟡      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const" |
-| C-I02 | `shai-error-handling`           | instruction | `**`      | Should   | 🔴      | Try/catch patterns, error boundaries, logging errors with context, custom error classes                       | "Always log errors with contextual info, use typed error classes"   |
-| C-I03 | `shai-documentation-standards`  | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"           |
-| C-I04 | `shai-logging-conventions`      | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"              |
-| C-I05 | `shai-git-conventions`          | instruction | `**`      | Should   | 🔴      | Branch naming, commit message format, PR description template                                                 | "Conventional commits: feat(scope): description"                    |
+| #     | Asset Name                     | Type        | applyTo   | Priority | Status | Purpose                                                                                                       | Example                                                             |
+| ----- | ------------------------------ | ----------- | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| C-I01 | `shai-coding-standards`        | instruction | `**`      | Must     | 🟢      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const" |
+| C-I02 | `shai-error-handling`          | instruction | `**`      | Should   | 🔴      | Try/catch patterns, error boundaries, logging errors with context, custom error classes                       | "Always log errors with contextual info, use typed error classes"   |
+| C-I03 | `shai-documentation-standards` | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"           |
+| C-I04 | `shai-logging-conventions`     | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"              |
+| C-I05 | `shai-git-conventions`         | instruction | `**`      | Should   | 🔴      | Branch naming, commit message format, PR description template                                                 | "Conventional commits: feat(scope): description"                    |
 
 ### 1.2 Agents
 
@@ -238,11 +238,11 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 
 ### 2.1 Instructions
 
-| #     | Asset Name                    | Type        | applyTo                     | Priority | Status | Purpose                                                                                                                     | Example                                                                      |
-| ----- | ----------------------------- | ----------- | --------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| T-I01 | `shai-typescript-conventions` | instruction | `**/*.ts,**/*.tsx`          | Must     | 🟡      | Strict TS rules: prefer `interface` over `type` for objects, use discriminated unions, no `any`, barrel files, path aliases | "Use `interface` for data shapes, `type` for unions/intersections"           |
-| T-I02 | `shai-typescript-testing`     | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟢      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
-| T-I03 | `shai-tsconfig-standards`     | instruction | `**/tsconfig*.json`         | Could    | 🟢      | Strict mode, path aliases, module resolution, recommended compiler options                                                  | "Always enable strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes" |
+| #     | Asset Name                         | Type        | applyTo                     | Priority | Status | Purpose                                                                                                                     | Example                                                                      |
+| ----- | ---------------------------------- | ----------- | --------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| T-I01 | `shai-typescript-coding-standards` | instruction | `**/*.ts,**/*.tsx`          | Must     | 🟢      | Strict TS rules: prefer `interface` over `type` for objects, use discriminated unions, no `any`, barrel files, path aliases | "Use `interface` for data shapes, `type` for unions/intersections"           |
+| T-I02 | `shai-typescript-testing`          | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟢      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
+| T-I03 | `shai-tsconfig-standards`          | instruction | `**/tsconfig*.json`         | Could    | 🟢      | Strict mode, path aliases, module resolution, recommended compiler options                                                  | "Always enable strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes" |
 
 ### 2.2 Skills
 
@@ -302,13 +302,13 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 
 ### 5.1 Instructions
 
-| #     | Asset Name                 | Type        | applyTo                                     | Priority | Status | Purpose                                                                                                                   | Example                                                                   |
-| ----- | -------------------------- | ----------- | ------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| D-I01 | `shai-csharp-conventions`  | instruction | `**/*.cs`                                   | Must     | 🟡      | C# naming (PascalCase public, `_camelCase` private), nullable reference types, records vs classes, file-scoped namespaces | "Enable nullable, use `_name` for private fields, file-scoped namespaces" |
-| D-I02 | `shai-dotnet-architecture` | instruction | `**/*.cs`                                   | Must     | 🟡      | Clean Architecture layers, DDD aggregates/entities/value objects, CQRS with MediatR                                       | "Domain layer has no dependencies, use Value Objects for identifiers"     |
-| D-I03 | `shai-dotnet-testing`      | instruction | `**/*Tests.cs,**/*Test.cs`                  | Should   | 🟡      | xUnit conventions, FluentAssertions, NSubstitute, test naming (`Method_Scenario_Expected`), test containers               | "Use FluentAssertions, NSubstitute, Arrange-Act-Assert"                   |
-| D-I04 | `shai-dotnet-di`           | instruction | `**/Startup.cs,**/Program.cs,**/*Module.cs` | Could    | 🔴      | DI registration conventions, Autofac modules, keyed services, health checks                                               | "Register via modules, interface → implementation, prefer scoped"         |
-| D-I05 | `shai-dotnet-api-design`   | instruction | `**/*Controller.cs,**/*Endpoint.cs`         | Could    | 🔴      | REST API patterns: minimal APIs or controllers, versioning, error responses (ProblemDetails), validation                  | "Use ProblemDetails for errors, FluentValidation for request validation"  |
+| #     | Asset Name                     | Type        | applyTo                                     | Priority | Status | Purpose                                                                                                                   | Example                                                                   |
+| ----- | ------------------------------ | ----------- | ------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| D-I01 | `shai-dotnet-coding-standards` | instruction | `**/*.cs`                                   | Must     | 🟢      | C# naming (PascalCase public, `_camelCase` private), nullable reference types, records vs classes, file-scoped namespaces | "Enable nullable, use `_name` for private fields, file-scoped namespaces" |
+| D-I02 | `shai-dotnet-architecture`     | instruction | `**/*.cs`                                   | Must     | 🟡      | Clean Architecture layers, DDD aggregates/entities/value objects, CQRS with MediatR                                       | "Domain layer has no dependencies, use Value Objects for identifiers"     |
+| D-I03 | `shai-dotnet-testing`          | instruction | `**/*Tests.cs,**/*Test.cs`                  | Should   | 🟡      | xUnit conventions, FluentAssertions, NSubstitute, test naming (`Method_Scenario_Expected`), test containers               | "Use FluentAssertions, NSubstitute, Arrange-Act-Assert"                   |
+| D-I04 | `shai-dotnet-di`               | instruction | `**/Startup.cs,**/Program.cs,**/*Module.cs` | Could    | 🔴      | DI registration conventions, Autofac modules, keyed services, health checks                                               | "Register via modules, interface → implementation, prefer scoped"         |
+| D-I05 | `shai-dotnet-api-design`       | instruction | `**/*Controller.cs,**/*Endpoint.cs`         | Could    | 🔴      | REST API patterns: minimal APIs or controllers, versioning, error responses (ProblemDetails), validation                  | "Use ProblemDetails for errors, FluentValidation for request validation"  |
 
 ### 5.2 Agents
 
@@ -324,7 +324,7 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 | #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                               |
 | ----- | -------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------- |
 | D-S01 | `shai-scaffold-dotnet-app` | skill | Must     | 🟡      | Scaffold .NET solution: Clean Architecture layers, projects, base classes, DI wiring  |
-| D-S02 | `shai-unit-testing-dotnet` | skill | Should   | �      | Write .NET unit tests: fixture setup, mocking, assertion patterns, test data builders |
+| D-S02 | `shai-unit-testing-dotnet` | skill | Should   | 🟡      | Write .NET unit tests: fixture setup, mocking, assertion patterns, test data builders |
 | D-S03 | `shai-add-migration`       | skill | Should   | 🟡      | EF Core migration workflow: create migration, review SQL, update database             |
 | D-S04 | `shai-dotnet-package`      | skill | Could    | 🟡      | Package & publish NuGet: versioning, csproj config, CI integration                    |
 
@@ -456,34 +456,34 @@ Use this plugin at the start of any new feature or product initiative.
 
 The following assets have prior work in the `obsolete/` folder that can be used as starting points:
 
-| Asset ID | Name                          | Legacy source                                             |
-| -------- | ----------------------------- | --------------------------------------------------------- |
-| C-I01    | shai-general-coding-standards | `obsolete/dotgithub/copilot-instructions.md`              |
-| C-I03    | shai-documentation-standards  | `obsolete/readme-style.instructions.md`                   |
-| C-A01    | shai-architect                | `obsolete/claude/agents/dotnet-architect.md` (generalize) |
-| C-A03    | shai-code-reviewer            | `obsolete/claude/skills/code-review/`                     |
-| C-S01    | shai-code-review              | `obsolete/claude/skills/code-review/`                     |
-| C-S03    | shai-add-feature              | `obsolete/claude/skills/add-feature/`                     |
-| C-S07    | shai-create-skill             | `obsolete/dotgithub/skills/create-skill/`                 |
-| C-S08    | shai-create-agent             | `obsolete/dotgithub/skills/create-agent/`                 |
-| T-I01    | shai-typescript-conventions   | `obsolete/typescript-project.instructions.md`             |
-| T-I02    | shai-typescript-testing       | `obsolete/typescript-tests.instructions.md`               |
-| T-S01    | shai-scaffold-ts-project      | `obsolete/typescript-workspace.instructions.md`           |
-| T-S02    | shai-unit-testing-ts          | `obsolete/typescript-tests.instructions.md`               |
-| R-I01    | shai-react-components         | `obsolete/react-components.instructions.md`               |
-| R-S01    | shai-scaffold-react-app       | `obsolete/react-components.instructions.md` (partial)     |
-| A-I01    | shai-angular-components       | `obsolete/angular-components.instructions.md`             |
-| D-I01    | shai-csharp-conventions       | `obsolete/csharp-project.instructions.md`                 |
-| D-I02    | shai-dotnet-architecture      | `obsolete/claude/agents/dotnet-architect.md`              |
-| D-I03    | shai-dotnet-testing           | `obsolete/csharp-unit-tests.instructions.md`              |
-| D-A01–04 | shai-dotnet-* agents          | `obsolete/claude/agents/dotnet-*.md`                      |
-| D-S01–04 | shai-dotnet-* skills          | `obsolete/claude/skills/`                                 |
-| N-I01    | shai-nodejs-conventions       | `obsolete/nodejs-scaffold.instructions.md`                |
-| N-S01    | shai-scaffold-node-app        | `obsolete/nodejs-scaffold.instructions.md`                |
-| F-S01    | shai-scaffold-firebase-app    | `obsolete/nodejs-scaffold.instructions.md` (partial)      |
-| P-I01    | shai-playwright-conventions   | `obsolete/claude/skills/write-e2e-test/`                  |
-| P-A01–03 | shai-playwright-* agents      | `obsolete/claude/agents/playwright-*.md`                  |
-| P-S01–04 | shai-playwright-* skills      | `obsolete/claude/skills/`                                 |
+| Asset ID | Name                             | Legacy source                                                                  |
+| -------- | -------------------------------- | ------------------------------------------------------------------------------ |
+| C-I01    | shai-coding-standards            | `drafts/shai-core/instructions/shai-coding-standards.instructions.md`          |
+| C-I03    | shai-documentation-standards     | `obsolete/readme-style.instructions.md`                                        |
+| C-A01    | shai-architect                   | `obsolete/claude/agents/dotnet-architect.md` (generalize)                      |
+| C-A03    | shai-code-reviewer               | `obsolete/claude/skills/code-review/`                                          |
+| C-S01    | shai-code-review                 | `obsolete/claude/skills/code-review/`                                          |
+| C-S03    | shai-add-feature                 | `obsolete/claude/skills/add-feature/`                                          |
+| C-S07    | shai-create-skill                | `obsolete/dotgithub/skills/create-skill/`                                      |
+| C-S08    | shai-create-agent                | `obsolete/dotgithub/skills/create-agent/`                                      |
+| T-I01    | shai-typescript-coding-standards | `drafts/shai-typescript/instructions/shai-ts-coding-standards.instructions.md` |
+| T-I02    | shai-typescript-testing          | `obsolete/typescript-tests.instructions.md`                                    |
+| T-S01    | shai-scaffold-ts-project         | `obsolete/typescript-workspace.instructions.md`                                |
+| T-S02    | shai-unit-testing-ts             | `obsolete/typescript-tests.instructions.md`                                    |
+| R-I01    | shai-react-components            | `obsolete/react-components.instructions.md`                                    |
+| R-S01    | shai-scaffold-react-app          | `obsolete/react-components.instructions.md` (partial)                          |
+| A-I01    | shai-angular-components          | `obsolete/angular-components.instructions.md`                                  |
+| D-I01    | shai-dotnet-coding-standards     | `drafts/shai-dotnet/instructions/shai-dotnet-coding-standards.instructions.md` |
+| D-I02    | shai-dotnet-architecture         | `obsolete/claude/agents/dotnet-architect.md`                                   |
+| D-I03    | shai-dotnet-testing              | `obsolete/csharp-unit-tests.instructions.md`                                   |
+| D-A01–04 | shai-dotnet-* agents             | `obsolete/claude/agents/dotnet-*.md`                                           |
+| D-S01–04 | shai-dotnet-* skills             | `obsolete/claude/skills/`                                                      |
+| N-I01    | shai-nodejs-conventions          | `obsolete/nodejs-scaffold.instructions.md`                                     |
+| N-S01    | shai-scaffold-node-app           | `obsolete/nodejs-scaffold.instructions.md`                                     |
+| F-S01    | shai-scaffold-firebase-app       | `obsolete/nodejs-scaffold.instructions.md` (partial)                           |
+| P-I01    | shai-playwright-conventions      | `obsolete/claude/skills/write-e2e-test/`                                       |
+| P-A01–03 | shai-playwright-* agents         | `obsolete/claude/agents/playwright-*.md`                                       |
+| P-S01–04 | shai-playwright-* skills         | `obsolete/claude/skills/`                                                      |
 
 ### MCP dependencies (external, not shai assets)
 

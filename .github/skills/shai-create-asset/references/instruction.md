@@ -101,7 +101,7 @@ Consistent naming reduces cognitive load and makes code searchable.
 Link to related instructions using Markdown links:
 
 ```markdown
-Apply the [general coding guidelines](./shai-general-coding-standards.instructions.md)
+Apply the [general coding guidelines](./shai-coding-standards.instructions.md)
 to all code in addition to these framework-specific rules.
 ```
 

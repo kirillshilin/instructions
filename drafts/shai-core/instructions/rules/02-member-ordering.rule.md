@@ -2,12 +2,12 @@
 applyTo: "**"
 ---
 
-# Member Ordering
+## Member Ordering
 
 Consistent ordering makes classes scannable — public API at the top, internals
 at the bottom.
 
-## Ordering
+### Ordering
 
 Public members first, private members last. Within each visibility level, group
 by kind: fields → constructors → methods.
@@ -26,22 +26,20 @@ Why: readers care about the public API first. Private implementation details are
 relevant only when digging deeper. Top-to-bottom matches how consumers discover
 a class.
 
-## One Item Per File
+### One Item Per File
 
-Prefer one class, interface, or component per file — especially in .NET where
-this is a strong convention.
+One class, interface, or component per file — a strong convention in .NET.
 
-**TypeScript exception:** private helper models (small types used only by the
-main export) may live in the same file. Prefer extracting to a separate file
-when the helper grows beyond a few lines or is referenced elsewhere.
+**TypeScript exception:** private helper models used only by the main export may co-locate. Extract when the helper grows or is referenced elsewhere.
 
 **Preferred:**
-```
+
+```csharp
 UserService.cs          → contains UserService
 UserRepository.cs       → contains IUserRepository + UserRepository (interface + impl is OK in .NET)
 ```
 
-```
+```typescript
 user-service.ts         → contains UserService
 user.model.ts           → contains User interface
 ```

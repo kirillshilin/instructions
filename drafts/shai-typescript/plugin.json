@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "publisher": "shai",
   "instructions": [
-    "instructions/shai-typescript-conventions.instructions.md",
+    "instructions/shai-typescript-coding-standards.instructions.md",
     "instructions/shai-typescript-testing.instructions.md",
     "instructions/shai-tsconfig-standards.instructions.md"
   ],

@@ -46,7 +46,7 @@ function resolvePartials(content, baseDir, seen) {
     }
 
     if (!fs.existsSync(resolved)) {
-      console.warn(`  ⚠  Partial not found: ${refPath} (resolved to ${resolved})`);
+      console.warn(`\x1b[31m  ⚠  Partial not found: ${refPath} (resolved to ${resolved})\x1b[0m`);
       return `<!-- missing: ${refPath} -->`;
     }
 

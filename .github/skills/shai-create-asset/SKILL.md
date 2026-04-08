@@ -5,7 +5,7 @@ description: >
   following the shai plugin system plan in 02-shai-asset-reference.md. Use this
   skill whenever the user wants to create, build, scaffold, or implement any
   shai asset — whether referenced by ID (like T-I01, C-A03, D-S02) or by name
-  (like shai-typescript-conventions, shai-architect, shai-code-review). Also use
+  (like shai-typescript-coding-standards, shai-architect, shai-code-review). Also use
   when the user says "build the next asset", "create asset", "implement
   [asset name]", or references any asset from the shai asset reference document.
   Even if the user just says an asset ID like "C-I01" with no other context,
@@ -28,7 +28,7 @@ Parse the user's input to identify which asset to create.
 
 **Accept either format:**
 - Asset ID: `T-I01`, `C-A03`, `D-S02`, `R-S01`
-- Asset name: `shai-typescript-conventions`, `shai-architect`, `shai-code-review`
+- Asset name: `shai-typescript-coding-standards`, `shai-architect`, `shai-code-review`
 
 **Lookup procedure:**
 1. Read [research/02-shai-asset-reference.md](../../../research/02-shai-asset-reference.md)
@@ -263,7 +263,7 @@ drafts/
 ```
 
 Examples:
-- `drafts/shai-core/instructions/shai-general-coding-standards.instructions.md`
+- `drafts/shai-core/instructions/shai-coding-standards.instructions.md`
 - `drafts/shai-core/skills/shai-code-review/SKILL.md`
 - `drafts/shai-core/agents/shai-architect.agent.md`
 - `drafts/shai-core/hooks/shai-format-on-edit.json`
