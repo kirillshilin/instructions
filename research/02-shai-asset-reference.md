@@ -54,10 +54,8 @@ shai/
 ├── shai-core/
 │   ├── instructions/
 │   │   ├── C-I01  shai-coding-standards             🟢  Must
-│   │   ├── C-I02  shai-error-handling               🔴  Should
 │   │   ├── C-I03  shai-documentation-standards      🟡  Should
-│   │   ├── C-I04  shai-logging-conventions          🔴  Could
-│   │   └── C-I05  shai-git-conventions              🔴  Should
+│   │   └── C-I04  shai-logging-conventions          🔴  Could
 │   ├── agents/
 │   │   ├── C-A01  shai-architect                    🟡  Must
 │   │   ├── C-A02  shai-planner                      🔴  Must
@@ -67,7 +65,7 @@ shai/
 │   │   └── C-A06  shai-orchestrator                 🔴  Should
 │   ├── skills/
 │   │   ├── C-S01  shai-code-review                  🟡  Should
-│   │   ├── C-S02  shai-tdd-feature                  🔴  Should
+│   │   ├── C-S02  shai-tdd-feature                  🟢  Should
 │   │   ├── C-S03  shai-add-feature                  🟡  Should
 │   │   ├── C-S04  shai-scaffold-component           🔴  Should
 │   │   ├── C-S05  shai-setup-tailwind               🔴  Could
@@ -76,7 +74,7 @@ shai/
 │   │   ├── C-S08  shai-create-agent                 🟡  Could
 │   │   ├── C-S09  shai-pr-preparation               🔴  Should
 │   │   ├── C-S10  shai-research-docs                🔴  Could
-│   │   ├── C-S11  shai-security-audit               🔴  Should
+│   │   ├── C-S11  shai-security-audit               🔴  Won't
 │   │   └── C-S12  shai-software-design              🟢  Must
 │   ├── hooks/
 │   │   ├── C-H01  shai-format-on-edit               🔴  Should
@@ -98,7 +96,6 @@ shai/
 ├── shai-react/
 │   ├── instructions/
 │   │   ├── R-I01  shai-react-components             🟡  Must
-│   │   ├── R-I02  shai-react-state-management       🔴  Should
 │   │   └── R-I03  shai-react-testing                🔴  Should
 │   └── skills/
 │       ├── R-S01  shai-scaffold-react-app           🟡  Must
@@ -131,7 +128,6 @@ shai/
 │       └── D-S04  shai-dotnet-package               🟡  Could
 ├── shai-node/
 │   ├── instructions/
-│   │   ├── N-I01  shai-nodejs-conventions           🟡  Must
 │   │   └── N-I02  shai-express-patterns             🔴  Should
 │   └── skills/
 │       └── N-S01  shai-scaffold-node-app            🟡  Should
@@ -180,10 +176,8 @@ Every project should install this.
 | #     | Asset Name                     | Type        | applyTo   | Priority | Status | Purpose                                                                                                       | Example                                                             |
 | ----- | ------------------------------ | ----------- | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | C-I01 | `shai-coding-standards`        | instruction | `**`      | Must     | 🟢      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const" |
-| C-I02 | `shai-error-handling`          | instruction | `**`      | Should   | 🔴      | Try/catch patterns, error boundaries, logging errors with context, custom error classes                       | "Always log errors with contextual info, use typed error classes"   |
 | C-I03 | `shai-documentation-standards` | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"           |
 | C-I04 | `shai-logging-conventions`     | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"              |
-| C-I05 | `shai-git-conventions`         | instruction | `**`      | Should   | 🔴      | Branch naming, commit message format, PR description template                                                 | "Conventional commits: feat(scope): description"                    |
 
 ### 1.2 Agents
 
@@ -259,11 +253,10 @@ React + TypeScript + Tailwind + shadcn patterns. Depends on shai-typescript.
 
 ### 3.1 Instructions
 
-| #     | Asset Name                    | Type        | applyTo                       | Priority | Status | Purpose                                                                                                         | Example                                                                     |
-| ----- | ----------------------------- | ----------- | ----------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| R-I01 | `shai-react-components`       | instruction | `**/*.tsx`                    | Must     | 🟡      | Functional components, hooks rules, prop types, composition patterns, CSS modules vs Tailwind                   | "Use `React.FC` sparingly, prefer explicit props interface, no `any` props" |
-| R-I02 | `shai-react-state-management` | instruction | `**/*.tsx,**/*.ts`            | Should   | 🔴      | State management patterns: useState/useReducer for local, context or zustand for shared, react-query for server | "Colocate state, lift only when needed, use react-query for API data"       |
-| R-I03 | `shai-react-testing`          | instruction | `**/*.test.tsx,**/*.spec.tsx` | Should   | 🔴      | React Testing Library patterns, what to test (behavior not implementation), accessibility queries               | "Prefer getByRole over getByTestId, test user interactions"                 |
+| #     | Asset Name              | Type        | applyTo                       | Priority | Status | Purpose                                                                                           | Example                                                                     |
+| ----- | ----------------------- | ----------- | ----------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| R-I01 | `shai-react-components` | instruction | `**/*.tsx`                    | Must     | 🟡      | Functional components, hooks rules, prop types, composition patterns, CSS modules vs Tailwind     | "Use `React.FC` sparingly, prefer explicit props interface, no `any` props" |
+| R-I03 | `shai-react-testing`    | instruction | `**/*.test.tsx,**/*.spec.tsx` | Should   | 🔴      | React Testing Library patterns, what to test (behavior not implementation), accessibility queries | "Prefer getByRole over getByTestId, test user interactions"                 |
 
 ### 3.2 Skills
 
@@ -336,10 +329,9 @@ Node.js / Express backend patterns.
 
 ### 6.1 Instructions
 
-| #     | Asset Name                | Type        | applyTo                                   | Priority | Status | Purpose                                                                                     | Example                                                            |
-| ----- | ------------------------- | ----------- | ----------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| N-I01 | `shai-nodejs-conventions` | instruction | `**/*.js,**/*.mjs,**/*.ts` (Node context) | Must     | 🟡      | Project structure, ES modules, environment config, package.json scripts, folder conventions | "Use ES modules, env vars via dotenv, scripts for build/test/lint" |
-| N-I02 | `shai-express-patterns`   | instruction | `**/routes/**,**/middleware/**`           | Should   | 🔴      | Express middleware, router structure, error handling middleware, request validation         | "Centralized error handler, validation middleware with Joi/Zod"    |
+| #     | Asset Name              | Type        | applyTo                         | Priority | Status | Purpose                                                                             | Example                                                         |
+| ----- | ----------------------- | ----------- | ------------------------------- | -------- | ------ | ----------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| N-I02 | `shai-express-patterns` | instruction | `**/routes/**,**/middleware/**` | Should   | 🔴      | Express middleware, router structure, error handling middleware, request validation | "Centralized error handler, validation middleware with Joi/Zod" |
 
 ### 6.2 Skills
 
@@ -478,7 +470,6 @@ The following assets have prior work in the `obsolete/` folder that can be used 
 | D-I03    | shai-dotnet-testing              | `obsolete/csharp-unit-tests.instructions.md`                                   |
 | D-A01–04 | shai-dotnet-* agents             | `obsolete/claude/agents/dotnet-*.md`                                           |
 | D-S01–04 | shai-dotnet-* skills             | `obsolete/claude/skills/`                                                      |
-| N-I01    | shai-nodejs-conventions          | `obsolete/nodejs-scaffold.instructions.md`                                     |
 | N-S01    | shai-scaffold-node-app           | `obsolete/nodejs-scaffold.instructions.md`                                     |
 | F-S01    | shai-scaffold-firebase-app       | `obsolete/nodejs-scaffold.instructions.md` (partial)                           |
 | P-I01    | shai-playwright-conventions      | `obsolete/claude/skills/write-e2e-test/`                                       |
@@ -502,9 +493,9 @@ These are external MCP servers that shai skills/agents may reference as tools:
 ## Recommended Build Order
 
 ### Phase 1 — Must Have
-1. `shai-core` instructions (C-I01, C-I05 shai-git-conventions, C-I06 shai-software-design)
+1. `shai-core` instructions (C-I01, C-I06 shai-software-design)
 2. `shai-core` agents — `shai-architect` (C-A01), `shai-planner` (C-A02)
-3. Framework instructions — one per active stack (T-I01, R-I01, A-I01, D-I01, D-I02, N-I01, F-I01, P-I01)
+3. Framework instructions — one per active stack (T-I01, R-I01, A-I01, D-I01, D-I02, F-I01, P-I01)
 4. Key scaffolding skills (R-S01 shai-scaffold-react-app, D-S01 shai-scaffold-dotnet-app, P-S01 shai-setup-playwright)
 5. `shai-product` discovery skills (V-S01 shai-idea-evaluation, V-S02 shai-feature-mapping, V-S03 shai-story-decomposition, V-S04 shai-task-breakdown)
 

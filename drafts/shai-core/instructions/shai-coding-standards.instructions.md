@@ -27,3 +27,5 @@ Write **intentionally simple** code. Every abstraction must solve a real, named 
 
 {rules/05-comments.rule.md}
 
+{rules/06-error-handling.rule.md}
+
