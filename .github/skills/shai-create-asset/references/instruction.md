@@ -3,7 +3,7 @@
 Format spec and writing guide for `.instructions.md` files in the SHAI plugin system.
 
 > **Source documentation:** For the full VS Code spec, read
-> [research/vscode-docs/02-instructions.md](../../../research/vscode-docs/02-instructions.md)
+> [vscode-docs/02-instructions.md](vscode-docs/02-instructions.md)
 > — covers instruction types, scoping, precedence, and settings.
 
 > **Content sources:** Always use `/find-skills` to search for community skills

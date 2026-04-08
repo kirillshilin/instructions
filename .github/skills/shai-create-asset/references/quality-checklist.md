@@ -3,12 +3,12 @@
 Run this checklist after generating any SHAI asset. Report results to the user.
 
 > **Source documentation:** Cross-check against the canonical VS Code docs:
-> [02-instructions.md](../../../research/vscode-docs/02-instructions.md),
-> [03-prompt-files.md](../../../research/vscode-docs/03-prompt-files.md),
-> [04-custom-agents.md](../../../research/vscode-docs/04-custom-agents.md),
-> [05-agent-skill.md](../../../research/vscode-docs/05-agent-skill.md),
-> [06-hooks.md](../../../research/vscode-docs/06-hooks.md),
-> [07-plugins.md](../../../research/vscode-docs/07-plugins.md).
+> [02-instructions.md](vscode-docs/02-instructions.md),
+> [03-prompt-files.md](vscode-docs/03-prompt-files.md),
+> [04-custom-agents.md](vscode-docs/04-custom-agents.md),
+> [05-agent-skill.md](vscode-docs/05-agent-skill.md),
+> [06-hooks.md](vscode-docs/06-hooks.md),
+> [07-plugins.md](vscode-docs/07-plugins.md).
 
 ## Universal Checks (all asset types)
 

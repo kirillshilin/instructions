@@ -3,7 +3,7 @@
 Format spec and writing guide for `.agent.md` files in the SHAI plugin system.
 
 > **Source documentation:** For the full VS Code spec, read
-> [research/vscode-docs/04-custom-agents.md](../../../research/vscode-docs/04-custom-agents.md)
+> [vscode-docs/04-custom-agents.md](vscode-docs/04-custom-agents.md)
 > — covers agent file format, tools, model selection, handoffs, and agent modes.
 
 > **Content sources:** Always use `/find-skills` to search for community skills

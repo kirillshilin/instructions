@@ -65,7 +65,7 @@ fields, templates, and asset-specific writing guidance.
 Run these research steps in parallel where possible. The goal is to arrive at the
 interview step with concrete proposals, not blank questions.
 
-**Track every source.** As you work through 3a–3d, mentally note which sources you
+**Track every source.** As you work through 3a–3e, mentally note which sources you
 consulted, what you extracted (or didn't), and why. You'll report this in the
 Resource Provenance Summary at the end — the user needs to see exactly where the
 asset's content came from.
@@ -129,7 +129,24 @@ search the user's current workspace for existing patterns:
 - Check for existing tests, component patterns, project structure
 - Note any framework versions in use
 
-### 3d. Check web documentation
+### 3d. Check VS Code documentation
+
+For any VS Code customization asset (instruction, skill, agent, hook, prompt),
+read the relevant files from [references/vscode-docs/](references/vscode-docs/).
+These are the official VS Code docs for each customization type:
+
+| Asset type  | VS Code doc file                                                           |
+| ----------- | -------------------------------------------------------------------------- |
+| instruction | [references/vscode-docs/02-instructions.md](references/vscode-docs/02-instructions.md) |
+| prompt      | [references/vscode-docs/03-prompt-files.md](references/vscode-docs/03-prompt-files.md) |
+| agent       | [references/vscode-docs/04-custom-agents.md](references/vscode-docs/04-custom-agents.md) |
+| skill       | [references/vscode-docs/05-agent-skill.md](references/vscode-docs/05-agent-skill.md)   |
+| hook        | [references/vscode-docs/06-hooks.md](references/vscode-docs/06-hooks.md)               |
+
+Start with [references/vscode-docs/01-overview.md](references/vscode-docs/01-overview.md)
+for cross-cutting concepts. Read the type-specific file for the asset you are creating.
+
+### 3e. Check web documentation
 
 For framework/library-specific assets, fetch the official documentation for the
 latest stable version to ensure the asset reflects current best practices.
@@ -302,14 +319,15 @@ Use exactly this format:
 
 ### Sources
 
-| #   | Source                                   | Status                      | Details                                         |
-| --- | ---------------------------------------- | --------------------------- | ----------------------------------------------- |
-| 1   | **Legacy draft** (`obsolete/{file}`)     | ✅ Used / ⏭️ Not available    | What was extracted or why skipped               |
-| 2   | **Community skills** (`npx skills find`) | ✅ Used / ⏭️ No relevant hits | Skill name, what patterns were borrowed         |
-| 3   | **Web documentation** (fetched URL)      | ✅ Used / ⏭️ Skipped          | What was fetched and what it contributed        |
-| 4   | **User recommendations** (interview)     | ✅ Used / ⏭️ No input         | Key preferences that shaped the asset           |
-| 5   | **Workspace analysis**                   | ✅ Used / ⏭️ Not applicable   | Conventions or patterns found in codebase       |
-| 6   | **Other**                                | ✅ Used / ⏭️ N/A              | Any additional sources (reference skills, etc.) |
+| #   | Source                                                        | Status                      | Details                                                      |
+| --- | ------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------ |
+| 1   | **Legacy draft** (`obsolete/{file}`)                          | ✅ Used / ⏭️ Not available    | What was extracted or why skipped                            |
+| 2   | **Community skills** (`npx skills find`)                      | ✅ Used / ⏭️ No relevant hits | Skill name, what patterns were borrowed                      |
+| 3   | **VS Code docs** (`references/vscode-docs/{type}.md`)         | ✅ Used / ⏭️ Not applicable   | Which doc file was read and what it contributed              |
+| 4   | **Web documentation** (fetched URL)                           | ✅ Used / ⏭️ Skipped          | What was fetched and what it contributed                     |
+| 5   | **User recommendations** (interview)                          | ✅ Used / ⏭️ No input         | Key preferences that shaped the asset                        |
+| 6   | **Workspace analysis**                                        | ✅ Used / ⏭️ Not applicable   | Conventions or patterns found in codebase                    |
+| 7   | **Other**                                                     | ✅ Used / ⏭️ N/A              | Any additional sources (reference skills, etc.)              |
 ```
 
 **Rules for the summary:**
@@ -318,6 +336,8 @@ Use exactly this format:
 - For "Community skills", list the actual skill names and install counts found
   via `npx skills find`. If skills were found but not used, explain why (e.g.
   low quality, irrelevant domain, outdated).
+- For "VS Code docs", name the specific file(s) from `references/vscode-docs/`
+  that were read. If the asset is not VS Code-specific, mark as `⏭️ Not applicable`.
 - For "Web documentation", list the actual URLs fetched. If no fetch was needed,
   say why (e.g. "asset is framework-agnostic").
 - For "Legacy draft", name the specific file from `obsolete/` or state that the

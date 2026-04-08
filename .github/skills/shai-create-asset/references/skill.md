@@ -3,7 +3,7 @@
 Format spec and writing guide for Agent Skills (SKILL.md) in the SHAI plugin system.
 
 > **Source documentation:** For the full VS Code spec, read
-> [research/vscode-docs/05-agent-skill.md](../../../research/vscode-docs/05-agent-skill.md)
+> [vscode-docs/05-agent-skill.md](vscode-docs/05-agent-skill.md)
 > — covers the open standard, discovery, installation, and runtime behavior.
 > For the agentskills.io format spec, see the [agentskills.io specification](https://agentskills.io).
 
