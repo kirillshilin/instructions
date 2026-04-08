@@ -3,7 +3,7 @@
 Format spec and writing guide for hook JSON files in the SHAI plugin system.
 
 > **Source documentation:** For the full VS Code spec, read
-> [research/vscode-docs/06-hooks.md](../../../research/vscode-docs/06-hooks.md)
+> [vscode-docs/06-hooks.md](vscode-docs/06-hooks.md)
 > — covers lifecycle events, JSON schema, environment variables, and security.
 
 > **Content sources:** Always use `/find-skills` to search for community skills

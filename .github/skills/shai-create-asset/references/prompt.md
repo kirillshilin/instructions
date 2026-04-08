@@ -3,7 +3,7 @@
 Format spec and writing guide for `.prompt.md` files in the SHAI plugin system.
 
 > **Source documentation:** For the full VS Code spec, read
-> [research/vscode-docs/03-prompt-files.md](../../../research/vscode-docs/03-prompt-files.md)
+> [vscode-docs/03-prompt-files.md](vscode-docs/03-prompt-files.md)
 > — covers prompt file format, locations, input variables, and invocation.
 
 > **Content sources:** Always use `/find-skills` to search for community skills
