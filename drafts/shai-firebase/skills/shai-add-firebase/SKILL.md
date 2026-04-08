@@ -155,6 +155,7 @@ export const RUNTIME_OPTIONS = {
 2. Create `src/lib/admin.ts`:
 
 ```typescript
+/** Initialises the Firebase Admin SDK once and exports the Firestore instance for reuse across all functions. */
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 

@@ -94,7 +94,7 @@ export const onUserCreated = onDocumentCreated(
     if (!snapshot) return;
 
     const userData = snapshot.data();
-    await userService.handleNewUser(event.params.userId, userData);
+    await userService.initializeNewUser(event.params.userId, userData);
   },
 );
 ```
@@ -119,7 +119,7 @@ Services are **constructed once at app start** and hold all domain logic:
 import { db } from "../lib/db";
 
 class UserService {
-  async handleNewUser(userId: string, userData: Record<string, unknown>): Promise<void> {
+  async initializeNewUser(userId: string, userData: Record<string, unknown>): Promise<void> {
     // Business logic here — e.g. send welcome email, create profile doc
     await db.collection("profiles").doc(userId).set({
       displayName: userData.displayName ?? "Anonymous",
