@@ -64,7 +64,7 @@ Keep it light — don't force answers. Sensible defaults for everything.
 Use the official CLI with recommended flags:
 
 ```bash
-npx create-next-app@latest <project-name> \
+npx create-next-app@latest {project-name} \
   --typescript \
   --tailwind \
   --eslint \
@@ -72,7 +72,7 @@ npx create-next-app@latest <project-name> \
   --src-dir \
   --import-alias "@/*" \
   --turbopack \
-  --use-<package-manager>
+  --use-{package-manager}
 ```
 
 All flags explained:

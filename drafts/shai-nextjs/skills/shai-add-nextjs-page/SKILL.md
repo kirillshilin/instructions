@@ -73,7 +73,7 @@ Map the route to App Router file conventions:
 | `/blog`                    | `src/app/blog/`                                   | `page.tsx`, `layout.tsx`                   |
 | `/blog/[slug]`             | `src/app/blog/[slug]/`                            | `page.tsx`                                 |
 | `/blog/[...slug]`          | `src/app/blog/[...slug]/`                         | `page.tsx`                                 |
-| `/dashboard` (with layout) | `src/app/(dashboard)/`                           | `layout.tsx` + child folders               |
+| `/dashboard/*` (grouped)   | `src/app/(dashboard)/overview/`, `.../settings/` | shared `layout.tsx` + child `page.tsx`     |
 | `/login`, `/register`      | `src/app/(auth)/login/`, `src/app/(auth)/register/` | `page.tsx` per route, shared `layout.tsx` |
 
 **File convention reference:**
