@@ -52,12 +52,12 @@ Ask the user (or infer from context):
 2. **Package manager** — `npm`, `pnpm`, or `yarn` (default: `npm`)
 3. **Source directory** — use `src/` directory? (default: yes)
 4. **Import alias** — path alias prefix (default: `@/`)
-5. **Extra integrations** — does the user want any of these?
-   - **shadcn/ui** — component library built on Radix + Tailwind
-   - **ESLint** — included by default via `create-next-app`
-   - **Turbopack** — use Turbopack for dev server (default: yes)
+5. **shadcn/ui** — install the shadcn/ui component library? (default: no) —
+   built on Radix + Tailwind, provides accessible UI primitives
+6. **Turbopack** — use Turbopack for dev server? (default: yes)
 
 Keep it light — don't force answers. Sensible defaults for everything.
+ESLint is included by default via `create-next-app` — no need to ask.
 
 ### Step 2: Run create-next-app
 
@@ -103,10 +103,12 @@ The CLI gives a minimal structure. Enhance it to be production-ready.
 │   │   ├── layout.tsx            ← root layout (html, body, fonts, metadata)
 │   │   ├── page.tsx              ← home page
 │   │   ├── not-found.tsx         ← custom 404 page
-│   │   ├── error.tsx             ← root error boundary (client component)
-│   │   ├── loading.tsx           ← root loading skeleton
+│   │   ├── error.tsx             ← root error boundary (re-exports shared component)
+│   │   ├── loading.tsx           ← root loading state (re-exports shared component)
 │   │   └── globals.css           ← Tailwind directives + global styles
 │   ├── components/
+│   │   ├── error-boundary.tsx    ← reusable error boundary (client component)
+│   │   ├── loading.tsx           ← reusable loading spinner
 │   │   └── ui/                   ← reusable UI primitives (buttons, inputs, cards)
 │   ├── lib/
 │   │   └── utils.ts              ← shared utility functions (e.g., cn() helper)
@@ -147,14 +149,14 @@ export default function NotFound() {
 }
 ```
 
-#### `src/app/error.tsx`
+#### `src/components/error-boundary.tsx`
 
-A root error boundary (must be a Client Component):
+A reusable error boundary component (must be a Client Component):
 
 ```tsx
 "use client";
 
-export default function Error({
+export function ErrorBoundary({
   error,
   reset,
 }: {
@@ -176,18 +178,36 @@ export default function Error({
 }
 ```
 
-#### `src/app/loading.tsx`
+#### `src/components/loading.tsx`
 
-A root loading skeleton using Tailwind:
+A reusable loading spinner component:
 
 ```tsx
-export default function Loading() {
+export function Loading() {
   return (
     <main className="flex min-h-screen items-center justify-center">
       <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
     </main>
   );
 }
+```
+
+#### `src/app/error.tsx`
+
+Root error boundary — re-exports the shared component:
+
+```tsx
+"use client";
+
+export { ErrorBoundary as default } from "@/components/error-boundary";
+```
+
+#### `src/app/loading.tsx`
+
+Root loading state — re-exports the shared component:
+
+```tsx
+export { Loading as default } from "@/components/loading";
 ```
 
 #### `src/lib/utils.ts`
@@ -218,10 +238,11 @@ export type {};
 ```
 
 Create the `src/components/ui/` directory as an empty placeholder for UI primitives.
+Create the `src/types/` directory with `index.ts`.
 
-### Step 4: Set Up shadcn/ui (Optional)
+### Step 4: Set Up shadcn/ui
 
-Only if the user requested shadcn/ui:
+Only if the user said **yes** to shadcn/ui in Step 1:
 
 ```bash
 npx shadcn@latest init

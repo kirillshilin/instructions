@@ -261,54 +261,34 @@ The `(dashboard)` folder does NOT appear in the URL.
 
 #### Loading state
 
-If the page fetches data, add a `loading.tsx` next to the `page.tsx`:
+If the page fetches data, add a `loading.tsx` next to the `page.tsx` that
+re-exports the shared `Loading` component from `src/components/loading.tsx`:
 
 ```tsx
-export default function Loading() {
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="h-8 w-48 animate-pulse rounded bg-muted" />
-      <div className="mt-6 space-y-4">
-        <div className="h-4 w-full animate-pulse rounded bg-muted" />
-        <div className="h-4 w-3/4 animate-pulse rounded bg-muted" />
-        <div className="h-4 w-1/2 animate-pulse rounded bg-muted" />
-      </div>
-    </div>
-  );
-}
+export { Loading as default } from "@/components/loading";
 ```
+
+The shared `Loading` component should already exist at `src/components/loading.tsx`
+(created during scaffolding via `shai-scaffold-nextjs-app`). If it doesn't exist,
+check `src/components/` first, then create it there — not inline in the route folder.
 
 Next.js automatically wraps the page in a `<Suspense>` boundary using this
 file. No manual Suspense setup needed.
 
 #### Error boundary
 
-If the page can fail (data fetching, external API), add an `error.tsx`:
+If the page can fail (data fetching, external API), add an `error.tsx` next to
+the `page.tsx` that re-exports the shared `ErrorBoundary` component:
 
 ```tsx
 "use client";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  return (
-    <div className="container mx-auto flex flex-col items-center gap-4 px-4 py-8">
-      <h2 className="text-xl font-bold">Something went wrong</h2>
-      <p className="text-muted-foreground">{error.message}</p>
-      <button
-        onClick={reset}
-        className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
-      >
-        Try again
-      </button>
-    </div>
-  );
-}
+export { ErrorBoundary as default } from "@/components/error-boundary";
 ```
+
+Check if the `ErrorBoundary` component exists at `src/components/error-boundary.tsx`.
+If it's missing, create it there first — the error component must be reusable
+across routes, not duplicated per page.
 
 `error.tsx` must always be a Client Component (`"use client"`).
 
