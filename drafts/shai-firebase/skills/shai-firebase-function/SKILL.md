@@ -47,7 +47,7 @@ Ask the user (or infer from context):
 
 ### Step 2: Check for Function Config
 
-Look for the config constants file at `functions/src/config/fn-config.ts`.
+Look for the config constants file at `functions/src/fn-config.ts`.
 
 If it **does not exist**, ask the user:
 
@@ -57,7 +57,7 @@ If it **does not exist**, ask the user:
 Then create the config file:
 
 ```typescript
-// functions/src/config/fn-config.ts
+// functions/src/fn-config.ts
 
 export const FN_REGION = "us-central1"; // ← user's chosen region
 
@@ -80,7 +80,7 @@ complete templates per trigger type. The general pattern:
 // functions/src/on-user-created.fn.ts
 
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
-import { FN_REGION, RUNTIME_OPTIONS } from "./config/fn-config";
+import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
 import { userService } from "./services/user.service";
 
 export const onUserCreated = onDocumentCreated(
@@ -116,7 +116,7 @@ Services are **constructed once at app start** and hold all domain logic:
 ```typescript
 // functions/src/services/user.service.ts
 
-import { db } from "../lib/db";
+import { db } from "../db";
 
 class UserService {
   async initializeNewUser(userId: string, userData: Record<string, unknown>): Promise<void> {
@@ -139,36 +139,44 @@ export const userService = new UserService();
 
 - Services are **singletons** — instantiated once at module level and exported
   as a const. Cloud Functions reuse the same instance across warm invocations.
-- Services import `db` (and other infra) from `lib/` — never initialise
+- Services import `db` (and other infra) from `src/db.ts` — never initialise
   Firebase Admin themselves.
 - Services are **testable** — they accept data as parameters, not raw
   Firebase event objects. The `.fn.ts` file handles event parsing.
 
-### Step 5: Scaffold Supporting Lib Files (If Needed)
+### Step 5: Scaffold Supporting Infra Files (If Needed)
 
-If the function needs Firestore access and `lib/admin.ts` does not exist yet,
+If the function needs Firestore access and `init.ts` does not exist yet,
 create it:
 
 ```typescript
-// functions/src/lib/admin.ts
+// functions/src/init.ts
 
 import { initializeApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
 
-const app = initializeApp();
+export const app = initializeApp();
+```
+
+Then create `db.ts`:
+
+```typescript
+// functions/src/db.ts
+
+import { getFirestore } from "firebase-admin/firestore";
+import { app } from "./init";
+
 export const db = getFirestore(app);
 ```
 
 If the function needs other Firebase services (Auth, Storage, etc.), add them
-to `lib/` as separate files:
+as separate files at the `src/` root:
 
 ```typescript
-// functions/src/lib/auth.ts
+// functions/src/auth.ts
 
 import { getAuth } from "firebase-admin/auth";
-import { initializeApp, getApps } from "firebase-admin/app";
+import { app } from "./init";
 
-const app = getApps().length === 0 ? initializeApp() : getApps()[0];
 export const auth = getAuth(app);
 ```
 
@@ -229,7 +237,7 @@ firebase emulators:start
 1. The `.fn.ts` function file
 2. The service file with business logic
 3. Updated `index.ts` with the new re-export
-4. Any new `lib/` files if created
+4. Any new infra files (`init.ts`, `db.ts`, etc.) if created
 5. Summary with local testing instructions
 
 ## Gotchas
@@ -238,7 +246,7 @@ firebase emulators:start
   more than ~10 lines of logic in a `.fn.ts` file, move it to a service.
   The function should parse the event, call the service, and return/respond.
 - **Never hardcode the region** — always import `FN_REGION` from
-  `config/fn-config.ts`. Hardcoded regions lead to inconsistent deployments.
+  `fn-config.ts`. Hardcoded regions lead to inconsistent deployments.
 - **Secrets belong in CI/CD, not in code** — use `firebase functions:secrets`
   or CI/CD environment variables for API keys and credentials. For local
   development, use `.secret.local` (gitignored). Never commit secrets.

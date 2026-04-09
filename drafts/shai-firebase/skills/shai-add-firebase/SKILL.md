@@ -1,16 +1,17 @@
 ---
 name: shai-add-firebase
 description: >
-  Add Firebase to a project using the Firebase CLI. Initialises Cloud Functions
-  (TypeScript), Hosting, and the local emulator suite. Use when the user asks to
-  "add Firebase", "set up Firebase", "scaffold Firebase", "init Firebase", or
-  needs Functions and Hosting configured from scratch.
+  Add Firebase to a project using the Firebase MCP. Initialises Cloud Functions
+  (TypeScript), Hosting, Firestore Rules, and the local emulator suite. Use when
+  the user asks to "add Firebase", "set up Firebase", "scaffold Firebase",
+  "init Firebase", or needs Functions and Hosting configured from scratch.
 ---
 
 # shai-add-firebase
 
-Set up Firebase in a project via the Firebase CLI. Focuses on **Cloud Functions**
-and **Hosting** — the two most common Firebase features for web apps. Configures
+Set up Firebase in a project via `#tool:firebase`. Focuses on **Cloud Functions**
+and **Hosting** — the two most common Firebase features for web apps. Also
+supports **Firestore Rules** and other Firebase "Build" components. Configures
 the local emulator suite so the user can develop and test entirely offline.
 
 See also: [shai-firebase-function](../shai-firebase-function/SKILL.md) for
@@ -19,7 +20,7 @@ Cloud Functions coding conventions and file-structure guidelines.
 ## When to Use
 
 - User asks to add Firebase to an existing or new project
-- User needs Cloud Functions, Hosting, or both
+- User needs Cloud Functions, Hosting, Firestore Rules, or a combination
 - User wants the Firebase emulator configured for local development
 - User is starting a new Firebase project from scratch
 
@@ -27,7 +28,6 @@ Cloud Functions coding conventions and file-structure guidelines.
 
 - Writing individual Cloud Function logic → use `shai-firebase-function`
 - Non-Firebase backend setup (Express, Nest, etc.)
-- Firebase features beyond Functions and Hosting (Realtime Database, ML, etc.)
 
 ## Workflow
 
@@ -38,11 +38,13 @@ Use `#tool:vscode/askQuestions` to ask the user:
 1. **Which Firebase features do you need?**
    - Cloud Functions
    - Hosting
-   - Both (default)
+   - Firestore Rules
+   - Any other Firebase "Build" components? (e.g. Storage, Authentication,
+     Realtime Database, Extensions)
 
 2. **Do you already have a Firebase project in the Firebase Console?**
    - Yes → ask for the project ID
-   - No → we will create one via `firebase projects:create`
+   - No → we will create one via `#tool:firebase`
 
 3. **Functions runtime:**
    - TypeScript (default, recommended)
@@ -54,13 +56,8 @@ Use `#tool:vscode/askQuestions` to ask the user:
 
 ### Step 2: Ensure Firebase CLI Is Installed
 
-Check if the Firebase CLI is available:
-
-```bash
-firebase --version
-```
-
-If not installed, install it:
+Use `#tool:firebase` for all Firebase operations. If the CLI is not available
+locally, install it:
 
 ```bash
 npm install -g firebase-tools
@@ -74,36 +71,30 @@ firebase login
 
 ### Step 3: Initialise Firebase
 
-Run the Firebase CLI init command. Select only the features the user requested
-in Step 1.
-
-```bash
-firebase init
-```
+Use `#tool:firebase` to initialise the project. Select only the features the
+user requested in Step 1.
 
 During the interactive prompts:
 
-- **Features:** select `Functions` and/or `Hosting` as requested
+- **Features:** select `Functions`, `Hosting`, `Firestore Rules`, and any other
+  requested "Build" components
 - **Project:** use the existing project ID or create a new one
 - **Functions language:** TypeScript (default)
 - **ESLint:** Yes
 - **Install dependencies:** Yes
 - **Hosting public directory:** `public` (or the framework build output folder)
 - **Single-page app rewrites:** Yes if the user is building an SPA
+- **Firestore Rules file:** `firestore.rules` (default)
 
 ### Step 4: Configure the Emulator Suite
 
-Ensure the emulator is configured for every selected feature:
-
-```bash
-firebase init emulators
-```
+Use `#tool:firebase` to configure emulators for every selected feature.
 
 Select emulators matching the enabled features:
 
 - **Functions emulator** (default port 5001)
 - **Hosting emulator** (default port 5000)
-- **Firestore emulator** if the user plans to use Firestore (port 8080)
+- **Firestore emulator** if the user selected Firestore (port 8080)
 - **Emulator UI** (port 4000)
 
 Verify the `firebase.json` includes the emulators section:
@@ -121,27 +112,25 @@ Verify the `firebase.json` includes the emulators section:
 
 ### Step 5: Set Up the Functions Project Structure
 
-After `firebase init`, the CLI creates a `functions/` directory. Adjust it to
-follow the conventions in [references/project-structure.md](references/project-structure.md):
+After init, the CLI creates a `functions/` directory. Adjust it to follow the
+conventions in [references/project-structure.md](references/project-structure.md):
 
 ```
 functions/
 ├── src/
-│   ├── index.ts              ← re-exports all *.fn.ts functions
-│   ├── config/
-│   │   └── fn-config.ts      ← region, runtime options, constants
-│   ├── lib/
-│   │   ├── admin.ts          ← Firebase Admin SDK init
-│   │   └── db.ts             ← Firestore helpers / typed refs
-│   └── services/             ← business logic (injected into functions)
-├── .secret.local              ← local secrets (gitignored)
+│   ├── index.ts          ← re-exports all *.fn.ts functions
+│   ├── fn-config.ts      ← region, runtime options, constants
+│   ├── init.ts           ← Firebase Admin SDK initialisation
+│   ├── db.ts             ← Firestore helpers / typed refs
+│   └── services/         ← business logic (injected into functions)
+├── .secret.local          ← local secrets (gitignored)
 ├── package.json
 └── tsconfig.json
 ```
 
 Key actions:
 
-1. Create `src/config/fn-config.ts` with the chosen region:
+1. Create `src/fn-config.ts` with the chosen region:
 
 ```typescript
 export const FN_REGION = "us-central1";
@@ -152,21 +141,22 @@ export const RUNTIME_OPTIONS = {
 };
 ```
 
-2. Create `src/lib/admin.ts`:
+2. Create `src/init.ts`:
 
 ```typescript
-/** Initialises the Firebase Admin SDK once and exports the Firestore instance for reuse across all functions. */
+/** Initialises the Firebase Admin SDK once. Imported by db.ts and other infra modules. */
 import { initializeApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
 
-const app = initializeApp();
-export const db = getFirestore(app);
+export const app = initializeApp();
 ```
 
-3. Create `src/lib/db.ts` (placeholder):
+3. Create `src/db.ts`:
 
 ```typescript
-export { db } from "./admin";
+import { getFirestore } from "firebase-admin/firestore";
+import { app } from "./init";
+
+export const db = getFirestore(app);
 ```
 
 4. Add `.secret.local` to `.gitignore` (for the admin service account key)
@@ -187,9 +177,8 @@ Ensure `functions/package.json` includes emulator and deploy scripts:
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "start": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
-    "start": "npm run shell",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "emulators": "firebase emulators:start",
@@ -217,14 +206,16 @@ Present a summary to the user:
 ### Features enabled:
 - [x] Cloud Functions (TypeScript)
 - [x] Hosting
+- [x] Firestore Rules
 - [x] Local Emulator Suite
 
 ### Project structure:
 functions/src/
-  ├── index.ts          — function re-exports
-  ├── config/fn-config.ts — region & runtime constants
-  ├── lib/admin.ts      — Admin SDK initialisation
-  └── services/         — business logic (empty, ready)
+  ├── index.ts        — function re-exports
+  ├── fn-config.ts    — region & runtime constants
+  ├── init.ts         — Admin SDK initialisation
+  ├── db.ts           — Firestore instance
+  └── services/       — business logic (empty, ready)
 
 ### Next steps:
 - Create your first function with `shai-firebase-function`
@@ -240,9 +231,9 @@ functions/src/
 
 ## Gotchas
 
-- **Always use the Firebase CLI** — do not manually create `firebase.json` or
-  `.firebaserc`. The CLI handles project linking, feature flags, and emulator
-  config correctly.
+- **Use `#tool:firebase` for all Firebase operations** — do not manually create
+  `firebase.json` or `.firebaserc`. The Firebase MCP / CLI handles project
+  linking, feature flags, and emulator config correctly.
 - **Don't install Firebase globally in CI** — CI/CD pipelines should use
   `npx firebase-tools` or a pinned version in `devDependencies`.
 - **Admin key must be gitignored** — never commit service account JSON files.

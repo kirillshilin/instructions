@@ -9,7 +9,7 @@ structure: import config → define trigger → delegate to service.
 // functions/src/health-check.fn.ts
 
 import { onRequest } from "firebase-functions/v2/https";
-import { FN_REGION, RUNTIME_OPTIONS } from "./config/fn-config";
+import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
 
 export const healthCheck = onRequest(
   { region: FN_REGION, ...RUNTIME_OPTIONS },
@@ -25,7 +25,7 @@ For functions with business logic, delegate to a service:
 // functions/src/process-payment.fn.ts
 
 import { onRequest } from "firebase-functions/v2/https";
-import { FN_REGION, RUNTIME_OPTIONS } from "./config/fn-config";
+import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
 import { paymentService } from "./services/payment.service";
 
 export const processPayment = onRequest(
@@ -49,7 +49,7 @@ export const processPayment = onRequest(
 // functions/src/send-invite.fn.ts
 
 import { onCall, HttpsError } from "firebase-functions/v2/https";
-import { FN_REGION, RUNTIME_OPTIONS } from "./config/fn-config";
+import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
 import { inviteService } from "./services/invite.service";
 
 export const sendInvite = onCall(
@@ -71,7 +71,7 @@ export const sendInvite = onCall(
 // functions/src/on-order-created.fn.ts
 
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
-import { FN_REGION, RUNTIME_OPTIONS } from "./config/fn-config";
+import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
 import { orderService } from "./services/order.service";
 
 export const onOrderCreated = onDocumentCreated(
@@ -99,7 +99,7 @@ Other Firestore triggers follow the same pattern:
 // functions/src/on-profile-updated.fn.ts
 
 import { onDocumentUpdated } from "firebase-functions/v2/firestore";
-import { FN_REGION, RUNTIME_OPTIONS } from "./config/fn-config";
+import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
 import { profileService } from "./services/profile.service";
 
 export const onProfileUpdated = onDocumentUpdated(
@@ -128,7 +128,7 @@ export const onProfileUpdated = onDocumentUpdated(
 // functions/src/daily-cleanup.fn.ts
 
 import { onSchedule } from "firebase-functions/v2/scheduler";
-import { FN_REGION } from "./config/fn-config";
+import { FN_REGION } from "./fn-config";
 import { cleanupService } from "./services/cleanup.service";
 
 export const dailyCleanup = onSchedule(
@@ -149,7 +149,7 @@ export const dailyCleanup = onSchedule(
 // functions/src/on-user-deleted.fn.ts
 
 import { beforeUserDeleted } from "firebase-functions/v2/identity";
-import { FN_REGION } from "./config/fn-config";
+import { FN_REGION } from "./fn-config";
 import { userService } from "./services/user.service";
 
 export const onUserDeleted = beforeUserDeleted(
@@ -168,7 +168,7 @@ module level:
 ```typescript
 // functions/src/services/order.service.ts
 
-import { db } from "../lib/db";
+import { db } from "../db";
 
 class OrderService {
   async processNewOrder(
@@ -200,7 +200,7 @@ export const orderService = new OrderService();
 All function settings live in a single file:
 
 ```typescript
-// functions/src/config/fn-config.ts
+// functions/src/fn-config.ts
 
 /** Default region for all Cloud Functions */
 export const FN_REGION = "us-central1";
