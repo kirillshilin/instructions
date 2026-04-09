@@ -22,6 +22,15 @@ The SHAI system has 76 assets across 8 plugins. This skill builds them one at a
 time, ensuring each asset is high-quality, consistent, and enriched with the
 user's coding philosophy.
 
+## Progress Reporting (mandatory)
+
+At the start of each workflow step, output a progress indicator in bold blue:
+
+**🔵 Step M/N — {Step title}**
+
+where M is the current step number and N is the total number of steps in the
+workflow. This is mandatory for every step — never skip it.
+
 ## Step 1: Resolve the Asset
 
 Parse the user's input to identify which asset to create.

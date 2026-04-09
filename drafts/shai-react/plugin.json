@@ -1,0 +1,5 @@
+{
+  "name": "shai-react",
+  "description": "React + TypeScript + Tailwind + shadcn patterns. Component conventions, scaffolding, and testing workflows.",
+  "version": "0.1.0"
+}
