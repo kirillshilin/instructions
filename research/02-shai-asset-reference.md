@@ -47,13 +47,14 @@ Each plugin contains a `plugin.json` + any combination of:
 
 ## Asset Tree
 
-Full hierarchy of all 81 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
+Full hierarchy of all 82 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
 
 ```
 shai/
 ├── shai-core/
 │   ├── instructions/
 │   │   ├── C-I01  shai-coding-standards             🟢  Must
+│   │   ├── C-I02  shai-package-json                 🟢  Must
 │   │   ├── C-I03  shai-documentation-standards      🟡  Should
 │   │   └── C-I04  shai-logging-conventions          🔴  Could
 │   ├── agents/
@@ -173,11 +174,12 @@ Every project should install this.
 
 ### 1.1 Instructions
 
-| #     | Asset Name                     | Type        | applyTo   | Priority | Status | Purpose                                                                                                       | Example                                                             |
-| ----- | ------------------------------ | ----------- | --------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| C-I01 | `shai-coding-standards`        | instruction | `**`      | Must     | 🟢      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const" |
-| C-I03 | `shai-documentation-standards` | instruction | `**/*.md` | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"           |
-| C-I04 | `shai-logging-conventions`     | instruction | `**`      | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"              |
+| #     | Asset Name                     | Type        | applyTo           | Priority | Status | Purpose                                                                                                       | Example                                                                     |
+| ----- | ------------------------------ | ----------- | ----------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| C-I01 | `shai-coding-standards`        | instruction | `**`              | Must     | 🟢      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const"         |
+| C-I02 | `shai-package-json`            | instruction | `**/package.json` | Must     | 🟢      | Exact dependency versions (no `~`/`^`), standard npm scripts (`start`, `build`, `test`, `lint`, `deploy`)     | "Pin exact versions, use `npm start` not `npm run dev`, `test:once` for CI" |
+| C-I03 | `shai-documentation-standards` | instruction | `**/*.md`         | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"                   |
+| C-I04 | `shai-logging-conventions`     | instruction | `**`              | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"                      |
 
 ### 1.2 Agents
 
