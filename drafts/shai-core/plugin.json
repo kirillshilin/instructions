@@ -3,7 +3,9 @@
   "displayName": "SHAI Core",
   "description": "Cross-cutting coding standards, general-purpose agents, and universal workflows. Every project should install this.",
   "version": "0.1.0",
-  "publisher": "shai",
+  "publisher": "kirillshilin",
+  "license": "MIT",
+  "keywords": ["coding-standards", "code-review", "tdd", "architecture", "security"],
   "skills": [
     "skills/shai-code-review",
     "skills/shai-tdd-feature",

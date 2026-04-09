@@ -3,7 +3,9 @@
   "displayName": "SHAI TypeScript",
   "description": "TypeScript-specific conventions and workflows. Install alongside shai-core for any TS project.",
   "version": "0.1.0",
-  "publisher": "shai",
+  "publisher": "kirillshilin",
+  "license": "MIT",
+  "keywords": ["typescript", "tsconfig", "testing", "jest", "vitest"],
   "instructions": [
     "instructions/shai-typescript-coding-standards.instructions.md",
     "instructions/shai-typescript-testing.instructions.md",

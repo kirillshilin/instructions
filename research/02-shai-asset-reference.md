@@ -19,6 +19,7 @@ shai/                               ← marketplace repo
 │   ├── shai-angular/               ← Angular conventions
 │   ├── shai-dotnet/                ← .NET / C# ecosystem
 │   ├── shai-node/                  ← Node.js / Express
+│   ├── shai-nextjs/                ← Next.js App conventions
 │   ├── shai-firebase/              ← Firebase ecosystem
 │   ├── shai-playwright/            ← E2E testing with Playwright
 │   └── shai-product/               ← product discovery: idea → features → stories → tasks
@@ -47,7 +48,7 @@ Each plugin contains a `plugin.json` + any combination of:
 
 ## Asset Tree
 
-Full hierarchy of all 82 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
+Full hierarchy of all 84 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
 
 ```
 shai/
@@ -132,6 +133,10 @@ shai/
 │   │   └── N-I02  shai-express-patterns             🔴  Should
 │   └── skills/
 │       └── N-S01  shai-scaffold-node-app            🟡  Should
+├── shai-nextjs/
+│   └── skills/
+│       ├── X-S01  shai-scaffold-nextjs-app          🟢  Must
+│       └── X-S02  shai-add-nextjs-page              🟢  Should
 ├── shai-firebase/
 │   ├── instructions/
 │   │   ├── F-I01  shai-firebase-conventions         🔴  Must
@@ -343,18 +348,32 @@ Node.js / Express backend patterns.
 
 ---
 
-## 7. shai-firebase
+## 7. shai-nextjs
+
+Next.js App Router conventions, scaffolding, and page generation. Install alongside
+`shai-typescript` and `shai-core` for any Next.js project.
+
+### 7.1 Skills
+
+| #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                                  |
+| ----- | -------------------------- | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| X-S01 | `shai-scaffold-nextjs-app` | skill | Must     | 🟢      | Scaffold Next.js project: App Router, TypeScript, Tailwind CSS, error boundaries, middleware, env config |
+| X-S02 | `shai-add-nextjs-page`     | skill | Should   | 🟢      | Add a new page (route) to an existing Next.js App Router project with layouts, loading, error, metadata  |
+
+---
+
+## 8. shai-firebase
 
 Firebase ecosystem: Cloud Functions, Firestore, Hosting, security rules, emulators.
 
-### 7.1 Instructions
+### 8.1 Instructions
 
 | #     | Asset Name                  | Type        | applyTo                                      | Priority | Status | Purpose                                                                                       | Example                                                                    |
 | ----- | --------------------------- | ----------- | -------------------------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | F-I01 | `shai-firebase-conventions` | instruction | `**/functions/**,**/firestore*,**/firebase*` | Must     | 🔴      | Firebase project structure, Cloud Functions patterns, Firestore data modeling, security rules | "Use Firebase Admin SDK, typed Firestore references, security rules first" |
 | F-I02 | `shai-firestore-modeling`   | instruction | `**/firestore*,**/models/**`                 | Should   | 🔴      | Firestore data modeling: denormalization, subcollections, composite keys, converters          | "Use typed converters, design for query patterns not normalization"        |
 
-### 7.2 Skills
+### 8.2 Skills
 
 | #     | Asset Name                   | Type  | Priority | Status | Purpose                                                                         |
 | ----- | ---------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------- |
@@ -364,18 +383,18 @@ Firebase ecosystem: Cloud Functions, Firestore, Hosting, security rules, emulato
 
 ---
 
-## 8. shai-playwright
+## 9. shai-playwright
 
 End-to-end testing with Playwright. Cross-framework, works with any frontend.
 
-### 8.1 Instructions
+### 9.1 Instructions
 
 | #     | Asset Name                    | Type        | applyTo                             | Priority | Status | Purpose                                                                              | Example                                                                |
 | ----- | ----------------------------- | ----------- | ----------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
 | P-I01 | `shai-playwright-conventions` | instruction | `**/*.spec.ts` (Playwright context) | Must     | 🟡      | Test structure, locator strategy (prefer role-based), POM pattern, test independence | "Use role-based locators, Page Object Model, atomic independent tests" |
 | P-I02 | `shai-playwright-config`      | instruction | `**/playwright.config.ts`           | Could    | 🔴      | Config best practices: parallel workers, retries, reporters, projects for browsers   | "Configure retries=2, parallel, HTML reporter, multi-browser projects" |
 
-### 8.2 Agents
+### 9.2 Agents
 
 | #     | Asset Name                  | Type  | Tools                                 | Priority | Status | Purpose                                                                          |
 | ----- | --------------------------- | ----- | ------------------------------------- | -------- | ------ | -------------------------------------------------------------------------------- |
@@ -383,7 +402,7 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 | P-A02 | `shai-playwright-tester`    | agent | `edit`, `terminal`, `search/codebase` | Should   | 🟡      | Writes Playwright tests: creates specs, page objects, fixtures                   |
 | P-A03 | `shai-playwright-debugger`  | agent | `terminal`, `search/codebase`         | Could    | 🟡      | Debugs failing E2E tests: reads traces, screenshots, suggests fixes              |
 
-### 8.3 Skills
+### 9.3 Skills
 
 | #     | Asset Name               | Type  | Priority | Status | Purpose                                                                    |
 | ----- | ------------------------ | ----- | -------- | ------ | -------------------------------------------------------------------------- |
@@ -394,7 +413,7 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 
 ---
 
-## 9. shai-product
+## 10. shai-product
 
 Product discovery and planning pipeline: from raw idea to actionable development tasks.
 Use this plugin at the start of any new feature or product initiative.
@@ -403,7 +422,7 @@ Use this plugin at the start of any new feature or product initiative.
 > `shai-idea-evaluation` → `shai-feature-mapping` → `shai-story-decomposition` → `shai-task-breakdown`.
 > `shai-feature-mapping` may also call `shai-architect` (C-A01) for technical feasibility and design input.
 
-### 9.1 Skills
+### 10.1 Skills
 
 | #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                                                                                                                                          | Example invocation                                                                            |
 | ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -412,7 +431,7 @@ Use this plugin at the start of any new feature or product initiative.
 | V-S03 | `shai-story-decomposition` | skill | Must     | 🔴      | Decompose a feature or capability into user stories (use cases) for different roles and personas. Follows standard "As a … I want … So that …" format. Handoff → `shai-task-breakdown`                           | `/shai-story-decomposition for "real-time collaboration" feature`                             |
 | V-S04 | `shai-task-breakdown`      | skill | Must     | 🔴      | Break down user stories into concrete, scoped development tasks ready for assignment to a developer or AI agent session. Produces an ordered task list with acceptance criteria                                  | `/shai-task-breakdown for story "As a user, I can share a whiteboard link"`                   |
 
-### 9.2 Agents
+### 10.2 Agents
 
 | #     | Asset Name           | Type  | Tools                                      | Priority | Status | Purpose                                                                                                                                                         |
 | ----- | -------------------- | ----- | ------------------------------------------ | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -432,17 +451,18 @@ Use this plugin at the start of any new feature or product initiative.
 | **shai-angular**    | 3            | —      | 2      | —     | —       | **5**  |
 | **shai-dotnet**     | 5            | 4      | 4      | —     | —       | **13** |
 | **shai-node**       | 2            | —      | 1      | —     | —       | **3**  |
+| **shai-nextjs**     | —            | —      | 2      | —     | —       | **2**  |
 | **shai-firebase**   | 2            | —      | 3      | —     | —       | **5**  |
 | **shai-playwright** | 2            | 3      | 4      | —     | —       | **9**  |
 | **shai-product**    | —            | 1      | 4      | —     | —       | **5**  |
-| **TOTAL**           | **25**       | **14** | **35** | **4** | **3**   | **81** |
+| **TOTAL**           | **25**       | **14** | **37** | **4** | **3**   | **83** |
 
 ### Asset counts by priority (MoSCoW)
 
 | Priority   | Count | Description                                                                                                                            |
 | ---------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **Must**   | ~22   | Essential: core standards, primary agents, key scaffolding, product discovery skills (V-S01–V-S04) — system doesn't work without these |
-| **Should** | ~36   | High-value: testing, reviews, feature workflows — expected for a complete experience                                                   |
+| **Must**   | ~23   | Essential: core standards, primary agents, key scaffolding, product discovery skills (V-S01–V-S04) — system doesn't work without these |
+| **Should** | ~37   | High-value: testing, reviews, feature workflows — expected for a complete experience                                                   |
 | **Could**  | ~18   | Nice-to-have: advanced config, deployment, utility skills — included if time permits                                                   |
 | **Won't**  | ~5    | Deferred: orchestrator, audit logging — planned for future phases, not this iteration                                                  |
 
@@ -485,6 +505,7 @@ These are external MCP servers that shai skills/agents may reference as tools:
 | MCP Server    | Used by         | Purpose                            |
 | ------------- | --------------- | ---------------------------------- |
 | `playwright`  | shai-playwright | Browser automation for E2E tests   |
+| `snippets`    | shai-nextjs     | Tailwind CSS utility snippets      |
 | `shadcn`      | shai-react      | shadcn/ui component operations     |
 | `angular-cli` | shai-angular    | Angular CLI operations             |
 | `github`      | shai-core       | GitHub API: PRs, issues, workflows |
@@ -498,7 +519,7 @@ These are external MCP servers that shai skills/agents may reference as tools:
 1. `shai-core` instructions (C-I01, C-I06 shai-software-design)
 2. `shai-core` agents — `shai-architect` (C-A01), `shai-planner` (C-A02)
 3. Framework instructions — one per active stack (T-I01, R-I01, A-I01, D-I01, D-I02, F-I01, P-I01)
-4. Key scaffolding skills (R-S01 shai-scaffold-react-app, D-S01 shai-scaffold-dotnet-app, P-S01 shai-setup-playwright)
+4. Key scaffolding skills (R-S01 shai-scaffold-react-app, X-S01 shai-scaffold-nextjs-app, D-S01 shai-scaffold-dotnet-app, P-S01 shai-setup-playwright)
 5. `shai-product` discovery skills (V-S01 shai-idea-evaluation, V-S02 shai-feature-mapping, V-S03 shai-story-decomposition, V-S04 shai-task-breakdown)
 
 ### Phase 2 — Should Have

@@ -6,7 +6,7 @@ description: >
   "scaffold Next.js project", "new next app", "set up Next.js", "init nextjs",
   "bootstrap nextjs", or wants to start a new Next.js project from scratch.
   Produces a production-ready folder structure with layouts, error boundaries,
-  and recommended configuration.
+  middleware stub, environment config, and recommended configuration.
 ---
 
 # shai-scaffold-nextjs-app
@@ -36,11 +36,13 @@ the conventions from the official Next.js documentation.
 
 ## MCP Tools
 
-This skill references the following MCP tool:
+This skill uses the following MCP tools:
 
-- **`#tool:snippets`** — provides Tailwind CSS utility snippets. When generating
-  Tailwind-based components or layouts, use this MCP to pull in community-vetted
-  class combinations for common patterns (hero sections, cards, navbars, etc.).
+- **`#tool:snippets`** — provides Tailwind CSS utility snippets. Must be
+  installed globally. When generating Tailwind-based components or layouts, use
+  this MCP to pull in community-vetted class combinations for common patterns
+  (hero sections, cards, navbars, etc.). Especially useful when creating pages
+  and components during or after scaffolding.
 
 ## Workflow
 
@@ -53,7 +55,9 @@ Ask the user (or infer from context):
 3. **Source directory** — use `src/` directory? (default: yes)
 4. **Import alias** — path alias prefix (default: `@/`)
 5. **shadcn/ui** — install the shadcn/ui component library? (default: no) —
-   built on Radix + Tailwind, provides accessible UI primitives
+   built on Radix + Tailwind, provides accessible UI primitives. If yes, ask
+   which **preset** to use (`default`, `new-york`, etc.) for the `--preset`
+   flag during `shadcn init`.
 6. **Turbopack** — use Turbopack for dev server? (default: yes)
 
 Keep it light — don't force answers. Sensible defaults for everything.
@@ -77,16 +81,16 @@ npx create-next-app@latest {project-name} \
 
 All flags explained:
 
-| Flag              | Why                                                       |
-| ----------------- | --------------------------------------------------------- |
-| `--typescript`    | Type safety — always on                                   |
-| `--tailwind`      | Utility-first CSS — always on for this plugin             |
-| `--eslint`        | Linting — always on                                       |
-| `--app`           | App Router — the modern Next.js routing model             |
-| `--src-dir`       | Keeps root clean; app code lives under `src/`             |
-| `--import-alias`  | Clean imports with `@/` prefix                            |
-| `--turbopack`     | Faster dev server — recommended for new projects          |
-| `--use-<pm>`      | Respects user's package manager choice                    |
+| Flag             | Why                                           |
+| ---------------- | --------------------------------------------- |
+| `--typescript`   | Type safety — always on                       |
+| `--tailwind`     | Utility-first CSS — always on for this plugin |
+| `--eslint`       | Linting — always on                           |
+| `--app`          | App Router — the modern Next.js routing model |
+| `--src-dir`      | Keeps root clean; app code lives under `src/` |
+| `--import-alias` | Clean imports with `@/` prefix                |
+| `--turbopack`    | Faster dev server — recommended for new projects |
+| `--use-<pm>`     | Respects user's package manager choice        |
 
 After the CLI finishes, `cd` into the project directory.
 
@@ -103,112 +107,32 @@ The CLI gives a minimal structure. Enhance it to be production-ready.
 │   │   ├── layout.tsx            ← root layout (html, body, fonts, metadata)
 │   │   ├── page.tsx              ← home page
 │   │   ├── not-found.tsx         ← custom 404 page
-│   │   ├── error.tsx             ← root error boundary (re-exports shared component)
-│   │   ├── loading.tsx           ← root loading state (re-exports shared component)
+│   │   ├── error.tsx             ← root error boundary (re-exports shared)
+│   │   ├── loading.tsx           ← root loading state (re-exports shared)
 │   │   └── globals.css           ← Tailwind directives + global styles
 │   ├── components/
 │   │   ├── error-boundary.tsx    ← reusable error boundary (client component)
 │   │   ├── loading.tsx           ← reusable loading spinner
-│   │   └── ui/                   ← reusable UI primitives (buttons, inputs, cards)
-│   ├── lib/
-│   │   └── utils.ts              ← shared utility functions (e.g., cn() helper)
-│   └── types/
-│       └── index.ts              ← shared TypeScript types
+│   │   └── ui/                   ← reusable UI primitives (buttons, inputs)
+│   └── lib/
+│       └── utils.ts              ← shared utilities (cn() helper)
 ├── public/                       ← static assets (favicon, images, fonts)
+├── .env.local                    ← environment variables (gitignored)
+├── middleware.ts                  ← request middleware (matcher stub)
 ├── next.config.ts                ← Next.js configuration
-├── tailwind.config.ts            ← Tailwind configuration
 ├── tsconfig.json                 ← TypeScript configuration
 ├── postcss.config.mjs            ← PostCSS configuration (Tailwind plugin)
 └── package.json
 ```
 
+**Always install `cn()` dependencies** — the `clsx` + `tailwind-merge` combo is
+the standard for merging Tailwind classes:
+
+```bash
+npm install clsx tailwind-merge
+```
+
 **Files to create or enhance:**
-
-#### `src/app/not-found.tsx`
-
-A user-friendly 404 page:
-
-```tsx
-import Link from "next/link";
-
-export default function NotFound() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-4xl font-bold">404</h1>
-      <p className="text-muted-foreground">
-        The page you are looking for does not exist.
-      </p>
-      <Link
-        href="/"
-        className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
-      >
-        Go Home
-      </Link>
-    </main>
-  );
-}
-```
-
-#### `src/components/error-boundary.tsx`
-
-A reusable error boundary component (must be a Client Component):
-
-```tsx
-"use client";
-
-export function ErrorBoundary({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-2xl font-bold">Something went wrong</h1>
-      <p className="text-muted-foreground">{error.message}</p>
-      <button
-        onClick={reset}
-        className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
-      >
-        Try again
-      </button>
-    </main>
-  );
-}
-```
-
-#### `src/components/loading.tsx`
-
-A reusable loading spinner component:
-
-```tsx
-export function Loading() {
-  return (
-    <main className="flex min-h-screen items-center justify-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-    </main>
-  );
-}
-```
-
-#### `src/app/error.tsx`
-
-Root error boundary — re-exports the shared component:
-
-```tsx
-"use client";
-
-export { ErrorBoundary as default } from "@/components/error-boundary";
-```
-
-#### `src/app/loading.tsx`
-
-Root loading state — re-exports the shared component:
-
-```tsx
-export { Loading as default } from "@/components/loading";
-```
 
 #### `src/lib/utils.ts`
 
@@ -223,33 +147,61 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
-If the user opted for the `cn()` utility, install the dependencies:
+Create the following components using their reference files:
+
+- **`src/app/not-found.tsx`** — read [references/not-found.md](references/not-found.md)
+- **`src/components/error-boundary.tsx`** + **`src/app/error.tsx`** — read
+  [references/error-boundary.md](references/error-boundary.md)
+- **`src/components/loading.tsx`** + **`src/app/loading.tsx`** — read
+  [references/loading.md](references/loading.md)
+
+#### `.env.local`
+
+Environment variables (gitignored by Next.js automatically):
 
 ```bash
-npm install clsx tailwind-merge
+# App
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_NAME={project-name}
+
+# API (add your keys here)
+# API_SECRET_KEY=
 ```
 
-#### `src/types/index.ts`
+#### `middleware.ts`
 
-Shared type barrel:
+Request middleware stub at the project root (next to `next.config.ts`):
 
 ```typescript
-export type {};
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  // Add middleware logic here (auth, redirects, headers, etc.)
+  return NextResponse.next();
+}
+
+export const config = {
+  // Match all routes except static files and Next.js internals
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
+};
 ```
 
-Create the `src/components/ui/` directory as an empty placeholder for UI primitives.
-Create the `src/types/` directory with `index.ts`.
+Create the `src/components/ui/` directory as an empty placeholder for UI
+primitives.
 
 ### Step 4: Set Up shadcn/ui
 
-Only if the user said **yes** to shadcn/ui in Step 1:
+Only if the user said **yes** to shadcn/ui in Step 1.
+
+Initialize with the user's chosen preset:
 
 ```bash
-npx shadcn@latest init
+npx shadcn@latest init --preset {preset}
 ```
 
-This will configure `components.json` and set up the theme. The `cn()` utility
-from Step 3 is required — shadcn/ui depends on it.
+Common presets: `default`, `new-york`. The `cn()` utility from Step 3 is
+required — shadcn/ui depends on it.
 
 After init, suggest installing a few starter components:
 
@@ -260,17 +212,7 @@ npx shadcn@latest add button card input
 See [shadcn/ui docs](https://ui.shadcn.com/docs/installation/next) for the
 full component list.
 
-### Step 5: Tailwind Snippets
-
-Use `#tool:snippets` to fetch Tailwind utility snippets for common UI patterns.
-This is useful when the user asks for specific layout patterns during
-scaffolding (e.g., "add a hero section", "add a navbar").
-
-The snippets MCP provides community-maintained Tailwind class combinations.
-Usage will be expanded as the MCP matures — for now, reference it when
-generating Tailwind-heavy components.
-
-### Step 6: Verify the Setup
+### Step 5: Verify the Setup
 
 Run these checks to ensure everything works:
 
@@ -290,7 +232,7 @@ npm run lint
 
 If any check fails, fix the issue before presenting the result.
 
-### Step 7: Present the Result
+### Step 6: Present the Result
 
 ```
 ## Scaffolding Complete
@@ -299,7 +241,7 @@ If any check fails, fix the issue before presenting the result.
 - **Framework**: Next.js (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **shadcn/ui**: {yes/no}
+- **shadcn/ui**: {yes (preset) / no}
 - **Package manager**: {npm/pnpm/yarn}
 
 ### Structure:
@@ -308,8 +250,9 @@ If any check fails, fix the issue before presenting the result.
 ### Next steps:
 1. `cd {project-name} && npm run dev` to start the dev server
 2. Open `http://localhost:3000` to see your app
-3. Use `/shai-add-nextjs-page` to add new pages
-4. Edit `src/app/page.tsx` to customize the home page
+3. Set up ESLint flat config + Prettier using the project's lint/format skill
+4. Use `/shai-add-nextjs-page` to add new pages
+5. Edit `src/app/page.tsx` to customize the home page
 ```
 
 ## Gotchas
@@ -335,3 +278,5 @@ If any check fails, fix the issue before presenting the result.
 - **Don't eject or customize Webpack** — Next.js manages its own bundling.
   Use `next.config.ts` for configuration. Avoid custom Webpack configs unless
   absolutely necessary.
+- **`middleware.ts` location** — must be at the project root (next to
+  `next.config.ts`), NOT inside `src/`. Next.js only detects it at the root.

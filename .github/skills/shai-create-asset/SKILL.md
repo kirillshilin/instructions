@@ -18,7 +18,7 @@ Build a single asset for the SHAI plugin system — the user's personal AI codin
 assistant for VS Code / GitHub Copilot. Each asset is part of a modular plugin
 architecture defined in the [asset reference](../../../research/02-shai-asset-reference.md).
 
-The SHAI system has 76 assets across 8 plugins. This skill builds them one at a
+The SHAI system has 84 assets across 10 plugins. This skill builds them one at a
 time, ensuring each asset is high-quality, consistent, and enriched with the
 user's coding philosophy.
 
@@ -309,7 +309,31 @@ After writing the file:
 2. Show the **Resource Provenance Summary** (see below)
 3. Report the quality checklist results
 4. Ask: "Ready to finalize, or do you want to adjust anything?"
-5. Update the asset's status in the reference doc from 🔴 to 🟢 (or 🟡 to 🟢) once the user approves
+5. **Update the asset reference doc** — this is **mandatory** (see below)
+
+### Update Asset Reference (MANDATORY)
+
+**⚠️ This step is strictly required. Never skip it.**
+
+After the user approves the asset, update
+[research/02-shai-asset-reference.md](../../../research/02-shai-asset-reference.md):
+
+1. **Update status**: Change the asset's status from 🔴 to 🟢 (or 🟡 to 🟢)
+   in both the Asset Tree and the plugin's detail table.
+2. **Add new plugin**: If this asset belongs to a plugin that doesn't exist in
+   the reference doc yet, add the full plugin entry: distribution tree entry,
+   asset tree entry, numbered section with tables, summary table row, and
+   update all counts (total assets, MoSCoW counts).
+3. **Add new asset**: If the asset itself is new (not in the reference doc),
+   add it to the asset tree, the plugin's detail table, and update the summary
+   counts.
+4. **Verify counts**: After any update, verify that the total asset count in
+   the "Asset counts by plugin" table matches the actual number of assets
+   listed, and that MoSCoW counts are still accurate.
+
+The reference doc is the single source of truth for the SHAI system. An asset
+that exists in `drafts/` but not in the reference doc is invisible to the
+workflow.
 
 ### Resource Provenance Summary
 
