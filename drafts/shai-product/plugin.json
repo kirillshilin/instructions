@@ -7,6 +7,7 @@
     "license": "MIT",
     "keywords": ["product", "planning", "discovery", "ideation"],
     "skills": [
-        "skills/shai-idea-evaluation"
+        "skills/shai-idea-evaluation",
+        "skills/shai-feature-mapping"
     ]
 }

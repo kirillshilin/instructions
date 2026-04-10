@@ -163,7 +163,7 @@ shai/
     │   └── V-A01  shai-product-owner                🔴  Should
     └── skills/
         ├── V-S01  shai-idea-evaluation              🟢  Must
-        ├── V-S02  shai-feature-mapping              🔴  Must
+        ├── V-S02  shai-feature-mapping              🟢  Must
         ├── V-S03  shai-story-decomposition          🔴  Must
         └── V-S04  shai-task-breakdown               🔴  Must
 ```
@@ -427,7 +427,7 @@ Use this plugin at the start of any new feature or product initiative.
 | #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                                                                                                                                          | Example invocation                                                                            |
 | ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | V-S01 | `shai-idea-evaluation`     | skill | Must     | 🟢      | Evaluate and investigate a raw idea: assess feasibility, value proposition, key risks, and strategic fit. Produces a structured evaluation report. Handoff → `shai-feature-mapping`                              | `/shai-idea-evaluation "real-time collaborative whiteboard"`                                  |
-| V-S02 | `shai-feature-mapping`     | skill | Must     | 🔴      | Map the features and capabilities the application needs for the idea to work. Groups features by domain area. May call `shai-architect` (C-A01) for technical design input. Handoff → `shai-story-decomposition` | `/shai-feature-mapping using idea-evaluation report for "real-time collaborative whiteboard"` |
+| V-S02 | `shai-feature-mapping`     | skill | Must     | 🟢      | Map the features and capabilities the application needs for the idea to work. Groups features by domain area. May call `shai-architect` (C-A01) for technical design input. Handoff → `shai-story-decomposition` | `/shai-feature-mapping using idea-evaluation report for "real-time collaborative whiteboard"` |
 | V-S03 | `shai-story-decomposition` | skill | Must     | 🔴      | Decompose a feature or capability into user stories (use cases) for different roles and personas. Follows standard "As a … I want … So that …" format. Handoff → `shai-task-breakdown`                           | `/shai-story-decomposition for "real-time collaboration" feature`                             |
 | V-S04 | `shai-task-breakdown`      | skill | Must     | 🔴      | Break down user stories into concrete, scoped development tasks ready for assignment to a developer or AI agent session. Produces an ordered task list with acceptance criteria                                  | `/shai-task-breakdown for story "As a user, I can share a whiteboard link"`                   |
 
