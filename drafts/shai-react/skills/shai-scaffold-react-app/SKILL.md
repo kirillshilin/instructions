@@ -28,14 +28,7 @@ Do NOT use this skill when:
 
 ## Workflow
 
-### Progress Reporting (mandatory)
-
-At the start of each workflow step, output a progress indicator in bold blue:
-
-**🔵 Step M/N — {Step title}**
-
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
+{../../../shared/_progress.partial.md}
 
 ### Step 1: Gather Requirements
 
@@ -64,16 +57,19 @@ Run the Vite scaffolding command. Always use npm and the `react-ts` template:
 ```bash
 npm create vite@latest {project} -- --template react-ts
 cd {project}
-npm install
 ```
 
 > **Why `react-ts` and not a framework template?** The `react-ts` template gives
 > a clean SPA starting point. Frameworks like React Router (framework mode) or
 > Next.js have their own scaffolding skills.
+>
+> **No `npm install` yet** — dependencies will be installed once, together with
+> Tailwind in the next step.
 
 ### Step 3: Install and Configure Tailwind CSS v4
 
-Install Tailwind CSS as a Vite plugin — the recommended approach for Vite projects:
+Install Tailwind CSS as a Vite plugin — the recommended approach for Vite projects.
+This also installs all scaffolded dependencies from `package.json` in one pass:
 
 ```bash
 npm install tailwindcss @tailwindcss/vite
@@ -122,33 +118,7 @@ Add to `tsconfig.app.json` `compilerOptions` (merge, don't overwrite):
 
 ### Step 5: Set Up ESLint + Prettier
 
-The Vite template already includes ESLint with React plugins. Add Prettier
-integration:
-
-```bash
-npm install -D prettier eslint-config-prettier eslint-plugin-prettier
-```
-
-Add `prettierRecommended` to `eslint.config.js`:
-
-```js
-import prettierRecommended from "eslint-plugin-prettier/recommended";
-
-// Add to the extends array of the existing config:
-// extends: [...existingExtends, prettierRecommended]
-```
-
-Create `.prettierrc` in the project root:
-
-```json
-{
-  "semi": true,
-  "singleQuote": false,
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "printWidth": 80
-}
-```
+{../../../shared/_eslint-prettier.partial.md}
 
 ### Step 6: Set Up React Router
 
@@ -276,49 +246,21 @@ Apply the optional features the user selected in Step 1.
 
 #### shadcn/ui (if selected)
 
-Install shadcn/ui dependencies and initialize:
+Initialize shadcn/ui first — this installs dependencies (`class-variance-authority`,
+`clsx`, `tailwind-merge`), creates `components.json`, and sets up `src/lib/utils.ts`
+automatically:
 
 ```bash
-npm install class-variance-authority clsx tailwind-merge
-npm install -D @types/node
+npx shadcn@latest init
 ```
 
-Create `src/lib/utils.ts`:
+When prompted, select:
+- **Style:** New York
+- **Base color:** Neutral
+- **CSS variables:** Yes
 
-```ts
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-```
-
-Create `components.json` in the project root:
-
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "src/index.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  }
-}
-```
+> The init command detects the Vite + React + TypeScript setup and configures
+> path aliases from `tsconfig.app.json` automatically.
 
 Then add commonly used base components:
 
@@ -371,19 +313,29 @@ npm install @reduxjs/toolkit react-redux
 
 Set up `src/store/index.ts` with `configureStore` and wrap the app in `<Provider>`.
 
-### Step 9: Verify
+### Step 9: Verify with Playwright
 
-Run the development server to confirm everything works:
+Start the development server in async mode so it keeps running:
 
 ```bash
 npm run dev
 ```
 
-Check for:
-- No compilation errors
-- Home page renders at `http://localhost:5173`
-- Tailwind classes are applied
-- Routing works (navigate to a non-existent path → 404 page)
+Then use the Playwright MCP tools to visually verify the app:
+
+1. **Navigate** to `http://localhost:5173` using `mcp_playwright_browser_navigate`.
+2. **Take a snapshot** with `mcp_playwright_browser_snapshot` and confirm:
+   - The page rendered without errors (no blank screen or error overlay).
+   - The header shows the project name.
+   - The "Welcome" heading and body text are visible.
+   - Tailwind styles are applied (layout, spacing, fonts look correct).
+3. **Verify 404 routing** — navigate to `http://localhost:5173/nonexistent`
+   using `mcp_playwright_browser_navigate`, then take another snapshot and
+   confirm the "404" heading and "Go home" link are visible.
+4. **Click the "Go home" link** using `mcp_playwright_browser_click` and take
+   a final snapshot to confirm it redirects back to the home page.
+
+If any check fails, diagnose and fix before proceeding.
 
 ### Step 10: Summary
 

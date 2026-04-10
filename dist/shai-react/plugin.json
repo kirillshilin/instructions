@@ -1,9 +1,0 @@
-{
-  "name": "shai-react",
-  "displayName": "SHAI React",
-  "description": "React + TypeScript + Tailwind + shadcn patterns. Component conventions, scaffolding, and testing workflows.",
-  "version": "0.1.0",
-  "publisher": "kirillshilin",
-  "license": "MIT",
-  "keywords": ["react", "tailwind", "shadcn", "components"]
-}

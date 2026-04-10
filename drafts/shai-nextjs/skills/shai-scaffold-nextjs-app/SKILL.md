@@ -212,7 +212,11 @@ npx shadcn@latest add button card input
 See [shadcn/ui docs](https://ui.shadcn.com/docs/installation/next) for the
 full component list.
 
-### Step 5: Verify the Setup
+### Step 5: Set Up Prettier
+
+{../../../shared/_eslint-prettier.partial.md}
+
+### Step 6: Verify the Setup
 
 Run these checks to ensure everything works:
 
@@ -232,7 +236,7 @@ npm run lint
 
 If any check fails, fix the issue before presenting the result.
 
-### Step 6: Present the Result
+### Step 7: Present the Result
 
 ```
 ## Scaffolding Complete
@@ -250,9 +254,8 @@ If any check fails, fix the issue before presenting the result.
 ### Next steps:
 1. `cd {project-name} && npm run dev` to start the dev server
 2. Open `http://localhost:3000` to see your app
-3. Set up ESLint flat config + Prettier using the project's lint/format skill
-4. Use `/shai-add-nextjs-page` to add new pages
-5. Edit `src/app/page.tsx` to customize the home page
+3. Use `/shai-add-nextjs-page` to add new pages
+4. Edit `src/app/page.tsx` to customize the home page
 ```
 
 ## Gotchas
