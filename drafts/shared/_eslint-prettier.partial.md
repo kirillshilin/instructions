@@ -13,15 +13,5 @@ import prettierRecommended from "eslint-plugin-prettier/recommended";
 // extends: [...existingExtends, prettierRecommended]
 ```
 
-Create `.prettierrc` in the project root ({_new-line.rule.md}):
-
-```json
-{
-  "semi": true,
-  "singleQuote": false,
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "printWidth": 100,
-  "endOfLine": "lf"
-}
-```
+The `.prettierrc` file is provided in the skill's `assets/` folder and will be
+copied to the project root automatically ({_new-line.rule.md}).

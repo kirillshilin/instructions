@@ -23,7 +23,15 @@ Do NOT use this skill when:
 
 ## Workflow
 
-{../../../shared/\_progress.partial.md}
+### Progress Reporting (mandatory)
+
+At the start of each workflow step, output a progress indicator in bold blue:
+
+**🔹 Step M/N — {Step title}**
+
+where M is the current step number and N is the total number of steps in the
+workflow. This is mandatory for every step — never skip it.
+
 
 ### Assets
 
@@ -105,7 +113,25 @@ Add to `tsconfig.app.json` `compilerOptions` (merge, don't overwrite):
 
 ### Step 5: Set Up ESLint + Prettier
 
-{../../../shared/\_eslint-prettier.partial.md}
+The project already includes ESLint. Add Prettier integration:
+
+```bash
+npm install -D prettier eslint-config-prettier eslint-plugin-prettier
+```
+
+Add `prettierRecommended` to `eslint.config.js`:
+
+```js
+import prettierRecommended from "eslint-plugin-prettier/recommended";
+
+// Add to the extends array of the existing config:
+// extends: [...existingExtends, prettierRecommended]
+```
+
+The `.prettierrc` file is provided in the skill's `assets/` folder and will be
+copied to the project root automatically (All generated files MUST use LF (`\n`) line endings — never CRLF (`\r\n`). When Prettier is configured, set `"endOfLine": "lf"` in `.prettierrc`.
+).
+
 
 ### Step 6: Set Up React Router
 
