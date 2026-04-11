@@ -1,5 +1,5 @@
 ---
-name: idea-evaluation
+name: shai-idea-evaluation
 description: >
   Evaluate and expand a raw software product idea through structured questioning, competitor research, persona building, and user journey mapping. Produces a comprehensive evaluation report with core concept, killer feature, delight score, and MoSCoW prioritization. Use this skill when the user has a product idea to evaluate, wants to brainstorm a software concept, needs to validate an app idea, mentions idea evaluation, product discovery, concept exploration, or wants to assess whether an idea is worth building — even for a quick gut check.
 ---

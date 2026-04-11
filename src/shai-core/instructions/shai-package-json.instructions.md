@@ -63,6 +63,8 @@ Every project must expose a consistent set of npm scripts. Use the exact names b
 | `test`       | `npm run test`       | Run tests in **watch mode** (default for development) |
 | `test:once`  | `npm run test:once`  | Run tests **once** without watch (CI, pre-commit)     |
 | `lint`       | `npm run lint`       | Run linter (ESLint) — check only, no auto-fix         |
+| `lint:fix`   | `npm run lint:fix`   | Auto-fix linter errors                                |
+| `format`     | `npm run format`     | Run code formatter (e.g., Prettier)                   |
 
 ### Optional Scripts (add when applicable)
 
@@ -72,8 +74,6 @@ Every project must expose a consistent set of npm scripts. Use the exact names b
 | `deploy`           | `npm run deploy`           | Project has a deployment target (e.g., Firebase) |
 | `deploy:functions` | `npm run deploy:functions` | Firebase Functions deployment                    |
 | `deploy:hosting`   | `npm run deploy:hosting`   | Firebase Hosting deployment                      |
-| `lint:fix`         | `npm run lint:fix`         | Auto-fix linter errors                           |
-| `format`           | `npm run format`           | Run code formatter (e.g., Prettier)              |
 | `test:coverage`    | `npm run test:coverage`    | Run tests with coverage report                   |
 
 ### Rules

@@ -12,19 +12,23 @@
     "architecture",
     "security"
   ],
+  "instructions": [
+    "instructions/shai-coding-standards.instructions.md",
+    "instructions/shai-package-json.instructions.md"
+  ],
   "skills": [
-    "skills/code-review",
-    "skills/tdd-feature",
-    "skills/add-feature",
-    "skills/scaffold-component",
-    "skills/setup-tailwind",
-    "skills/setup-shadcn",
-    "skills/create-skill",
-    "skills/create-agent",
-    "skills/pr-preparation",
-    "skills/research-docs",
-    "skills/security-audit",
-    "skills/software-design"
+    "skills/shai-code-review",
+    "skills/shai-tdd-feature",
+    "skills/shai-add-feature",
+    "skills/shai-scaffold-component",
+    "skills/shai-setup-tailwind",
+    "skills/shai-setup-shadcn",
+    "skills/shai-create-skill",
+    "skills/shai-create-agent",
+    "skills/shai-pr-preparation",
+    "skills/shai-research-docs",
+    "skills/shai-security-audit",
+    "skills/shai-software-design"
   ],
   "agents": [
     "agents/shai-architect.agent.md",

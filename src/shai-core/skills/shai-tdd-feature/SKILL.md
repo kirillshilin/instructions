@@ -1,5 +1,5 @@
 ---
-name: tdd-feature
+name: shai-tdd-feature
 description: >
   TDD (test-driven development) workflow: write all failing tests first, pause for user review, then implement. Use this skill when the user says "use TDD", "write tests first", "red-green", "test-driven", "I want to review tests before implementation", "build this with TDD", or when the feature involves high branching logic, complex input validation, many edge cases, or library development that demands intensive coverage. Especially valuable for parsers, calculators, validators, and any code where correctness across a wide input space matters more than speed of delivery.
 ---

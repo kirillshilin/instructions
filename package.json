@@ -2,7 +2,15 @@
   "name": "@shai/instructions",
   "version": "0.1.0",
   "description": "Composable instruction sets for AI coding assistants",
-  "private": true,
+  "license": "MIT",
+  "bin": {
+    "shai": "bin/install.js",
+    "@shai/instructions": "bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "dist/"
+  ],
   "scripts": {
     "build": "node scripts/build.js"
   }
