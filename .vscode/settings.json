@@ -2,6 +2,7 @@
     "chat.tools.terminal.autoApprove": {
         "npx skills": true,
         "Rename-Item": true,
-        "npm link": true
+        "npm link": true,
+        "npx -y skills": true
     }
 }

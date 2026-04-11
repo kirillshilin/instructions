@@ -5,7 +5,7 @@ const path = require("path");
 
 const DIST_DIR = path.resolve(__dirname, "..", "dist");
 
-const ASSET_TYPES = ["skills", "instructions", "agents"];
+const ASSET_TYPES = ["skills", "instructions", "agents", "hooks"];
 
 // Maps short names and aliases → canonical directory name (shai-*)
 const ALIASES = {
@@ -15,6 +15,7 @@ const ALIASES = {
   "shai-ts": "shai-typescript",
   react: "shai-react",
   dotnet: "shai-dotnet",
+  node: "shai-node",
   nextjs: "shai-nextjs",
   next: "shai-nextjs",
   product: "shai-product",

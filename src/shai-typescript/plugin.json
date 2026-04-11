@@ -18,7 +18,7 @@
     "instructions/shai-tsconfig-standards.instructions.md"
   ],
   "skills": [
-    "skills/shai-scaffold-ts-project",
+    "skills/shai-scaffold-ts-workspace",
     "skills/shai-unit-testing-ts"
   ]
 }

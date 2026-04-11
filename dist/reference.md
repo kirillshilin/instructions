@@ -79,7 +79,7 @@ shai/
 │   │   ├── C-S11  shai-security-audit               🔴  Won't
 │   │   └── C-S12  shai-software-design              🟢  Must
 │   ├── hooks/
-│   │   ├── C-H01  shai-format-on-edit               🔴  Should
+│   │   ├── C-H01  shai-format-on-edit               🟢 Should
 │   │   ├── C-H02  shai-lint-on-edit                 🔴  Could
 │   │   ├── C-H03  shai-dangerous-command-guard      🔴  Should
 │   │   └── C-H04  shai-session-audit-log            🔴  Won't
@@ -93,7 +93,7 @@ shai/
 │   │   ├── T-I02  shai-typescript-testing           🟢  Should
 │   │   └── T-I03  shai-tsconfig-standards           🟢  Could
 │   └── skills/
-│       ├── T-S01  shai-scaffold-ts-project          🟡  Should
+│       ├── T-S01  shai-scaffold-ts-workspace        🟢  Should
 │       └── T-S02  shai-unit-testing-ts              🟢  Should
 ├── shai-react/
 │   ├── instructions/
@@ -132,7 +132,7 @@ shai/
 │   ├── instructions/
 │   │   └── N-I02  shai-express-patterns             🔴  Should
 │   └── skills/
-│       └── N-S01  shai-scaffold-node-app            🟡  Should
+│       └── N-S01  shai-scaffold-node-app            🟢  Should
 ├── shai-nextjs/
 │   └── skills/
 │       ├── X-S01  shai-scaffold-nextjs-app          🟢  Must
@@ -164,8 +164,8 @@ shai/
     └── skills/
         ├── V-S01  shai-idea-evaluation              🟢  Must
         ├── V-S02  shai-feature-mapping              🟢  Must
-        ├── V-S03  shai-story-decomposition          🔴  Must
-        └── V-S04  shai-task-breakdown               🔴  Must
+        ├── V-S03  shai-story-decomposition          �  Must
+│       └── V-S04  shai-task-breakdown               🟢  Must
 ```
 
 ---
@@ -218,7 +218,7 @@ Every project should install this.
 
 | #     | Asset Name                     | Type | Event                   | Priority | Status | Purpose                                                                           |
 | ----- | ------------------------------ | ---- | ----------------------- | -------- | ------ | --------------------------------------------------------------------------------- |
-| C-H01 | `shai-format-on-edit`          | hook | `PostToolUse`           | Should   | 🔴      | Runs formatter (Prettier/dotnet format) after every file edit by the agent        |
+| C-H01 | `shai-format-on-edit`          | hook | `PostToolUse`           | Should   | �      | Runs formatter (Prettier/dotnet format) after every file edit by the agent        |
 | C-H02 | `shai-lint-on-edit`            | hook | `PostToolUse`           | Could    | 🔴      | Runs linter after file edit, feeds warnings back as system message                |
 | C-H03 | `shai-dangerous-command-guard` | hook | `PreToolUse`            | Should   | 🔴      | Blocks destructive terminal commands (`rm -rf`, `DROP TABLE`, `git push --force`) |
 | C-H04 | `shai-session-audit-log`       | hook | `SessionStart` / `Stop` | Won't    | 🔴      | Logs session start/end with timestamp, files touched, commands run                |
@@ -247,10 +247,10 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 
 ### 2.2 Skills
 
-| #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                  |
-| ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------- |
-| T-S01 | `shai-scaffold-ts-project` | skill | Should   | 🟡      | Scaffold a TypeScript project: tsconfig, eslint, prettier, jest/vitest, folder structure |
-| T-S02 | `shai-unit-testing-ts`     | skill | Should   | 🟢      | Write unit tests for TS code: mocking strategy, test utilities, coverage targets         |
+| #     | Asset Name                   | Type  | Priority | Status | Purpose                                                                                                                    |
+| ----- | ---------------------------- | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------- |
+| T-S01 | `shai-scaffold-ts-workspace` | skill | Should   | �      | Scaffold a multi-project TypeScript workspace with npm workspaces, shared base configs, and handoff to app-specific skills |
+| T-S02 | `shai-unit-testing-ts`       | skill | Should   | 🟢      | Write unit tests for TS code: mocking strategy, test utilities, coverage targets                                           |
 
 ---
 
@@ -342,9 +342,9 @@ Node.js / Express backend patterns.
 
 ### 6.2 Skills
 
-| #     | Asset Name               | Type  | Priority | Status | Purpose                                                                        |
-| ----- | ------------------------ | ----- | -------- | ------ | ------------------------------------------------------------------------------ |
-| N-S01 | `shai-scaffold-node-app` | skill | Should   | 🟡      | Scaffold Node.js/Express API: folder structure, middleware, env config, Docker |
+| #     | Asset Name               | Type  | Priority | Status | Purpose                                                                                                                                                  |
+| ----- | ------------------------ | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| N-S01 | `shai-scaffold-node-app` | skill | Should   | �      | Scaffold Node.js app (Genkit / Express / CLI / Plain): TypeScript, ESLint, Prettier, Jest, folder structure, barrel exports, env config, optional Docker |
 
 ---
 
@@ -428,8 +428,8 @@ Use this plugin at the start of any new feature or product initiative.
 | ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | V-S01 | `shai-idea-evaluation`     | skill | Must     | 🟢      | Evaluate and investigate a raw idea: assess feasibility, value proposition, key risks, and strategic fit. Produces a structured evaluation report. Handoff → `shai-feature-mapping`                              | `/shai-idea-evaluation "real-time collaborative whiteboard"`                                  |
 | V-S02 | `shai-feature-mapping`     | skill | Must     | 🟢      | Map the features and capabilities the application needs for the idea to work. Groups features by domain area. May call `shai-architect` (C-A01) for technical design input. Handoff → `shai-story-decomposition` | `/shai-feature-mapping using idea-evaluation report for "real-time collaborative whiteboard"` |
-| V-S03 | `shai-story-decomposition` | skill | Must     | 🔴      | Decompose a feature or capability into user stories (use cases) for different roles and personas. Follows standard "As a … I want … So that …" format. Handoff → `shai-task-breakdown`                           | `/shai-story-decomposition for "real-time collaboration" feature`                             |
-| V-S04 | `shai-task-breakdown`      | skill | Must     | 🔴      | Break down user stories into concrete, scoped development tasks ready for assignment to a developer or AI agent session. Produces an ordered task list with acceptance criteria                                  | `/shai-task-breakdown for story "As a user, I can share a whiteboard link"`                   |
+| V-S03 | `shai-story-decomposition` | skill | Must     | �      | Decompose a feature or capability into user stories (use cases) for different roles and personas. Follows standard "As a … I want … So that …" format. Handoff → `shai-task-breakdown`                           | `/shai-story-decomposition for "real-time collaboration" feature`                             |
+| V-S04 | `shai-task-breakdown`      | skill | Must     | �      | Break down user stories into concrete, scoped development tasks ready for assignment to a developer or AI agent session. Produces an ordered task list with acceptance criteria                                  | `/shai-task-breakdown for story "As a user, I can share a whiteboard link"`                   |
 
 ### 10.2 Agents
 
@@ -482,7 +482,7 @@ The following assets have prior work in the `obsolete/` folder that can be used 
 | C-S08    | shai-create-agent                | `obsolete/dotgithub/skills/create-agent/`                                   |
 | T-I01    | shai-typescript-coding-standards | `src/shai-typescript/instructions/shai-ts-coding-standards.instructions.md` |
 | T-I02    | shai-typescript-testing          | `obsolete/typescript-tests.instructions.md`                                 |
-| T-S01    | shai-scaffold-ts-project         | `obsolete/typescript-workspace.instructions.md`                             |
+| T-S01    | shai-scaffold-ts-workspace       | `obsolete/typescript-workspace.instructions.md`                             |
 | T-S02    | shai-unit-testing-ts             | `obsolete/typescript-tests.instructions.md`                                 |
 | R-I01    | shai-react-components            | `obsolete/react-components.instructions.md`                                 |
 | R-S01    | shai-scaffold-react-app          | `obsolete/react-components.instructions.md` (partial)                       |

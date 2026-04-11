@@ -13,6 +13,8 @@
     ],
     "skills": [
         "skills/shai-idea-evaluation",
-        "skills/shai-feature-mapping"
+        "skills/shai-feature-mapping",
+        "skills/shai-story-decomposition",
+        "skills/shai-task-breakdown"
     ]
 }

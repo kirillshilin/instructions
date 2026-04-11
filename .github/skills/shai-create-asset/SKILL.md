@@ -1,12 +1,12 @@
 ---
 name: shai-create-asset
 description: >
-  Creates individual shai assets (instructions, skills, agents, hooks, prompts) following the shai plugin system plan in 02-shai-asset-reference.md. Use this skill whenever the user wants to create, build, scaffold, or implement any shai asset — whether referenced by ID (like T-I01, C-A03, D-S02) or by name (like shai-typescript-coding-standards, shai-architect, shai-code-review). Also use when the user says "build the next asset", "create asset", "implement [asset name]", or references any asset from the shai asset reference document. Even if the user just says an asset ID like "C-I01" with no other context, this skill applies.
+  Creates individual shai assets (instructions, skills, agents, hooks, prompts) following the shai plugin system plan in reference.md. Use this skill whenever the user wants to create, build, scaffold, or implement any shai asset — whether referenced by ID (like T-I01, C-A03, D-S02) or by name (like shai-typescript-coding-standards, shai-architect, shai-code-review). Also use when the user says "build the next asset", "create asset", "implement [asset name]", or references any asset from the shai asset reference document. Even if the user just says an asset ID like "C-I01" with no other context, this skill applies.
 ---
 
 # Create SHAI Asset
 
-Build a single asset for the SHAI plugin system — the user's personal AI coding assistant for VS Code / GitHub Copilot. Each asset is part of a modular plugin architecture defined in the [asset reference](../../../research/02-shai-asset-reference.md).
+Build a single asset for the SHAI plugin system — the user's personal AI coding assistant for VS Code / GitHub Copilot. Each asset is part of a modular plugin architecture defined in the [asset reference](../../../src/reference.md).
 
 The SHAI system has 84 assets across 10 plugins. This skill builds them one at a time, ensuring each asset is high-quality, consistent, and enriched with the user's coding philosophy.
 
@@ -14,7 +14,7 @@ The SHAI system has 84 assets across 10 plugins. This skill builds them one at a
 
 At the start of each workflow step, output a progress indicator in bold blue:
 
-**🔵 Step M/N — {Step title}**
+**🔹 Step M/N — {Step title}**
 
 where M is the current step number and N is the total number of steps in the workflow. This is mandatory for every step — never skip it.
 
@@ -29,7 +29,7 @@ Parse the user's input to identify which asset to create.
 
 **Lookup procedure:**
 
-1. Read [research/02-shai-asset-reference.md](../../../research/02-shai-asset-reference.md)
+1. Read [src/reference.md](../../../src/reference.md)
 2. Find the matching row in the asset tables
 3. Extract: asset ID, name, type, plugin, priority, status, purpose, example, and any type-specific fields (applyTo, tools, event)
 
@@ -282,7 +282,7 @@ After writing the file:
 
 **⚠️ This step is strictly required. Never skip it.**
 
-After the user approves the asset, update [research/02-shai-asset-reference.md](../../../research/02-shai-asset-reference.md):
+After the user approves the asset, update [src/reference.md](../../../src/reference.md):
 
 1. **Update status**: Change the asset's status from 🔴 to 🟢 (or 🟡 to 🟢) in both the Asset Tree and the plugin's detail table.
 2. **Add new plugin**: If this asset belongs to a plugin that doesn't exist in the reference doc yet, add the full plugin entry: distribution tree entry, asset tree entry, numbered section with tables, summary table row, and update all counts (total assets, MoSCoW counts).

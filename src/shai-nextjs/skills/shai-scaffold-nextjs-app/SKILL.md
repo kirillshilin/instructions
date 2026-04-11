@@ -35,7 +35,7 @@ This skill uses the following MCP tools:
 
 ## Workflow
 
-{../../../shared/\_assets.instructions.md}
+{../../../shared/\_assets.partial.md}
 
 ### Step 1: Gather Project Requirements
 

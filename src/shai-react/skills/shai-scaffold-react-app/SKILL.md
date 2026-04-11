@@ -27,7 +27,7 @@ Do NOT use this skill when:
 
 ### Assets
 
-{../../../shared/\_assets.instructions.md}
+{../../../shared/\_assets.partial.md}
 
 ### Step 1: Gather Requirements
 

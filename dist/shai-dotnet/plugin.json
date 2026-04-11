@@ -5,5 +5,12 @@
     "version": "0.1.0",
     "publisher": "kirillshilin",
     "license": "MIT",
-    "keywords": ["dotnet", "csharp", "clean-architecture", "ddd", "cqrs", "xunit"]
+    "keywords": [
+        "dotnet",
+        "csharp",
+        "clean-architecture",
+        "ddd",
+        "cqrs",
+        "xunit"
+    ]
 }

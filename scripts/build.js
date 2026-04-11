@@ -100,6 +100,56 @@ function buildDir(srcDir, destDir) {
   }
 }
 
+/**
+ * Copy all files (recursively) from `src` to `dest`, overwriting if needed.
+ */
+function copyDir(src, dest) {
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcFile = path.join(src, entry.name);
+    const destFile = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      fs.mkdirSync(destFile, { recursive: true });
+      copyDir(srcFile, destFile);
+    } else {
+      fs.copyFileSync(srcFile, destFile);
+    }
+  }
+}
+
+/**
+ * Read `src/asset-rules.json` and copy shared assets to every declared target
+ * under `dist/`.  Each rule has:
+ *   from  — path relative to src/ (the shared source directory)
+ *   to    — array of paths relative to dist/ (the skill asset destinations)
+ */
+function applyAssetRules() {
+  const rulesFile = path.join(SRC_DIR, "asset-rules.json");
+  if (!fs.existsSync(rulesFile)) return;
+
+  const rules = JSON.parse(fs.readFileSync(rulesFile, "utf-8"));
+  if (!Array.isArray(rules) || rules.length === 0) return;
+
+  console.log("Applying asset rules…\n");
+
+  for (const rule of rules) {
+    const srcPath = path.join(SRC_DIR, rule.from);
+    if (!fs.existsSync(srcPath)) {
+      console.warn(`\x1b[31m  ⚠  Asset source not found: ${rule.from}\x1b[0m`);
+      continue;
+    }
+
+    for (const target of rule.to) {
+      const destPath = path.join(OUT_DIR, target);
+      fs.mkdirSync(destPath, { recursive: true });
+      copyDir(srcPath, destPath);
+      console.log(`  ✔ ${rule.from} → ${target}`);
+    }
+  }
+
+  console.log();
+}
+
 // --- main ---
 console.log("Building instructions…\n");
 console.log(`  Source:  ${path.relative(ROOT, SRC_DIR)}/`);
@@ -113,4 +163,7 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 buildDir(SRC_DIR, OUT_DIR);
 
-console.log("\nDone ✅");
+console.log();
+applyAssetRules();
+
+console.log("Done ✅");

@@ -86,7 +86,44 @@ Skip this round if the user signals they have enough clarity, or if the idea is 
 
 ### Step 6: Build the Evaluation Report
 
-Compile everything into a structured Markdown file saved as `{name}.idea.md` (where `{name}` is a slug derived from the idea). The user can then pass this report to `feature-mapping`.
+Compile everything into a structured Markdown file saved as `docs/product/{name}.idea.md` (where `{name}` is a slug derived from the idea — lowercase, hyphens, no spaces). Create the `docs/product/` directory if it doesn't exist. The user can then pass this report to `feature-mapping`.
+
+**Update the personas file:** After writing the `.idea.md` file, update (or create) `docs/product/personas.md` — a shared persona reference that downstream skills (`feature-mapping`, `story-decomposition`) read directly. If `personas.md` already exists, append new personas from this evaluation — don't overwrite personas from previous evaluations. Use this format:
+
+```markdown
+# Personas
+
+Shared persona reference for the product discovery pipeline.  
+Source: idea evaluations in `docs/product/`.
+
+## {Persona Name}
+
+- **Source idea**: [{idea name}]({name}.idea.md)
+- **Role**: {Job title / life role}
+- **Pain Points**: {3 specific frustrations}
+- **Primary Goal**: {What success looks like for them}
+- **Context**: {Typical day, environment, constraints}
+
+## {Persona Name 2}
+
+...
+```
+
+Each persona entry should match the persona sections in the `.idea.md` report but in a flattened, referenceable format. The `Source idea` field links back to the originating evaluation so downstream skills know where the persona came from.
+
+**Update the reference file:** After writing the `.idea.md` and `personas.md` files, update (or create) `docs/product/ideas.md` — a reference index that lists all idea evaluations. Use this format:
+
+```markdown
+# Ideas
+
+Index of all product idea evaluations.
+
+| Idea | File | Date | Delight Score | Status |
+| ---- | ---- | ---- | ------------- | ------ |
+| {Idea Name} | [{name}.idea.md]({name}.idea.md) | {YYYY-MM-DD} | {score}/10 | Evaluated |
+```
+
+Append a new row for each evaluation. If `ideas.md` already exists, add the row to the existing table — don't overwrite previous entries.
 
 ## Report Template
 
@@ -214,8 +251,11 @@ This report is ready for **`/feature-mapping`** — pass it as input to map thes
 For technical architecture decisions, consult **`@shai-architect`** (C-A01).
 ```
 
+**Output location:** `docs/product/{name}.idea.md`
+
 ## Gotchas
 
+- **Always update personas.md.** Downstream skills (`feature-mapping`, `story-decomposition`) read `docs/product/personas.md` directly for the "As a {role}" part of features and stories. If you skip this step, the pipeline loses persona context.
 - **Don't skip the interview.** The report quality depends entirely on how much you draw out of the user. A lazy Round 1 produces a generic report. Push for specifics — "who exactly feels this pain?" not "what's the target audience?"
 - **2-3 competitors max.** The user doesn't need a market research firm. Find the most relevant competitors, identify gaps, move on. If you can't find direct competitors, look for adjacent solutions.
 - **Killer feature ≠ most complex feature.** It's the one that makes users say "finally, someone built this." Often it's surprisingly simple.

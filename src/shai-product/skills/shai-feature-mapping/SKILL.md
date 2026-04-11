@@ -6,7 +6,7 @@ description: >
 
 # Feature Mapping
 
-Take raw product capabilities — from a `idea-evaluation` report or a standalone idea description — and map them into a structured, domain-grouped feature set. The output is a single `{name}.features.md` file with a reference table at the top and detailed feature cards below, ready for `story-decomposition` (V-S03).
+Take raw product capabilities — from a `idea-evaluation` report or a standalone idea description — and map them into a structured, domain-grouped feature set. The output is a `docs/features/{name}.features.md` reference index plus individual `docs/features/{feature-name}.feature.md` files for each feature, ready for `story-decomposition` (V-S03).
 
 This skill sits in the middle of the shai-product discovery pipeline:
 
@@ -34,10 +34,10 @@ The goal is to turn vague capabilities into features that are concrete enough to
 
 Determine the input source and load context.
 
-**Option A — Pipeline input (`.idea.md` file):** Read the idea evaluation report. Extract:
+**Option A — Pipeline input (`.idea.md` file):** Read the idea evaluation report from `docs/product/`. Check `docs/product/ideas.md` for available evaluations if the user doesn't specify a file. Extract:
 
 - Core Concept (problem, solution, why now)
-- Target personas
+- Target personas — read from `docs/product/personas.md` (the shared persona reference produced by `idea-evaluation`). Fall back to the `.idea.md` "Target Audience" section if `personas.md` doesn't exist.
 - User Journey Map
 - Capabilities list (the raw material)
 - MoSCoW priorities (initial signal, not final)
@@ -142,25 +142,42 @@ Keep research focused — 1-2 searches per domain, not a full market study. Summ
 
 ### Step 5: Feature Cards
 
-For each feature, create a structured card. Features get sequential IDs (F-001, F-002, ...) assigned in domain order.
+For each feature, create a structured card saved as its own file: `docs/features/{id}-{feature-name}.feature.md`. Features get sequential IDs (F-001, F-002, ...) assigned in domain order.
 
-**Feature card format:**
+The filename combines the lowercase ID and a hyphenated slug (2-5 words). Examples: `f-001-auth-identity.feature.md`, `f-002-real-time-collaboration.feature.md`, `f-003-content-editor.feature.md`.
+
+**Feature file format:**
 
 ```markdown
-### F-{NNN}: {Feature Name}
+---
+name: "{Feature Name}"
+priority: Must
+status: 🔴
+---
 
-**Domain**: {Domain name} **MoSCoW**: {Must / Should / Could / Won't} **RICE Score**: {score} (R:{reach} × I:{impact} × C:{confidence} / E:{effort})
+# F-001: {Feature Name}
+
+**Domain**: {Domain name} · **RICE Score**: 12.0 (R:8 × I:3 × C:1.0 / E:2)
 
 {2-3 sentence description of what this feature does and why it matters.}
 
-**Acceptance signals:**
+## Acceptance Signals
 
 - {Observable behavior 1 — how you know this feature works}
 - {Observable behavior 2}
 - {Observable behavior 3}
 
-**Depends on**: {F-NNN, F-NNN} or "None" **Enables**: {F-NNN, F-NNN} or "—"
+**Depends on**: F-002, F-005 or "None"
+**Enables**: F-003, F-007 or "—"
 ```
+
+### Feature file metadata fields
+
+| Field      | Required | Description                                                  |
+| ---------- | -------- | ------------------------------------------------------------ |
+| `name`     | Yes      | Human-readable feature name                                  |
+| `priority` | Yes      | MoSCoW priority: Must / Should / Could / Won't               |
+| `status`   | Yes      | 🔴 Not started · 🔵 In progress · 🟢 Done                     |
 
 **RICE scoring guide:**
 
@@ -200,14 +217,26 @@ After presenting the graph, flag any features that are "blocked" (have unmet dep
 
 ### Step 7: Assemble the Feature Map
 
-Compile everything into a single `{name}.features.md` file. The structure is:
+By this point, individual `.feature.md` files have been written in Step 5. Now compile the overview into `docs/features/{name}.features.md`. Create the `docs/features/` directory if it doesn't exist. This file is the **reference index only** — it does not repeat feature details. The structure is:
 
-1. **Feature Reference Table** — summary of all features with IDs, domains, MoSCoW, RICE scores, and status
-2. **Domain sections** — grouped feature cards with domain context
+1. **Feature Reference Table** — summary of all features with IDs, file links, domains, MoSCoW, RICE scores, and status
+2. **Domain sections** — domain descriptions with industry context and links to feature files (no inline feature cards)
 3. **Dependency graph** — the Mermaid diagram
 4. **Implementation roadmap** — suggested build order based on dependencies and RICE scores
 
-Save the file in the same directory as the `.idea.md` (if pipeline input) or in the current workspace root (if standalone).
+**Update the reference file:** After writing the `.features.md` file, update (or create) `docs/features/features.md` — a reference index that lists all feature maps. Use this format:
+
+```markdown
+# Features
+
+Index of all product feature maps.
+
+| Product     | File                                     | Date         | Features | Must    | Should  | Could   | Won't   |
+| ----------- | ---------------------------------------- | ------------ | -------- | ------- | ------- | ------- | ------- |
+| {Idea Name} | [{name}.features.md]({name}.features.md) | {YYYY-MM-DD} | {total}  | {count} | {count} | {count} | {count} |
+```
+
+Append a new row for each feature map. If `features.md` already exists, add the row to the existing table — don't overwrite previous entries.
 
 Present the full output to the user and ask:
 
@@ -217,9 +246,34 @@ Present the full output to the user and ask:
 
 > "Some features touch complex technical territory. Want me to suggest calling **`@shai-architect`** (C-A01) for technical feasibility on the riskier ones?"
 
-## Output Template
+## Output Templates
 
-Use this structure for the `{name}.features.md` file:
+### Individual feature file: `docs/features/f-001-{feature-name}.feature.md`
+
+```markdown
+---
+name: "{Feature Name}"
+priority: Must
+status: 🔴
+---
+
+# F-001: {Feature Name}
+
+**Domain**: Collaboration · **RICE Score**: 12.0 (R:8 × I:3 × C:1.0 / E:2)
+
+{2-3 sentence description of what this feature does and why it matters.}
+
+## Acceptance Signals
+
+- {Observable behavior 1}
+- {Observable behavior 2}
+- {Observable behavior 3}
+
+**Depends on**: None
+**Enables**: F-002, F-005
+```
+
+### Feature map index: `docs/features/{name}.features.md`
 
 ```markdown
 # {Idea Name} — Feature Map
@@ -228,12 +282,12 @@ Use this structure for the `{name}.features.md` file:
 
 ## Feature Reference
 
-| ID    | Feature | Domain   | MoSCoW | RICE    | Depends On | Status |
-| ----- | ------- | -------- | ------ | ------- | ---------- | ------ |
-| F-001 | {name}  | {domain} | Must   | {score} | —          | Mapped |
-| F-002 | {name}  | {domain} | Must   | {score} | F-001      | Mapped |
-| F-003 | {name}  | {domain} | Should | {score} | F-001      | Mapped |
-| ...   |         |          |        |         |            |        |
+| ID    | Feature                                            | Domain   | MoSCoW | RICE    | Depends On | Status |
+| ----- | -------------------------------------------------- | -------- | ------ | ------- | ---------- | ------ |
+| F-001 | [{name}](f-001-{slug}.feature.md)                  | {domain} | Must   | {score} | —          | 🔴     |
+| F-002 | [{name}](f-002-{slug}.feature.md)                  | {domain} | Must   | {score} | F-001      | 🔴     |
+| F-003 | [{name}](f-003-{slug}.feature.md)                  | {domain} | Should | {score} | F-001      | 🔴     |
+| ...   |                                                    |          |        |         |            |        |
 
 **Total features**: {N} ({Must count} Must, {Should count} Should, {Could count} Could, {Won't count} Won't)
 
@@ -243,25 +297,9 @@ Use this structure for the `{name}.features.md` file:
 
 **Industry context**: {Brief web-research insight — what leading products do in this domain, or common patterns to be aware of.}
 
-### F-001: {Feature Name}
-
-**Domain**: {Domain name} **MoSCoW**: Must **RICE Score**: 12.0 (R:8 × I:3 × C:1.0 / E:2)
-
-{Description of what this feature does and why it matters.}
-
-**Acceptance signals:**
-
-- {Observable behavior 1}
-- {Observable behavior 2}
-- {Observable behavior 3}
-
-**Depends on**: None **Enables**: F-002, F-005
-
-### F-002: {Feature Name}
-
-...
-
-_(Repeat for all features in this domain.)_
+**Features:**
+- [{F-001: Feature Name}](f-001-{slug}.feature.md)
+- [{F-002: Feature Name}](f-002-{slug}.feature.md)
 
 ## Domain: {Domain Name 2}
 
@@ -318,8 +356,11 @@ This feature map is ready for **`/story-decomposition`** — pass it as input to
 For architecture decisions on technically complex features, consult **`@shai-architect`** (C-A01).
 ```
 
+**Output location:** `docs/features/` — one `{name}.features.md` index + one `{id}-{feature-name}.feature.md` per feature
+
 ## Gotchas
 
+- **One feature = one file.** Each feature gets its own `{id}-{feature-name}.feature.md` with YAML frontmatter (name, priority, status). The main `.features.md` is a reference index only — no inline feature details. This mirrors how stories get individual `.story.md` files.
 - **Features ≠ implementation tasks.** "User can share a board via link" is a feature. "Set up WebSocket server" is a task. Stay at the user-facing level.
 - **Don't inflate RICE scores.** Be honest. A feature that affects 50 users per quarter gets Reach 2, not 8. Overly optimistic scores defeat the purpose.
 - **Domain count sweet spot is 4-7.** Fewer means you're lumping unrelated things together. More means you're splitting hairs. If you hit 8+ domains, reconsider boundaries.

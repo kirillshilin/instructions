@@ -13,12 +13,12 @@
     "vitest"
   ],
   "instructions": [
-    "instructions/typescript-coding-standards.instructions.md",
-    "instructions/typescript-testing.instructions.md",
-    "instructions/tsconfig-standards.instructions.md"
+    "instructions/shai-typescript-coding-standards.instructions.md",
+    "instructions/shai-typescript-testing.instructions.md",
+    "instructions/shai-tsconfig-standards.instructions.md"
   ],
   "skills": [
-    "skills/scaffold-ts-project",
-    "skills/unit-testing-ts"
+    "skills/shai-scaffold-ts-workspace",
+    "skills/shai-unit-testing-ts"
   ]
 }

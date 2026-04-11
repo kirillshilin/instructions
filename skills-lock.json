@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "bdd-scenarios": {
+      "source": "thebushidocollective/han",
+      "sourceType": "github",
+      "computedHash": "f16b0e8e672a23c96d79c5e44e84ceab5db41475dbfdceb2be34ed59f51ed7ee"
+    },
     "brainstorm-ideas-new": {
       "source": "phuryn/pm-skills",
       "sourceType": "github",
@@ -10,6 +15,11 @@
       "source": "inferen-sh/skills",
       "sourceType": "github",
       "computedHash": "d80432cb95febb9590f355c8503876eb1cbadb90fb32391ad0c1e930a75c9a56"
+    },
+    "decomposing-tasks": {
+      "source": "dralgorhythm/claude-agentic-framework",
+      "sourceType": "github",
+      "computedHash": "a53df8c311cd180cf5c0a4d8c2aa33e992f62170e1b8f4d38bfc5257e5027b67"
     },
     "startup-ideation": {
       "source": "refoundai/lenny-skills",
