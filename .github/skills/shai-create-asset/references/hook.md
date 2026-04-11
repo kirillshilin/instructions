@@ -45,7 +45,7 @@ Format spec and writing guide for hook JSON files in the SHAI plugin system.
 ## File Location & Naming
 
 Within a plugin: `{plugin}/hooks/{name}.json`
-In staging: `drafts/{plugin}/hooks/{name}.json`
+In staging: `src/{plugin}/hooks/{name}.json`
 
 ### Naming convention — one file per responsibility
 

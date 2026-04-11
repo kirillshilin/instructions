@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Build script that copies drafts/ to dist/ and resolves partial references.
+ * Build script that copies src/ to dist/ and resolves partial references.
  *
  * Partial syntax inside .md files:
  *   {rules/01-naming.rule.md}
@@ -16,7 +16,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const SRC_DIR = path.join(ROOT, "drafts");
+const SRC_DIR = path.join(ROOT, "src");
 const OUT_DIR = path.join(ROOT, "dist");
 
 const PARTIAL_PATTERN = /\{([^}]+\.(rule|partial)\.md)\}/g;
@@ -92,7 +92,7 @@ function buildDir(srcDir, destDir) {
       fs.writeFileSync(destPath, resolved, "utf-8");
       const refCount = (raw.match(PARTIAL_PATTERN) || []).length;
       if (refCount > 0) {
-        console.log(`  ✓ ${path.relative(ROOT, destPath)} (${refCount} partial(s) resolved)`);
+        console.log(`  ✔ ${path.relative(ROOT, destPath)} (${refCount} partial(s) resolved)`);
       }
     } else {
       fs.copyFileSync(srcPath, destPath);
@@ -113,4 +113,4 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 buildDir(SRC_DIR, OUT_DIR);
 
-console.log("\nDone ✓");
+console.log("\nDone ✅");

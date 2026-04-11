@@ -101,7 +101,7 @@ actual needs. Document WHY non-standard tools are included.
 ## File Location
 
 Within a plugin: `{plugin}/agents/{agent-name}.agent.md`
-In staging: `drafts/{plugin}/agents/{agent-name}.agent.md`
+In staging: `src/{plugin}/agents/{agent-name}.agent.md`
 
 ## Writing Persona — Focused Specialist
 
