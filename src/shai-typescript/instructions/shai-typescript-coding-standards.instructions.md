@@ -13,6 +13,8 @@ TypeScript conventions for architecture, structure, and patterns not covered by 
 
 {rules/02-folder-structure.rule.md}
 
+{rules/03-one-unit-per-file.rule.md}
+
 ## Constants
 
 Use `ALL_CAPS` for all `const` declarations to clearly distinguish immutable

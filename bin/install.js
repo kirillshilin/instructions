@@ -19,6 +19,7 @@ const ALIASES = {
   nextjs: "shai-nextjs",
   next: "shai-nextjs",
   product: "shai-product",
+  firebase: "shai-firebase",
 };
 
 function resolveAlias(name) {

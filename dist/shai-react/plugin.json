@@ -5,5 +5,13 @@
   "version": "0.1.0",
   "publisher": "kirillshilin",
   "license": "MIT",
-  "keywords": ["react", "tailwind", "shadcn", "components"]
+  "keywords": [
+    "react",
+    "tailwind",
+    "shadcn",
+    "components"
+  ],
+  "skills": [
+    "skills/shai-scaffold-react-app"
+  ]
 }
