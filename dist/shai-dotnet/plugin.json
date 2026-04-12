@@ -1,0 +1,16 @@
+{
+    "name": "shai-dotnet",
+    "displayName": "SHAI — .NET / C#",
+    "description": "C# conventions, Clean Architecture, DDD/CQRS patterns, and .NET testing workflows.",
+    "version": "0.1.0",
+    "publisher": "kirillshilin",
+    "license": "MIT",
+    "keywords": [
+        "dotnet",
+        "csharp",
+        "clean-architecture",
+        "ddd",
+        "cqrs",
+        "xunit"
+    ]
+}

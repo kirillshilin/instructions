@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Build script that copies drafts/ to dist/ and resolves partial references.
+ * Build script that copies src/ to dist/ and resolves partial references.
  *
  * Partial syntax inside .md files:
  *   {rules/01-naming.rule.md}
@@ -16,7 +16,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const SRC_DIR = path.join(ROOT, "drafts");
+const SRC_DIR = path.join(ROOT, "src");
 const OUT_DIR = path.join(ROOT, "dist");
 
 const PARTIAL_PATTERN = /\{([^}]+\.(rule|partial)\.md)\}/g;
@@ -92,12 +92,62 @@ function buildDir(srcDir, destDir) {
       fs.writeFileSync(destPath, resolved, "utf-8");
       const refCount = (raw.match(PARTIAL_PATTERN) || []).length;
       if (refCount > 0) {
-        console.log(`  ✓ ${path.relative(ROOT, destPath)} (${refCount} partial(s) resolved)`);
+        console.log(`  ✔ ${path.relative(ROOT, destPath)} (${refCount} partial(s) resolved)`);
       }
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
   }
+}
+
+/**
+ * Copy all files (recursively) from `src` to `dest`, overwriting if needed.
+ */
+function copyDir(src, dest) {
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcFile = path.join(src, entry.name);
+    const destFile = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      fs.mkdirSync(destFile, { recursive: true });
+      copyDir(srcFile, destFile);
+    } else {
+      fs.copyFileSync(srcFile, destFile);
+    }
+  }
+}
+
+/**
+ * Read `src/asset-rules.json` and copy shared assets to every declared target
+ * under `dist/`.  Each rule has:
+ *   from  — path relative to src/ (the shared source directory)
+ *   to    — array of paths relative to dist/ (the skill asset destinations)
+ */
+function applyAssetRules() {
+  const rulesFile = path.join(SRC_DIR, "asset-rules.json");
+  if (!fs.existsSync(rulesFile)) return;
+
+  const rules = JSON.parse(fs.readFileSync(rulesFile, "utf-8"));
+  if (!Array.isArray(rules) || rules.length === 0) return;
+
+  console.log("Applying asset rules…\n");
+
+  for (const rule of rules) {
+    const srcPath = path.join(SRC_DIR, rule.from);
+    if (!fs.existsSync(srcPath)) {
+      console.warn(`\x1b[31m  ⚠  Asset source not found: ${rule.from}\x1b[0m`);
+      continue;
+    }
+
+    for (const target of rule.to) {
+      const destPath = path.join(OUT_DIR, target);
+      fs.mkdirSync(destPath, { recursive: true });
+      copyDir(srcPath, destPath);
+      console.log(`  ✔ ${rule.from} → ${target}`);
+    }
+  }
+
+  console.log();
 }
 
 // --- main ---
@@ -113,4 +163,7 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 buildDir(SRC_DIR, OUT_DIR);
 
-console.log("\nDone ✓");
+console.log();
+applyAssetRules();
+
+console.log("Done ✅");

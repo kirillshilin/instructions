@@ -12,7 +12,7 @@ Run this checklist after generating any SHAI asset. Report results to the user.
 
 ## Universal Checks (all asset types)
 
-- [ ] **File location**: Asset is in the correct `drafts/{plugin}/{type}/` path
+- [ ] **File location**: Asset is in the correct `src/{plugin}/{type}/` path
 - [ ] **Naming**: Filename matches the asset name from the reference doc
 - [ ] **YAML frontmatter**: Valid YAML syntax, no tabs, proper quoting
 - [ ] **Required fields**: All required frontmatter fields present

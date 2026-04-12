@@ -54,10 +54,10 @@ Use #tool:toolName to reference tools in the body.
 ## File Location
 
 Workspace-level: `.github/prompts/{name}.prompt.md`
-In staging: `drafts/{plugin}/prompts/{name}.prompt.md`
+In staging: `src/{plugin}/prompts/{name}.prompt.md`
 
 Note: In the final plugin format, prompts should become skills. The
-`drafts/` prompt files are for review before deciding whether to convert.
+`src/` prompt files are for review before deciding whether to convert.
 
 ## Input Variables
 

@@ -1,43 +1,42 @@
 ---
 name: shai-create-asset
 description: >
-  Creates individual shai assets (instructions, skills, agents, hooks, prompts)
-  following the shai plugin system plan in 02-shai-asset-reference.md. Use this
-  skill whenever the user wants to create, build, scaffold, or implement any
-  shai asset — whether referenced by ID (like T-I01, C-A03, D-S02) or by name
-  (like shai-typescript-coding-standards, shai-architect, shai-code-review). Also use
-  when the user says "build the next asset", "create asset", "implement
-  [asset name]", or references any asset from the shai asset reference document.
-  Even if the user just says an asset ID like "C-I01" with no other context,
-  this skill applies.
+  Creates individual shai assets (instructions, skills, agents, hooks, prompts) following the shai plugin system plan in reference.md. Use this skill whenever the user wants to create, build, scaffold, or implement any shai asset — whether referenced by ID (like T-I01, C-A03, D-S02) or by name (like shai-typescript-coding-standards, shai-architect, shai-code-review). Also use when the user says "build the next asset", "create asset", "implement [asset name]", or references any asset from the shai asset reference document. Even if the user just says an asset ID like "C-I01" with no other context, this skill applies.
 ---
 
 # Create SHAI Asset
 
-Build a single asset for the SHAI plugin system — the user's personal AI coding
-assistant for VS Code / GitHub Copilot. Each asset is part of a modular plugin
-architecture defined in the [asset reference](../../../research/02-shai-asset-reference.md).
+Build a single asset for the SHAI plugin system — the user's personal AI coding assistant for VS Code / GitHub Copilot. Each asset is part of a modular plugin architecture defined in the [asset reference](../../../src/reference.md).
 
-The SHAI system has 76 assets across 8 plugins. This skill builds them one at a
-time, ensuring each asset is high-quality, consistent, and enriched with the
-user's coding philosophy.
+The SHAI system has 84 assets across 10 plugins. This skill builds them one at a time, ensuring each asset is high-quality, consistent, and enriched with the user's coding philosophy.
+
+## Progress Reporting (mandatory)
+
+At the start of each workflow step, output a progress indicator in bold blue:
+
+**🔹 Step M/N — {Step title}**
+
+where M is the current step number and N is the total number of steps in the workflow. This is mandatory for every step — never skip it.
 
 ## Step 1: Resolve the Asset
 
 Parse the user's input to identify which asset to create.
 
 **Accept either format:**
+
 - Asset ID: `T-I01`, `C-A03`, `D-S02`, `R-S01`
 - Asset name: `shai-typescript-coding-standards`, `shai-architect`, `shai-code-review`
 
 **Lookup procedure:**
-1. Read [research/02-shai-asset-reference.md](../../../research/02-shai-asset-reference.md)
+
+1. Read [src/reference.md](../../../src/reference.md)
 2. Find the matching row in the asset tables
 3. Extract: asset ID, name, type, plugin, priority, status, purpose, example, and any type-specific fields (applyTo, tools, event)
 
 If the asset is not found or ambiguous, show the user the closest matches and ask for clarification.
 
 **Display to the user:**
+
 ```
 Asset: {ID} — {name}
 Type: {type} | Plugin: {plugin} | Priority: {priority} | Status: {status}
@@ -46,8 +45,7 @@ Purpose: {purpose}
 
 ## Step 2: Load Type-Specific Reference
 
-Based on the asset type, read the corresponding reference file. These contain
-the full format spec, templates, and writing patterns for each type.
+Based on the asset type, read the corresponding reference file. These contain the full format spec, templates, and writing patterns for each type.
 
 | Asset type  | Reference file                                         |
 | ----------- | ------------------------------------------------------ |
@@ -57,105 +55,79 @@ the full format spec, templates, and writing patterns for each type.
 | hook        | [references/hook.md](references/hook.md)               |
 | prompt      | [references/prompt.md](references/prompt.md)           |
 
-Read the reference file before proceeding — it contains the format spec, frontmatter
-fields, templates, and asset-specific writing guidance.
+Read the reference file before proceeding — it contains the format spec, frontmatter fields, templates, and asset-specific writing guidance.
 
 ## Step 3: Research Phase
 
-Run these research steps in parallel where possible. The goal is to arrive at the
-interview step with concrete proposals, not blank questions.
+Run these research steps in parallel where possible. The goal is to arrive at the interview step with concrete proposals, not blank questions.
 
-**Track every source.** As you work through 3a–3e, mentally note which sources you
-consulted, what you extracted (or didn't), and why. You'll report this in the
-Resource Provenance Summary at the end — the user needs to see exactly where the
-asset's content came from.
+**Track every source.** As you work through 3a–3e, mentally note which sources you consulted, what you extracted (or didn't), and why. You'll report this in the Resource Provenance Summary at the end — the user needs to see exactly where the asset's content came from.
 
 ### 3a. Check for legacy drafts
 
 Check the asset's Status column in the reference doc:
-- 🟡 = legacy draft exists in `obsolete/`. Read the mapped file, extract reusable
-  patterns, naming conventions, and any content worth preserving.
+
+- 🟡 = legacy draft exists in `obsolete/`. Read the mapped file, extract reusable patterns, naming conventions, and any content worth preserving.
 - 🔴 = no existing draft. Skip this step.
 
-The reference doc's "Legacy Drafts Mapping" table (near the bottom) maps asset
-IDs to their legacy filenames.
+The reference doc's "Legacy Drafts Mapping" table (near the bottom) maps asset IDs to their legacy filenames.
 
 ### 3b. Search for existing skills online
 
-**Use the `/find-skills` skill** to discover relevant community skills. This is
-critical for EVERY asset type — not just when creating skills. The skills
-ecosystem is the richest source of AI-friendly, battle-tested content. Even when
-creating an instruction or agent, find an existing skill that covers the same
-domain and extract patterns, checklists, or templates from it.
+**Use the `/find-skills` skill** to discover relevant community skills. This is critical for EVERY asset type — not just when creating skills. The skills ecosystem is the richest source of AI-friendly, battle-tested content. Even when creating an instruction or agent, find an existing skill that covers the same domain and extract patterns, checklists, or templates from it.
 
-**The pattern: find skill → convert to any asset type.**
-A community skill about "React best practices" can feed an instruction file.
-A skill about "code review workflows" can feed an agent persona. A skill about
-"testing strategies" can feed both an instruction and a skill. Always search.
+**The pattern: find skill → convert to any asset type.** A community skill about "React best practices" can feed an instruction file. A skill about "code review workflows" can feed an agent persona. A skill about "testing strategies" can feed both an instruction and a skill. Always search.
 
 The find-skills workflow:
+
 1. Check the [skills.sh leaderboard](https://skills.sh/) first for well-known skills
 2. Run `npx -y skills find "<relevant keywords for this asset>"` for broader search
 3. Verify quality: prefer 1K+ installs, known sources (`vercel-labs`, `anthropics`, `microsoft`)
-4. For promising finds, install the skill locally to read the full SKILL.md:
-   `npx -y skills add https://github.com/{owner}/{repo} --skill {skill-name}`
-   Then read the installed SKILL.md from `.github/skills/{skill-name}/SKILL.md`
+4. For promising finds, install the skill locally to read the full SKILL.md: `npx -y skills add https://github.com/{owner}/{repo} --skill {skill-name}` Then read the installed SKILL.md from `.github/skills/{skill-name}/SKILL.md`
 
 **Proven reference skills for VS Code customization:**
-- **`vscode-copilot-customization`** (danielsitek) — decision matrix for choosing
-  asset types, templates per type, file naming conventions, settings references.
-  Install: `npx -y skills add https://github.com/danielsitek/skills --skill vscode-copilot-customization`
-  Read from: `.github/skills/vscode-copilot-customization/SKILL.md`
-- **`custom-agent-creator`** (prulloac) — 6-step agent creation workflow, validation
-  checklist (5 categories), concrete examples (security reviewer, docs writer, etc).
-  Install: `npx -y skills add https://github.com/prulloac/agent-skills --skill custom-agent-creator`
-  Read from: `.github/skills/custom-agent-creator/SKILL.md`
 
-When using these as sources, always read their full SKILL.md. For any other
-domain-specific asset, search for skills in that domain too.
+- **`vscode-copilot-customization`** (danielsitek) — decision matrix for choosing asset types, templates per type, file naming conventions, settings references. Install: `npx -y skills add https://github.com/danielsitek/skills --skill vscode-copilot-customization` Read from: `.github/skills/vscode-copilot-customization/SKILL.md`
+- **`custom-agent-creator`** (prulloac) — 6-step agent creation workflow, validation checklist (5 categories), concrete examples (security reviewer, docs writer, etc). Install: `npx -y skills add https://github.com/prulloac/agent-skills --skill custom-agent-creator` Read from: `.github/skills/custom-agent-creator/SKILL.md`
+
+When using these as sources, always read their full SKILL.md. For any other domain-specific asset, search for skills in that domain too.
 
 If a relevant skill is found:
+
 1. Read its full SKILL.md content (not just the search result summary)
 2. Extract: structure, writing patterns, templates, checklists, decision matrices
-3. Adapt the content to the target asset type (skill content → instruction rules,
-   skill workflow → agent guidelines, skill checklist → quality criteria)
+3. Adapt the content to the target asset type (skill content → instruction rules, skill workflow → agent guidelines, skill checklist → quality criteria)
 4. Prepare a summary for the user showing what was borrowed and how it was adapted
 
 ### 3c. Analyze the workspace codebase
 
-If the asset relates to a specific technology (React, .NET, Angular, etc.),
-search the user's current workspace for existing patterns:
+If the asset relates to a specific technology (React, .NET, Angular, etc.), search the user's current workspace for existing patterns:
+
 - Look for existing config files, conventions already in use
 - Check for existing tests, component patterns, project structure
 - Note any framework versions in use
 
 ### 3d. Check VS Code documentation
 
-For any VS Code customization asset (instruction, skill, agent, hook, prompt),
-read the relevant files from [references/vscode-docs/](references/vscode-docs/).
-These are the official VS Code docs for each customization type:
+For any VS Code customization asset (instruction, skill, agent, hook, prompt), read the relevant files from [references/vscode-docs/](references/vscode-docs/). These are the official VS Code docs for each customization type:
 
-| Asset type  | VS Code doc file                                                           |
-| ----------- | -------------------------------------------------------------------------- |
-| instruction | [references/vscode-docs/02-instructions.md](references/vscode-docs/02-instructions.md) |
-| prompt      | [references/vscode-docs/03-prompt-files.md](references/vscode-docs/03-prompt-files.md) |
+| Asset type  | VS Code doc file                                                                         |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| instruction | [references/vscode-docs/02-instructions.md](references/vscode-docs/02-instructions.md)   |
+| prompt      | [references/vscode-docs/03-prompt-files.md](references/vscode-docs/03-prompt-files.md)   |
 | agent       | [references/vscode-docs/04-custom-agents.md](references/vscode-docs/04-custom-agents.md) |
-| skill       | [references/vscode-docs/05-agent-skill.md](references/vscode-docs/05-agent-skill.md)   |
-| hook        | [references/vscode-docs/06-hooks.md](references/vscode-docs/06-hooks.md)               |
+| skill       | [references/vscode-docs/05-agent-skill.md](references/vscode-docs/05-agent-skill.md)     |
+| hook        | [references/vscode-docs/06-hooks.md](references/vscode-docs/06-hooks.md)                 |
 
-Start with [references/vscode-docs/01-overview.md](references/vscode-docs/01-overview.md)
-for cross-cutting concepts. Read the type-specific file for the asset you are creating.
+Start with [references/vscode-docs/01-overview.md](references/vscode-docs/01-overview.md) for cross-cutting concepts. Read the type-specific file for the asset you are creating.
 
 ### 3e. Check web documentation
 
-For framework/library-specific assets, fetch the official documentation for the
-latest stable version to ensure the asset reflects current best practices.
+For framework/library-specific assets, fetch the official documentation for the latest stable version to ensure the asset reflects current best practices.
 
 ## Step 4: Interview the User
 
-This is the most important step. The user's preferences and coding philosophy
-drive the asset's content. Use a mix of structured questions (via
-`vscode/askQuestions` for choices) and inline chat (for open-ended topics).
+This is the most important step. The user's preferences and coding philosophy drive the asset's content. Use a mix of structured questions (via `vscode/askQuestions` for choices) and inline chat (for open-ended topics).
 
 ### Universal questions (ask for every asset)
 
@@ -207,6 +179,7 @@ Wait for user approval before drafting.
 ### 5a. Generate first draft
 
 Write the asset following:
+
 - The format spec from the type-specific reference file
 - The user's preferences from the interview
 - Content borrowed from legacy drafts and community skills
@@ -227,6 +200,7 @@ These principles should permeate every asset:
 ### 5c. Self-critique and improve
 
 Before showing the user, review the draft against these questions:
+
 1. Would a model follow these instructions without ambiguity?
 2. Are the examples realistic and non-trivial?
 3. Does every rule explain its reasoning?
@@ -238,8 +212,7 @@ Revise based on your own critique, then show the user.
 
 ## Step 6: Quality Review
 
-Read [references/quality-checklist.md](references/quality-checklist.md) and run
-through the validation checklist. This includes:
+Read [references/quality-checklist.md](references/quality-checklist.md) and run through the validation checklist. This includes:
 
 - Frontmatter validation (YAML syntax, required fields, naming constraints)
 - Content completeness (all expected sections present)
@@ -253,28 +226,29 @@ Report the checklist results to the user with any issues found.
 
 ### Output location
 
-Write the generated asset to the `drafts/` folder at the repository root:
+Write the generated asset to the `src/` folder at the repository root:
 
 ```
-drafts/
+src/
 └── {plugin-name}/
     └── {asset-type-folder}/
         └── {asset-file-or-folder}
 ```
 
 Examples:
-- `drafts/shai-core/instructions/shai-coding-standards.instructions.md`
-- `drafts/shai-core/skills/shai-code-review/SKILL.md`
-- `drafts/shai-core/agents/shai-architect.agent.md`
-- `drafts/shai-core/hooks/shai-format-on-edit.json`
-- `drafts/shai-core/prompts/shai-quick-plan.prompt.md`
+
+- `src/shai-core/instructions/shai-coding-standards.instructions.md`
+- `src/shai-core/skills/shai-code-review/SKILL.md`
+- `src/shai-core/agents/shai-architect.agent.md`
+- `src/shai-core/hooks/shai-format-on-edit.json`
+- `src/shai-core/prompts/shai-quick-plan.prompt.md`
 
 ### Plugin scaffolding
 
 If the plugin folder doesn't exist yet, auto-scaffold it:
 
 ```
-drafts/{plugin-name}/
+src/{plugin-name}/
 ├── plugin.json
 ├── skills/
 ├── agents/
@@ -287,6 +261,7 @@ Generate `plugin.json` from the plugin metadata in the reference doc.
 ### For skill assets specifically
 
 When creating a skill, use the `/skill-creator` methodology:
+
 1. Follow the SKILL.md writing guide from the skill-creator
 2. Apply the agentskills.io specification for frontmatter
 3. Use progressive disclosure (SKILL.md < 500 lines, details in references/)
@@ -296,18 +271,29 @@ When creating a skill, use the `/skill-creator` methodology:
 ### Post-creation
 
 After writing the file:
+
 1. Display the full generated content to the user
 2. Show the **Resource Provenance Summary** (see below)
 3. Report the quality checklist results
 4. Ask: "Ready to finalize, or do you want to adjust anything?"
-5. Update the asset's status in the reference doc from 🔴 to 🟢 (or 🟡 to 🟢) once the user approves
+5. **Update the asset reference doc** — this is **mandatory** (see below)
+
+### Update Asset Reference (MANDATORY)
+
+**⚠️ This step is strictly required. Never skip it.**
+
+After the user approves the asset, update [src/reference.md](../../../src/reference.md):
+
+1. **Update status**: Change the asset's status from 🔴 to 🟢 (or 🟡 to 🟢) in both the Asset Tree and the plugin's detail table.
+2. **Add new plugin**: If this asset belongs to a plugin that doesn't exist in the reference doc yet, add the full plugin entry: distribution tree entry, asset tree entry, numbered section with tables, summary table row, and update all counts (total assets, MoSCoW counts).
+3. **Add new asset**: If the asset itself is new (not in the reference doc), add it to the asset tree, the plugin's detail table, and update the summary counts.
+4. **Verify counts**: After any update, verify that the total asset count in the "Asset counts by plugin" table matches the actual number of assets listed, and that MoSCoW counts are still accurate.
+
+The reference doc is the single source of truth for the SHAI system. An asset that exists in `src/` but not in the reference doc is invisible to the workflow.
 
 ### Resource Provenance Summary
 
-Always show this summary after presenting the generated asset. It gives the user
-full visibility into what shaped the output — which sources contributed content
-and which were consulted but didn't make the cut. This matters because the user
-needs to trust and verify the asset's origins, not wonder where things came from.
+Always show this summary after presenting the generated asset. It gives the user full visibility into what shaped the output — which sources contributed content and which were consulted but didn't make the cut. This matters because the user needs to trust and verify the asset's origins, not wonder where things came from.
 
 Use exactly this format:
 
@@ -331,22 +317,14 @@ Use exactly this format:
 ```
 
 **Rules for the summary:**
-- Every row must appear — show `⏭️` with the reason if a source wasn't used.
-  The user should see what *wasn't* consulted, not just what was.
-- For "Community skills", list the actual skill names and install counts found
-  via `npx skills find`. If skills were found but not used, explain why (e.g.
-  low quality, irrelevant domain, outdated).
-- For "VS Code docs", name the specific file(s) from `references/vscode-docs/`
-  that were read. If the asset is not VS Code-specific, mark as `⏭️ Not applicable`.
-- For "Web documentation", list the actual URLs fetched. If no fetch was needed,
-  say why (e.g. "asset is framework-agnostic").
-- For "Legacy draft", name the specific file from `obsolete/` or state that the
-  reference doc marked the asset as 🔴 (no legacy).
-- For "User recommendations", summarize the key decisions from the interview
-  that influenced the output (scope, prescriptiveness, patterns kept/discarded).
-- For "Other", include reference skills like `vscode-copilot-customization` or
-  `custom-agent-creator` if consulted, cross-referenced assets, or any source
-  not covered above.
+
+- Every row must appear — show `⏭️` with the reason if a source wasn't used. The user should see what _wasn't_ consulted, not just what was.
+- For "Community skills", list the actual skill names and install counts found via `npx skills find`. If skills were found but not used, explain why (e.g. low quality, irrelevant domain, outdated).
+- For "VS Code docs", name the specific file(s) from `references/vscode-docs/` that were read. If the asset is not VS Code-specific, mark as `⏭️ Not applicable`.
+- For "Web documentation", list the actual URLs fetched. If no fetch was needed, say why (e.g. "asset is framework-agnostic").
+- For "Legacy draft", name the specific file from `obsolete/` or state that the reference doc marked the asset as 🔴 (no legacy).
+- For "User recommendations", summarize the key decisions from the interview that influenced the output (scope, prescriptiveness, patterns kept/discarded).
+- For "Other", include reference skills like `vscode-copilot-customization` or `custom-agent-creator` if consulted, cross-referenced assets, or any source not covered above.
 - Keep each Details cell to 1-2 sentences. Link to files/URLs where possible.
 
 ## Gotchas

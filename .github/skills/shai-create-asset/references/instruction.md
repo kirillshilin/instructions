@@ -42,7 +42,7 @@ applyTo: "**/*.ts,**/*.tsx"           # Glob pattern — which files trigger thi
 ## File Location
 
 Within a plugin: `{plugin}/instructions/{name}.instructions.md`
-In staging: `drafts/{plugin}/instructions/{name}.instructions.md`
+In staging: `src/{plugin}/instructions/{name}.instructions.md`
 
 ## Writing Style — Hybrid Approach
 
