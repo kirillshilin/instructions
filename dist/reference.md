@@ -80,7 +80,7 @@ shai/
 │   │   └── C-S12  shai-software-design              🟢  Must
 │   ├── hooks/
 │   │   ├── C-H01  shai-format-on-edit               🟢 Should
-│   │   ├── C-H02  shai-lint-on-edit                 🔴  Could
+│   │   ├── C-H02  shai-lint-on-edit                 �  Could
 │   │   ├── C-H03  shai-dangerous-command-guard      🔴  Should
 │   │   └── C-H04  shai-session-audit-log            🔴  Won't
 │   └── prompts/
@@ -219,7 +219,7 @@ Every project should install this.
 | #     | Asset Name                     | Type | Event                   | Priority | Status | Purpose                                                                           |
 | ----- | ------------------------------ | ---- | ----------------------- | -------- | ------ | --------------------------------------------------------------------------------- |
 | C-H01 | `shai-format-on-edit`          | hook | `PostToolUse`           | Should   | �      | Runs formatter (Prettier/dotnet format) after every file edit by the agent        |
-| C-H02 | `shai-lint-on-edit`            | hook | `PostToolUse`           | Could    | 🔴      | Runs linter after file edit, feeds warnings back as system message                |
+| C-H02 | `shai-lint-on-edit`            | hook | `PostToolUse`           | Could    | �      | Runs linter after file edit, feeds warnings back as system message                |
 | C-H03 | `shai-dangerous-command-guard` | hook | `PreToolUse`            | Should   | 🔴      | Blocks destructive terminal commands (`rm -rf`, `DROP TABLE`, `git push --force`) |
 | C-H04 | `shai-session-audit-log`       | hook | `SessionStart` / `Stop` | Won't    | 🔴      | Logs session start/end with timestamp, files touched, commands run                |
 
