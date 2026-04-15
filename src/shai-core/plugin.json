@@ -11,10 +11,5 @@
     "tdd",
     "architecture",
     "security"
-  ],
-  "instructions": [
-    "instructions/shai-coding.instructions.md",
-    "instructions/shai-package-json.instructions.md",
-    "instructions/shai-documentation-standards.instructions.md"
   ]
 }
