@@ -111,89 +111,19 @@ Each app extends `tsconfig.base.json` and adds only what the app requires. Start
 
 ### Node.js / Backend
 
-```json
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "lib": ["ES2022"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
-}
-```
+See [shared/assets/tsconfig.node.json](../../shared/assets/tsconfig.node.json)
 
 ### React / Vite Frontend
 
-```json
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "jsx": "react-jsx",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.tsx", "**/*.spec.tsx"]
-}
-```
+See [shared/assets/tsconfig.react.json](../../shared/assets/tsconfig.react.json)
 
 ### Angular Frontend
 
-```json
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "module": "ES2022",
-    "moduleResolution": "bundler",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "useDefineForClassFields": false,
-    "lib": ["ES2022", "DOM"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "angularCompilerOptions": {
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
-}
-```
+See [shared/assets/tsconfig.angular.json](../../shared/assets/tsconfig.angular.json)
 
 ### Firebase Functions
 
-```json
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "lib": ["ES2022"],
-    "outDir": "./lib",
-    "rootDir": "./src"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib"]
-}
-```
+See [shared/assets/tsconfig.firebase.json](../../shared/assets/tsconfig.firebase.json)
 
 ---
 
@@ -201,16 +131,7 @@ Each app extends `tsconfig.base.json` and adds only what the app requires. Start
 
 `tsconfig.test.json` extends the app config. Start with the minimum — only include test files and exclude the build output. Add test-specific overrides only when you have a concrete reason (e.g., a testing framework requires it).
 
-```json
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "types": ["vitest/globals"]
-  },
-  "include": ["src/**/*", "**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"],
-  "exclude": ["node_modules", "dist"]
-}
-```
+See [shared/assets/tsconfig.test.json](../../shared/assets/tsconfig.test.json)
 
 Common additions when you have a reason:
 

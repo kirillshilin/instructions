@@ -5,7 +5,7 @@ const path = require("path");
 
 const DIST_DIR = path.resolve(__dirname, "..", "dist");
 
-const ASSET_TYPES = ["skills", "instructions", "agents", "hooks"];
+const TOOL_TYPES = ["skills", "instructions", "agents", "hooks"];
 
 // Maps short names and aliases → canonical directory name (shai-*)
 const ALIASES = {
@@ -73,25 +73,25 @@ function installPlugin(plugin, targetDir, dryRun) {
   const { meta } = plugin;
   let copiedCount = 0;
 
-  for (const assetType of ASSET_TYPES) {
-    const assetList = meta[assetType];
-    if (!Array.isArray(assetList) || assetList.length === 0) continue;
+  for (const type of TOOL_TYPES) {
+    const tools = meta[type];
+    if (!Array.isArray(tools) || tools.length === 0) continue;
 
-    const ghAssetDir = path.join(targetDir, ".github", assetType);
+    const ghAssetDir = path.join(targetDir, ".github", type);
 
-    for (const assetPath of assetList) {
-      const srcPath = path.join(pluginDir, assetPath);
+    for (const toolPath of tools) {
+      const srcPath = path.join(pluginDir, toolPath);
 
       if (!fs.existsSync(srcPath)) {
-        console.warn(`  ⚠  Missing: ${assetPath} (in ${plugin.dir})`);
+        console.warn(`  ⚠  Missing: ${toolPath} (in ${plugin.dir})`);
         continue;
       }
 
-      const assetName = path.basename(assetPath);
-      const destPath = path.join(ghAssetDir, assetName);
+      const name = path.basename(toolPath);
+      const destPath = path.join(ghAssetDir, name);
 
       if (dryRun) {
-        console.log(`    → .github/${assetType}/${assetName}`);
+        console.log(`    → .github/${type}/${name}`);
       } else {
         copyRecursive(srcPath, destPath);
       }
@@ -130,7 +130,7 @@ function printUsage() {
 function printPluginTable(plugins) {
   console.log("\n  Available plugins:\n");
   for (const p of plugins) {
-    const assets = ASSET_TYPES.filter((t) => Array.isArray(p.meta[t]) && p.meta[t].length > 0)
+    const tools = TOOL_TYPES.filter((t) => Array.isArray(p.meta[t]) && p.meta[t].length > 0)
       .map((t) => `${p.meta[t].length} ${t}`)
       .join(", ");
     // Collect aliases for this plugin
@@ -138,7 +138,7 @@ function printPluginTable(plugins) {
       .filter(([, target]) => target === p.dir)
       .map(([alias]) => alias);
     const aliasSuffix = aliases.length ? `  (${aliases.join(", ")})` : "";
-    console.log(`    ${p.meta.name.padEnd(22)} ${(assets || "(empty)").padEnd(30)}${aliasSuffix}`);
+    console.log(`    ${p.meta.name.padEnd(22)} ${(tools || "(empty)").padEnd(30)}${aliasSuffix}`);
   }
   console.log();
 }
@@ -204,12 +204,12 @@ function main() {
 
   for (const plugin of toInstall) {
     const count = installPlugin(plugin, targetDir, dryRun);
-    console.log(`  ✔ ${plugin.meta.name} (${count} asset(s))`);
+    console.log(`  ✔ ${plugin.meta.name} (${count} tools(s))`);
     totalCopied += count;
   }
 
   const verb = dryRun ? "would be installed" : "installed";
-  console.log(`\n  Done — ${totalCopied} asset(s) ${verb} to .github/\n`);
+  console.log(`\n  Done — ${totalCopied} tool(s) ${verb} to .github/\n`);
 }
 
 main();

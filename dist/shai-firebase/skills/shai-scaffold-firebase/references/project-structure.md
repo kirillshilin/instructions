@@ -19,7 +19,7 @@ project-root/
     ├── .secret.local        ← local secrets / service account key (gitignored)
     └── src/
         ├── index.ts         ← re-exports all *.fn.ts cloud functions
-        ├── fn-config.ts     ← region, memory, timeout, and other constants
+        ├── config.ts     ← region, memory, timeout, and other constants
         ├── init.ts          ← Firebase Admin SDK initialisation (singleton)
         ├── db.ts            ← Firestore instance and typed references
         └── services/        ← business logic classes / modules
@@ -31,7 +31,7 @@ project-root/
 | ------------------- | ------------------- | ------------------------------------------------------ |
 | Cloud Function file | `{name}.fn.ts`      | `on-user-created.fn.ts`                                |
 | Service file        | `{name}.service.ts` | `user.service.ts`                                      |
-| Config constants    | `fn-config.ts`      | Single file at `src/` root for all function settings   |
+| Config constants    | `config.ts`      | Single file at `src/` root for all function settings   |
 | App init            | `init.ts`           | Singleton `initializeApp()`, imported by infra modules |
 | DB instance         | `db.ts`             | Imports `app` from `init.ts`, exports `db`             |
 
@@ -46,7 +46,7 @@ project-root/
 3. **Services hold business logic** — functions are thin facades that
    parse the request and delegate to a service.
 
-4. **Config is centralised** — region, timeout, memory are in `fn-config.ts`
+4. **Config is centralised** — region, timeout, memory are in `config.ts`
    at the `src/` root. Functions import these constants instead of hardcoding.
 
 5. **Admin SDK initialised once** — `init.ts` calls `initializeApp()`

@@ -1,20 +1,20 @@
 {
-    "name": "shai-product",
-    "displayName": "SHAI — Product Discovery",
-    "description": "Product discovery pipeline: from raw idea to actionable development tasks. Includes idea evaluation, feature mapping, story decomposition, and task breakdown.",
-    "version": "0.1.0",
-    "publisher": "kirillshilin",
-    "license": "MIT",
-    "keywords": [
-        "product",
-        "planning",
-        "discovery",
-        "ideation"
-    ],
-    "skills": [
-        "skills/shai-idea-evaluation",
-        "skills/shai-feature-mapping",
-        "skills/shai-story-decomposition",
-        "skills/shai-task-breakdown"
-    ]
+  "name": "shai-product",
+  "displayName": "SHAI — Product Discovery",
+  "description": "Product discovery pipeline: from raw idea to actionable development tasks. Includes idea evaluation, feature mapping, story decomposition, and task breakdown.",
+  "version": "0.1.0",
+  "publisher": "kirillshilin",
+  "license": "MIT",
+  "keywords": [
+    "product",
+    "planning",
+    "discovery",
+    "ideation"
+  ],
+  "skills": [
+    "skills/shai-feature-mapping",
+    "skills/shai-idea-evaluation",
+    "skills/shai-story-decomposition",
+    "skills/shai-task-breakdown"
+  ]
 }

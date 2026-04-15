@@ -1,7 +1,3 @@
----
-applyTo: "**"
----
-
 ## Naming Conventions
 
 Consistent, concise naming reduces cognitive load and makes code searchable.

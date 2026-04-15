@@ -13,9 +13,9 @@
     "vitest"
   ],
   "instructions": [
-    "instructions/shai-typescript-coding-standards.instructions.md",
+    "instructions/shai-tsconfig.instructions.md",
     "instructions/shai-typescript-testing.instructions.md",
-    "instructions/shai-tsconfig-standards.instructions.md"
+    "instructions/shai-typescript.instructions.md"
   ],
   "skills": [
     "skills/shai-scaffold-ts-workspace",

@@ -1,7 +1,3 @@
----
-applyTo: "**/*.ts,**/*.tsx"
----
-
 # Folder Structure — TypeScript
 
 Keep folders **flat** and **semantically named**. Avoid deep nesting, but don't
@@ -19,9 +15,13 @@ dump everything into one directory either.
 
 ## Shared / Utility Folders
 
-All `utilities/`, and `shared/` folders **must include a
+All `utilities/` and `shared/` folders **must include a
 `README.md`** indexing every export with a one-line description. Before adding a
 new utility, read the README to check for existing equivalents.
+
+Utility files follow the naming convention `utilities/{group}.utilities.ts`
+(e.g. `utilities/date.utilities.ts`, `utilities/string.utilities.ts`). See the
+one-unit-per-module rule for details.
 
 ## TypeScript / Frontend Projects
 

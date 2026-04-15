@@ -10,8 +10,5 @@
     "tailwind",
     "shadcn",
     "components"
-  ],
-  "skills": [
-    "skills/shai-scaffold-react-app"
   ]
 }

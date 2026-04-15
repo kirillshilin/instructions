@@ -12,8 +12,11 @@
         "cli",
         "backend"
     ],
-    "instructions": [],
-    "skills": [
-        "skills/shai-scaffold-node-app"
+    "keywords": [
+        "node",
+        "express",
+        "genkit",
+        "cli",
+        "backend"
     ]
 }

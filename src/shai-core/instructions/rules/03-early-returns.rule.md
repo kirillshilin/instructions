@@ -1,7 +1,3 @@
----
-applyTo: "**"
----
-
 ## Early Returns
 
 Prefer early returns and guard clauses to reduce nesting — validate preconditions

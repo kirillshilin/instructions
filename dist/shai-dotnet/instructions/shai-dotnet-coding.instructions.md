@@ -9,10 +9,6 @@ Conventions for C# and .NET projects. Formatting and style are enforced by ReSha
 
 ## Rules
 
----
-applyTo: "**/*.cs"
----
-
 # Naming Conventions — C#
 
 - **Private fields** — `_camelCase`: `_repository`, `_logger`, `_connectionString`.
@@ -22,10 +18,6 @@ applyTo: "**/*.cs"
 - **Boolean properties** — `Is`, `Has`, `Can` prefixes:
   `IsActive`, `HasPermission`, `CanEdit`.
 
-
----
-applyTo: "**/*.cs,**/*.csproj,**/*.sln"
----
 
 # Folder Structure — C#
 

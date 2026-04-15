@@ -1,19 +1,21 @@
 {
-    "name": "shai-node",
-    "displayName": "SHAI Node.js",
-    "description": "Node.js backend scaffolding and patterns for Express, Genkit, CLI, and plain Node.js apps.",
-    "version": "0.1.0",
-    "publisher": "kirillshilin",
-    "license": "MIT",
-    "keywords": [
-        "node",
-        "express",
-        "genkit",
-        "cli",
-        "backend"
-    ],
-    "instructions": [],
-    "skills": [
-        "skills/shai-scaffold-node-app"
-    ]
+  "name": "shai-node",
+  "displayName": "SHAI Node.js",
+  "description": "Node.js backend scaffolding and patterns for Express, Genkit, CLI, and plain Node.js apps.",
+  "version": "0.1.0",
+  "publisher": "kirillshilin",
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "express",
+    "genkit",
+    "cli",
+    "backend"
+  ],
+  "instructions": [
+    "instructions/shai-yargs-command.instructions.md"
+  ],
+  "skills": [
+    "skills/shai-scaffold-node-app"
+  ]
 }

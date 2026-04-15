@@ -105,34 +105,7 @@ npm install -D typescript tsx @types/node
 
 ### Step 3: Configure TypeScript
 
-Create `tsconfig.json` with strict ESM settings:
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "Node16",
-    "moduleResolution": "Node16",
-    "lib": ["ES2022"],
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
-}
-```
+Create `tsconfig.json` with strict ESM settings — contents: [shared/assets/tsconfig.node-app.json](../../../../shared/assets/tsconfig.node-app.json)
 
 ### Step 4: Set Up ESLint + Prettier
 

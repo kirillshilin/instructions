@@ -13,35 +13,15 @@
     "security"
   ],
   "instructions": [
-    "instructions/shai-coding-standards.instructions.md",
-    "instructions/shai-package-json.instructions.md"
+    "instructions/shai-coding.instructions.md",
+    "instructions/shai-documentation.instructions.md",
+    "instructions/shai-packagejson.instructions.md"
   ],
   "skills": [
-    "skills/shai-code-review",
-    "skills/shai-tdd-feature",
-    "skills/shai-add-feature",
-    "skills/shai-scaffold-component",
-    "skills/shai-setup-tailwind",
-    "skills/shai-setup-shadcn",
-    "skills/shai-create-skill",
-    "skills/shai-create-agent",
-    "skills/shai-pr-preparation",
-    "skills/shai-research-docs",
-    "skills/shai-security-audit",
-    "skills/shai-software-design"
-  ],
-  "agents": [
-    "agents/shai-architect.agent.md",
-    "agents/shai-planner.agent.md",
-    "agents/shai-code-reviewer.agent.md",
-    "agents/shai-scaffolder.agent.md",
-    "agents/shai-doc-writer.agent.md",
-    "agents/shai-orchestrator.agent.md"
+    "skills/shai-software-design",
+    "skills/shai-tdd-feature"
   ],
   "hooks": [
-    "hooks/shai-format-on-edit.json",
-    "hooks/shai-lint-on-edit.json",
-    "hooks/shai-dangerous-command-guard.json",
-    "hooks/shai-session-audit-log.json"
+    "hooks/shai-format-on-edit.json"
   ]
 }

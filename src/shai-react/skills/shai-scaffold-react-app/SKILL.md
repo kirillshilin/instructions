@@ -90,18 +90,7 @@ Replace `src/index.css` content with:
 
 The `@` alias is already set in `vite.config.ts` (Step 3). Now add TypeScript path resolution.
 
-Add to `tsconfig.app.json` `compilerOptions` (merge, don't overwrite):
-
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
+Add to `tsconfig.app.json` `compilerOptions` (merge, don't overwrite) — contents: [shared/assets/tsconfig.app.json](../../../../shared/assets/tsconfig.app.json)
 
 ### Step 5: Set Up ESLint + Prettier
 

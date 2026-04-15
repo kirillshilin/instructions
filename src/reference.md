@@ -48,15 +48,15 @@ Each plugin contains a `plugin.json` + any combination of:
 
 ## Asset Tree
 
-Full hierarchy of all 84 assets across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
+Full hierarchy of all 84 tools across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
 
 ```
 shai/
 ├── shai-core/
 │   ├── instructions/
-│   │   ├── C-I01  shai-coding-standards             🟢  Must
+│   │   ├── C-I01  shai-coding             🟢  Must
 │   │   ├── C-I02  shai-package-json                 🟢  Must
-│   │   ├── C-I03  shai-documentation-standards      🟡  Should
+│   │   ├── C-I03  shai-documentation                🟢  Should
 │   │   └── C-I04  shai-logging-conventions          🔴  Could
 │   ├── agents/
 │   │   ├── C-A01  shai-architect                    🟡  Must
@@ -97,7 +97,7 @@ shai/
 │       └── T-S02  shai-unit-testing-ts              🟢  Should
 ├── shai-react/
 │   ├── instructions/
-│   │   ├── R-I01  shai-react-components             🟡  Must
+│   │   ├── R-I01  shai-react-components             �  Must
 │   │   └── R-I03  shai-react-testing                🔴  Should
 │   └── skills/
 │       ├── R-S01  shai-scaffold-react-app           🟢  Must
@@ -140,7 +140,8 @@ shai/
 ├── shai-firebase/
 │   ├── instructions/
 │   │   ├── F-I01  shai-firebase-conventions         🔴  Must
-│   │   └── F-I02  shai-firestore-modeling           🔴  Should
+│   │   ├── F-I02  shai-firestore-modeling           🔴  Should
+│   │   └── F-I03  shai-firebase-functions           🟢  Must
 │   └── skills/
 │       ├── F-S01  shai-scaffold-firebase            🟢  Should
 │       └── F-S02  shai-firebase-function             🟢  Should
@@ -178,12 +179,12 @@ Every project should install this.
 
 ### 1.1 Instructions
 
-| #     | Asset Name                     | Type        | applyTo           | Priority | Status | Purpose                                                                                                       | Example                                                                     |
-| ----- | ------------------------------ | ----------- | ----------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| C-I01 | `shai-coding-standards`        | instruction | `**`              | Must     | 🟢      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering | "Use `_name` for private fields, no `#private`, ALL_CAPS for const"         |
-| C-I02 | `shai-package-json`            | instruction | `**/package.json` | Must     | 🟢      | Exact dependency versions (no `~`/`^`), standard npm scripts (`start`, `build`, `test`, `lint`, `deploy`)     | "Pin exact versions, use `npm start` not `npm run dev`, `test:once` for CI" |
-| C-I03 | `shai-documentation-standards` | instruction | `**/*.md`         | Should   | 🟡      | README structure (title, brief, quick start, use cases), inline docs policy, JSDoc/XMLDoc rules               | "READMEs must have: title, brief, quick start, use cases"                   |
-| C-I04 | `shai-logging-conventions`     | instruction | `**`              | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                            | "Use structured logging with contextId, never log PII"                      |
+| #     | Asset Name                     | Type        | applyTo           | Priority | Status | Purpose                                                                                                         | Example                                                                     |
+| ----- | ------------------------------ | ----------- | ----------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| C-I01 | `shai-coding`                  | instruction | `**`              | Must     | 🟢      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering   | "Use `_name` for private fields, no `#private`, ALL_CAPS for const"         |
+| C-I02 | `shai-package-json`            | instruction | `**/package.json` | Must     | 🟢      | Exact dependency versions (no `~`/`^`), standard npm scripts (`start`, `build`, `test`, `lint`, `deploy`)       | "Pin exact versions, use `npm start` not `npm run dev`, `test:once` for CI" |
+| C-I03 | `shai-documentation-standards` | instruction | `docs/**/*.md`    | Should   | 🟢      | docs/ file organization, NN-prefixed numbering, README as entry point, 300-line split rule, app vs library docs | "Start flat in README.md, extract to 02-data-structure.md at ~300 lines"    |
+| C-I04 | `shai-logging-conventions`     | instruction | `**`              | Could    | 🔴      | Structured logging levels, what to log, PII rules, correlation IDs                                              | "Use structured logging with contextId, never log PII"                      |
 
 ### 1.2 Agents
 
@@ -259,10 +260,10 @@ React + TypeScript + Tailwind + shadcn patterns. Depends on shai-typescript.
 
 ### 3.1 Instructions
 
-| #     | Asset Name              | Type        | applyTo                       | Priority | Status | Purpose                                                                                           | Example                                                                     |
-| ----- | ----------------------- | ----------- | ----------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| R-I01 | `shai-react-components` | instruction | `**/*.tsx`                    | Must     | 🟡      | Functional components, hooks rules, prop types, composition patterns, CSS modules vs Tailwind     | "Use `React.FC` sparingly, prefer explicit props interface, no `any` props" |
-| R-I03 | `shai-react-testing`    | instruction | `**/*.test.tsx,**/*.spec.tsx` | Should   | 🔴      | React Testing Library patterns, what to test (behavior not implementation), accessibility queries | "Prefer getByRole over getByTestId, test user interactions"                 |
+| #     | Asset Name              | Type        | applyTo                       | Priority | Status | Purpose                                                                                                 | Example                                                           |
+| ----- | ----------------------- | ----------- | ----------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| R-I01 | `shai-react-components` | instruction | `**/*.tsx,**/*.jsx`           | Must     | 🟢      | Component architecture, hook delegation, folder taxonomy, constants extraction, JSX + Tailwind patterns | "Components are display layers — all logic lives in custom hooks" |
+| R-I03 | `shai-react-testing`    | instruction | `**/*.test.tsx,**/*.spec.tsx` | Should   | 🔴      | React Testing Library patterns, what to test (behavior not implementation), accessibility queries       | "Prefer getByRole over getByTestId, test user interactions"       |
 
 ### 3.2 Skills
 
@@ -367,10 +368,11 @@ Firebase ecosystem: Cloud Functions, Firestore, Hosting, security rules, emulato
 
 ### 8.1 Instructions
 
-| #     | Asset Name                  | Type        | applyTo                                      | Priority | Status | Purpose                                                                                       | Example                                                                    |
-| ----- | --------------------------- | ----------- | -------------------------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| F-I01 | `shai-firebase-conventions` | instruction | `**/functions/**,**/firestore*,**/firebase*` | Must     | 🔴      | Firebase project structure, Cloud Functions patterns, Firestore data modeling, security rules | "Use Firebase Admin SDK, typed Firestore references, security rules first" |
-| F-I02 | `shai-firestore-modeling`   | instruction | `**/firestore*,**/models/**`                 | Should   | 🔴      | Firestore data modeling: denormalization, subcollections, composite keys, converters          | "Use typed converters, design for query patterns not normalization"        |
+| #     | Asset Name                  | Type        | applyTo                                      | Priority | Status | Purpose                                                                                                                              | Example                                                                          |
+| ----- | --------------------------- | ----------- | -------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| F-I01 | `shai-firebase-conventions` | instruction | `**/functions/**,**/firestore*,**/firebase*` | Must     | 🔴      | Firebase project structure, Cloud Functions patterns, Firestore data modeling, security rules                                        | "Use Firebase Admin SDK, typed Firestore references, security rules first"       |
+| F-I02 | `shai-firestore-modeling`   | instruction | `**/firestore*,**/models/**`                 | Should   | 🔴      | Firestore data modeling: denormalization, subcollections, composite keys, converters                                                 | "Use typed converters, design for query patterns not normalization"              |
+| F-I03 | `shai-firebase-functions`   | instruction | `**/*.fn.ts`                                 | Must     | 🟢      | Cloud Function file conventions: thin-facade pattern, `.fn.ts` naming, config import, service delegation, handler export for testing | "Function body delegates to service only; export `_handle<Name>` for unit tests" |
 
 ### 8.2 Skills
 
@@ -466,11 +468,11 @@ Use this plugin at the start of any new feature or product initiative.
 
 ### Assets with existing legacy drafts (🟡)
 
-The following assets have prior work in the `obsolete/` folder that can be used as starting points:
+The following tools have prior work in the `obsolete/` folder that can be used as starting points:
 
 | Asset ID | Name                             | Legacy source                                                               |
 | -------- | -------------------------------- | --------------------------------------------------------------------------- |
-| C-I01    | shai-coding-standards            | `src/shai-core/instructions/shai-coding-standards.instructions.md`          |
+| C-I01    | shai-coding                      | `src/shai-core/instructions/shai-coding.instructions.md`                    |
 | C-I03    | shai-documentation-standards     | `obsolete/readme-style.instructions.md`                                     |
 | C-A01    | shai-architect                   | `obsolete/claude/agents/dotnet-architect.md` (generalize)                   |
 | C-A03    | shai-code-reviewer               | `obsolete/claude/skills/code-review/`                                       |
@@ -496,7 +498,7 @@ The following assets have prior work in the `obsolete/` folder that can be used 
 | P-A01–03 | shai-playwright-* agents         | `obsolete/claude/agents/playwright-*.md`                                    |
 | P-S01–04 | shai-playwright-* skills         | `obsolete/claude/skills/`                                                   |
 
-### MCP dependencies (external, not shai assets)
+### MCP dependencies (external, not shai tools)
 
 These are external MCP servers that shai skills/agents may reference as tools:
 

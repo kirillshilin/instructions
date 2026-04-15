@@ -1,7 +1,3 @@
----
-applyTo: "**/*.cs,**/*.csproj,**/*.sln"
----
-
 # Folder Structure — C#
 
 Keep folders **flat** and **semantically named**. Avoid deep nesting, but don't

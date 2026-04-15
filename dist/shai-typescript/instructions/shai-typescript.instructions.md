@@ -9,10 +9,6 @@ TypeScript conventions for architecture, structure, and patterns not covered by 
 
 ## Rules
 
----
-applyTo: "**/*.ts,**/*.tsx"
----
-
 # Naming — TypeScript
 
 These supplement — not repeat — TypeScript's widely-known conventions (camelCase
@@ -31,10 +27,6 @@ See [universal naming rules](../01-naming.rule.md) for the shared foundation.
   `OrderStatus.Pending`, not `ORDER_STATUS.PENDING`.
 
 
----
-applyTo: "**/*.ts,**/*.tsx"
----
-
 # Folder Structure — TypeScript
 
 Keep folders **flat** and **semantically named**. Avoid deep nesting, but don't
@@ -52,9 +44,13 @@ dump everything into one directory either.
 
 ## Shared / Utility Folders
 
-All `utilities/`, and `shared/` folders **must include a
+All `utilities/` and `shared/` folders **must include a
 `README.md`** indexing every export with a one-line description. Before adding a
 new utility, read the README to check for existing equivalents.
+
+Utility files follow the naming convention `utilities/{group}.utilities.ts`
+(e.g. `utilities/date.utilities.ts`, `utilities/string.utilities.ts`). See the
+one-unit-per-module rule for details.
 
 ## TypeScript / Frontend Projects
 
@@ -99,19 +95,18 @@ Why: deep nesting makes imports painful and files hard to locate. If a folder
 has only one child, it shouldn't exist.
 
 
----
-applyTo: "**/*.ts,**/*.tsx"
----
-
-# One Unit per File
+# One Unit per Module
 
 One primary unit per file — a class, component, service, or major function.
+This is **critical** and non-negotiable: never combine an exported function or
+class with other functions in the same file.
 
 ## Why
 
 - **Discoverability** — `order.service.ts` tells you what's inside without opening it.
 - **Git blame** — changes to one unit don't pollute another's history.
 - **Tree-shaking** — bundlers work best with isolated exports.
+- **Cognitive load** — a file with one purpose requires no scanning to understand.
 
 ## What counts as a unit
 
@@ -123,12 +118,28 @@ One primary unit per file — a class, component, service, or major function.
 | Large function   | `{name}.ts`         | `calculate-shipping.ts` |
 | Type definitions | `{name}.types.ts`   | `order.types.ts`        |
 
+## Utility functions
+
+Utility functions are the one exception to one-function-per-file — logically
+group related pure functions into a single file using the naming convention:
+
+```
+utilities/{group}.utilities.ts
+```
+
+| Domain     | File                                | Contents                                |
+| ---------- | ----------------------------------- | --------------------------------------- |
+| Dates      | `utilities/date.utilities.ts`       | `formatDate`, `parseIso`, `daysBetween` |
+| Strings    | `utilities/string.utilities.ts`     | `slugify`, `truncate`, `capitalize`     |
+| Validation | `utilities/validation.utilities.ts` | `isEmail`, `isUrl`, `isPositiveInt`     |
+
+Each utility file groups functions that share a **single domain**. If a utility
+file grows beyond ~100 lines, split it by subdomain.
+
 ## Exceptions
 
 Co-locate when pieces are **small, uniform, and tightly coupled**:
 
-- **Utility collections** — related pure functions sharing a domain
-  (e.g. `date.utils.ts` with `formatDate`, `parseIso`, `daysBetween`).
 - **Private type definitions** — types used only by one module can
   live in that module's file or a shared `{feature}.types.ts`.
 - **Enum + related constants** — an enum and its lookup map or default
@@ -136,9 +147,10 @@ Co-locate when pieces are **small, uniform, and tightly coupled**:
 
 ## Avoid
 
-- **Multiple classes in one file** — each class gets its own file.
+- **Multiple exported classes in one file** — each class gets its own file.
+- **Exported function + class in the same file** — even if related, separate them.
 - **Barrel files with logic** — `index.ts` should only re-export, never define.
-- **"Helpers" grab bags** — group by domain: `string.utils.ts`, `date.utils.ts`.
+- **"Helpers" grab bags** — never create `helpers.ts` or `utils.ts` without a domain prefix.
 
 
 ## Constants

@@ -3,6 +3,7 @@
         "npx skills": true,
         "Rename-Item": true,
         "npm link": true,
-        "npx -y skills": true
+        "npx -y skills": true,
+        "type": true
     }
 }

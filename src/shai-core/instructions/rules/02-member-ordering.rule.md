@@ -1,7 +1,3 @@
----
-applyTo: "**"
----
-
 ## Member Ordering
 
 Consistent ordering makes classes scannable — public API at the top, internals

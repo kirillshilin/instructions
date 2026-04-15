@@ -13,7 +13,7 @@
     "scaffolding"
   ],
   "skills": [
-    "skills/shai-scaffold-nextjs-app",
-    "skills/shai-add-nextjs-page"
+    "skills/shai-add-nextjs-page",
+    "skills/shai-scaffold-nextjs-app"
   ]
 }

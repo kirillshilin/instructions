@@ -86,25 +86,9 @@ mkdir {workspace} && cd {workspace}
 npm init -y
 ```
 
-Update the root `package.json`:
+Update the root `package.json` — contents: [shared/assets/package.workspace.json](../../../../shared/assets/package.workspace.json)
 
-```json
-{
-  "name": "{workspace}",
-  "version": "0.0.1",
-  "private": true,
-  "workspaces": ["apps/*", "packages/*"],
-  "scripts": {
-    "build": "npm run build --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
-    "lint:fix": "npm run lint:fix --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\""
-  }
-}
-```
+Replace `{workspace}` with the actual workspace name. Scripts follow the [shai-package-json](../../../shai-core/instructions/shai-package-json.instructions.md) convention — `test` watches, `test:once` runs once (for CI), `build:prod` delegates the production build to each sub-project.
 
 > **Why `private: true`?** The workspace root is not published. Individual packages declare their own publishability.
 
@@ -122,44 +106,11 @@ npm install -D typescript
 
 ### Step 3: Configure TypeScript Base
 
-Create `tsconfig.base.json` at the workspace root. All sub-projects extend this.
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "Node16",
-    "moduleResolution": "Node16",
-    "lib": ["ES2022"],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitOverride": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true
-  }
-}
-```
+Create `tsconfig.base.json` at the workspace root. All sub-projects extend this — contents: [shared/assets/tsconfig.base.json](../../../../shared/assets/tsconfig.base.json)
 
 > **Why `Node16` resolution?** It enforces explicit `.js` extensions in imports, which is correct for ESM. Frontend apps (React, Next.js) will override to `"module": "ESNext"` + `"moduleResolution": "Bundler"` in their own tsconfig — bundlers don't need file extensions.
 
-Also create a minimal root `tsconfig.json` that references all sub-projects:
-
-```json
-{
-  "files": [],
-  "references": []
-}
-```
+Also create a minimal root `tsconfig.json` that references all sub-projects — contents: [shared/assets/tsconfig.workspace-root.json](../../../../shared/assets/tsconfig.workspace-root.json)
 
 > **Populated later.** Each sub-project skill adds its own reference to this file. The root tsconfig is for IDE-level project resolution only — each app builds independently.
 
@@ -297,19 +248,7 @@ Create `apps/{app-name}/package.json`:
 }
 ```
 
-Create `apps/{app-name}/tsconfig.json`:
-
-```json
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
-}
-```
+Create `apps/{app-name}/tsconfig.json` — contents: [shared/assets/tsconfig.subproject.json](../../../../shared/assets/tsconfig.subproject.json)
 
 **For shared packages (under `packages/`):**
 
@@ -342,19 +281,7 @@ Create `packages/{pkg-name}/package.json`:
 }
 ```
 
-Create `packages/{pkg-name}/tsconfig.json`:
-
-```json
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
-}
-```
+Create `packages/{pkg-name}/tsconfig.json` — contents: [shared/assets/tsconfig.subproject.json](../../../../shared/assets/tsconfig.subproject.json)
 
 Create a barrel `packages/{pkg-name}/src/index.ts`:
 

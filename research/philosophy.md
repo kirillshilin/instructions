@@ -1,6 +1,6 @@
 # Coding Philosophy
 
-Personal coding philosophy and principles that shape how shai assets are written,
+Personal coding philosophy and principles that shape how shai tools are written,
 what they enforce, and what tone they adopt. These principles permeate every
 instruction, skill, and agent in the shai plugin system.
 
@@ -102,13 +102,13 @@ costly because competing implementations drift apart silently.
 
 ## Prescriptiveness Calibration
 
-| Domain                                       | Prescriptiveness |
-| -------------------------------------------- | ---------------- |
-| Security (secrets, input validation, OWASP)  | **Strict**       |
-| Data integrity (migrations, schema changes)  | **Strict**       |
-| Core coding standards (naming, error handling)| **Firm**        |
-| Design patterns and architectural choices    | **Flexible**     |
-| Style preferences (formatting, line length)  | **Flexible**     |
+| Domain                                         | Prescriptiveness |
+| ---------------------------------------------- | ---------------- |
+| Security (secrets, input validation, OWASP)    | **Strict**       |
+| Data integrity (migrations, schema changes)    | **Strict**       |
+| Core coding standards (naming, error handling) | **Firm**         |
+| Design patterns and architectural choices      | **Flexible**     |
+| Style preferences (formatting, line length)    | **Flexible**     |
 
 ---
 

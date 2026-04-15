@@ -6,7 +6,7 @@ structure: import config → define trigger → delegate to service.
 ## HTTP Function (`onRequest`)
 
 ```typescript
-// functions/src/health-check.fn.ts
+// src/fn/health-check.fn.ts
 
 import { onRequest } from "firebase-functions/v2/https";
 import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
@@ -22,7 +22,7 @@ export const healthCheck = onRequest(
 For functions with business logic, delegate to a service:
 
 ```typescript
-// functions/src/process-payment.fn.ts
+// src/fn/process-payment.fn.ts
 
 import { onRequest } from "firebase-functions/v2/https";
 import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
@@ -46,7 +46,7 @@ export const processPayment = onRequest(
 ## Callable Function (`onCall`)
 
 ```typescript
-// functions/src/send-invite.fn.ts
+// src/fn/send-invite.fn.ts
 
 import { onCall, HttpsError } from "firebase-functions/v2/https";
 import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
@@ -68,7 +68,7 @@ export const sendInvite = onCall(
 ## Firestore Trigger (`onDocumentCreated`)
 
 ```typescript
-// functions/src/on-order-created.fn.ts
+// src/fn/on-order-created.fn.ts
 
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
@@ -96,7 +96,7 @@ Other Firestore triggers follow the same pattern:
 - `onDocumentWritten` — receives `event.data.before` and `event.data.after`
 
 ```typescript
-// functions/src/on-profile-updated.fn.ts
+// src/fn/on-profile-updated.fn.ts
 
 import { onDocumentUpdated } from "firebase-functions/v2/firestore";
 import { FN_REGION, RUNTIME_OPTIONS } from "./fn-config";
@@ -125,7 +125,7 @@ export const onProfileUpdated = onDocumentUpdated(
 ## Scheduled Function (`onSchedule`)
 
 ```typescript
-// functions/src/daily-cleanup.fn.ts
+// src/fn/daily-cleanup.fn.ts
 
 import { onSchedule } from "firebase-functions/v2/scheduler";
 import { FN_REGION } from "./fn-config";
@@ -146,7 +146,7 @@ export const dailyCleanup = onSchedule(
 ## Auth Trigger
 
 ```typescript
-// functions/src/on-user-deleted.fn.ts
+// src/fn/on-user-deleted.fn.ts
 
 import { beforeUserDeleted } from "firebase-functions/v2/identity";
 import { FN_REGION } from "./fn-config";
@@ -166,7 +166,7 @@ Every service follows the same structure — a class instantiated once at
 module level:
 
 ```typescript
-// functions/src/services/order.service.ts
+// src/fn/services/order.service.ts
 
 import { db } from "../db";
 
@@ -200,7 +200,7 @@ export const orderService = new OrderService();
 All function settings live in a single file:
 
 ```typescript
-// functions/src/fn-config.ts
+// src/fn/config.ts
 
 /** Default region for all Cloud Functions */
 export const FN_REGION = "us-central1";

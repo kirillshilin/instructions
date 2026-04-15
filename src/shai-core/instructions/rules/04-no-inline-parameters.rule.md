@@ -1,7 +1,3 @@
----
-applyTo: "**"
----
-
 ## No Inline Parameters
 
 Extract method arguments into named variables before calling the method. The

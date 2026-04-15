@@ -1,7 +1,3 @@
----
-applyTo: "**/*.ts,**/*.tsx"
----
-
 # Naming — TypeScript
 
 These supplement — not repeat — TypeScript's widely-known conventions (camelCase

@@ -116,7 +116,7 @@ After init, the CLI creates a `functions/` directory. Adjust it to follow the co
 functions/
 ├── src/
 │   ├── index.ts          ← re-exports all *.fn.ts functions
-│   ├── fn-config.ts      ← region, runtime options, constants
+│   ├── config.ts      ← region, runtime options, constants
 │   ├── init.ts           ← Firebase Admin SDK initialisation
 │   ├── db.ts             ← Firestore helpers / typed refs
 │   └── services/         ← business logic (injected into functions)
@@ -127,7 +127,7 @@ functions/
 
 Key actions:
 
-1. Create `src/fn-config.ts` with the chosen region:
+1. Create `src/config.ts` with the chosen region:
 
 ```typescript
 export const FN_REGION = "us-central1";
@@ -207,9 +207,9 @@ Present a summary to the user:
 - [x] Local Emulator Suite
 
 ### Project structure:
-functions/src/
+src/fn/
   ├── index.ts        — function re-exports
-  ├── fn-config.ts    — region & runtime constants
+  ├── config.ts       — region & runtime constants
   ├── init.ts         — Admin SDK initialisation
   ├── db.ts           — Firestore instance
   └── services/       — business logic (empty, ready)
@@ -231,5 +231,5 @@ functions/src/
 - **Use `#tool:firebase` for all Firebase operations** — do not manually create `firebase.json` or `.firebaserc`. The Firebase MCP / CLI handles project linking, feature flags, and emulator config correctly.
 - **Don't install Firebase globally in CI** — CI/CD pipelines should use `npx firebase-tools` or a pinned version in `devDependencies`.
 - **Admin key must be gitignored** — never commit service account JSON files. Use `.secret.local` for local development and inject secrets via CI/CD environment variables in production.
-- **Region matters** — choosing a region close to users reduces latency. It is set once in `fn-config.ts` and used by every function. Changing it later means redeploying all functions.
+- **Region matters** — choosing a region close to users reduces latency. It is set once in `config.ts` and used by every function. Changing it later means redeploying all functions.
 - **Emulator data is ephemeral** — use `emulators:export` / `emulators:import` to persist local data across restarts if needed.

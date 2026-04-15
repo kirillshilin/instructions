@@ -17,10 +17,6 @@ Write **intentionally simple** code. Every abstraction must solve a real, named 
 
 ## Rules
 
----
-applyTo: "**"
----
-
 ## Naming Conventions
 
 Consistent, concise naming reduces cognitive load and makes code searchable.
@@ -58,10 +54,6 @@ const errArr: string[] = [];
 Why: `userList` adds noise — the plural `users` already signals a collection.
 `orderResp` abbreviates without benefit. `errArr` is cryptic.
 
-
----
-applyTo: "**"
----
 
 ## Member Ordering
 
@@ -114,10 +106,6 @@ Why: multi-item files become dumping grounds. Single-item files are easier to
 find, rename, move, and review in diffs.
 
 
----
-applyTo: "**"
----
-
 ## Early Returns
 
 Prefer early returns and guard clauses to reduce nesting — validate preconditions
@@ -134,10 +122,6 @@ function process(input: string | null): Result {
 }
 ```
 
-
----
-applyTo: "**"
----
 
 ## No Inline Parameters
 
@@ -168,10 +152,6 @@ const result = await fetchData(url, { retries: 3, timeout: 5000 });
 - Fluent builder chains: `new UserBuilder().WithName("Alice").Build()`
 
 
----
-applyTo: "**"
----
-
 ## Comments
 
 - **No comments during scaffolding** — freshly generated code speaks for itself.
@@ -179,7 +159,7 @@ applyTo: "**"
 - **No comments on private methods** — if a private method needs a comment, it
   probably needs a better name or extraction.
 - **Inline comments** — only in complex or long methods with multiple conditions
-  or non-obvious logic.
+  or non-obvious logic. Ideally a single line, no more than 80–90 characters.
 - **Full documentation** — only on library-exported public APIs, or when
   explicitly requested, or by the documentation agent.
 

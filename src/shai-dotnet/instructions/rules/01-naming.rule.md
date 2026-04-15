@@ -1,7 +1,3 @@
----
-applyTo: "**/*.cs"
----
-
 # Naming Conventions — C#
 
 - **Private fields** — `_camelCase`: `_repository`, `_logger`, `_connectionString`.

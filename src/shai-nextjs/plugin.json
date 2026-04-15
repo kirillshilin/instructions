@@ -12,8 +12,11 @@
     "tailwind",
     "scaffolding"
   ],
-  "skills": [
-    "skills/shai-scaffold-nextjs-app",
-    "skills/shai-add-nextjs-page"
+  "keywords": [
+    "nextjs",
+    "app-router",
+    "react",
+    "tailwind",
+    "scaffolding"
   ]
 }
