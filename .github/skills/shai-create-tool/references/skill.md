@@ -1,4 +1,4 @@
-# Skill Asset Reference
+# Skill Tool Reference
 
 Format spec and writing guide for Agent Skills (SKILL.md) in the SHAI plugin system.
 
@@ -63,12 +63,12 @@ Keep SKILL.md under 500 lines (~5000 tokens). Use this three-tier model:
 
 1. **Metadata** (~100 tokens): `name` + `description` — always in context
 2. **SKILL.md body** (< 5000 tokens): Core workflow — loaded when skill triggers
-3. **Bundled resources** (unlimited): reference files, scripts, assets — loaded on demand
+3. **Bundled resources** (unlimited): reference files, scripts, tools — loaded on demand
 
 Point clearly to reference files with loading conditions:
 
 ```markdown
-Read [references/react-patterns.md](references/react-patterns.md) when creating React components. Read [references/testing.md](references/testing.md) when the asset involves test patterns.
+Read [references/react-patterns.md](references/react-patterns.md) when creating React components. Read [references/testing.md](references/testing.md) when the tool involves test patterns.
 ```
 
 ## File Location
@@ -77,7 +77,7 @@ Within a plugin: `{plugin}/skills/{skill-name}/SKILL.md` In staging: `src/{plugi
 
 ## Creating Skills — Use /find-skills and /skill-creator
 
-When the asset being created is itself a skill:
+When the tool being created is itself a skill:
 
 1. **Use `/find-skills`** to search for existing community skills in the same domain. Read their full SKILL.md — not just the search summary — and extract reusable assets: workflow steps, templates, checklists, gotchas.
 
@@ -91,7 +91,7 @@ When the asset being created is itself a skill:
    - Creating test prompts
    - Evaluating and iterating
 
-Apply the shai-create-asset workflow (research, legacy analysis, user interview) FIRST, then hand the context to skill-creator for the actual writing.
+Apply the shai-create-tool workflow (research, legacy analysis, user interview) FIRST, then hand the context to skill-creator for the actual writing.
 
 ## Writing Patterns
 

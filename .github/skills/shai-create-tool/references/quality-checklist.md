@@ -1,6 +1,6 @@
 # Quality Checklist
 
-Run this checklist after generating any SHAI asset. Report results to the user.
+Run this checklist after generating any SHAI tool. Report results to the user.
 
 > **Source documentation:** Cross-check against the canonical VS Code docs:
 > [02-instructions.md](vscode-docs/02-instructions.md),
@@ -10,19 +10,19 @@ Run this checklist after generating any SHAI asset. Report results to the user.
 > [06-hooks.md](vscode-docs/06-hooks.md),
 > [07-plugins.md](vscode-docs/07-plugins.md).
 
-## Universal Checks (all asset types)
+## Universal Checks (all tool types)
 
-- [ ] **File location**: Asset is in the correct `src/{plugin}/{type}/` path
-- [ ] **Naming**: Filename matches the asset name from the reference doc
+- [ ] **File location**: Tool is in the correct `src/{plugin}/{type}/` path
+- [ ] **Naming**: Filename matches the tool name from the reference doc
 - [ ] **YAML frontmatter**: Valid YAML syntax, no tabs, proper quoting
 - [ ] **Required fields**: All required frontmatter fields present
 - [ ] **Purpose match**: Content aligns with the purpose column in the reference doc
-- [ ] **Cross-references**: Links to related assets use correct relative paths
+- [ ] **Cross-references**: Links to related tools use correct relative paths
 - [ ] **Philosophy alignment**: Rules explain WHY, prescriptiveness is calibrated
 - [ ] **No over-explanation**: Doesn't explain what the model already knows
 - [ ] **Examples**: Code examples are realistic and use the user's conventions
 - [ ] **Private fields**: Uses `_name` convention (not `#private`)
-- [ ] **Consistency**: Naming conventions match across all referenced assets
+- [ ] **Consistency**: Naming conventions match across all referenced tools
 
 ## Instruction-Specific Checks
 
@@ -73,4 +73,4 @@ After the checklist passes:
 1. Display the full generated content to the user
 2. Report any checklist items that needed attention
 3. Ask: "Ready to finalize, or do you want to adjust anything?"
-4. On approval: update the asset status in `02-shai-asset-reference.md` from 🔴/🟡 to 🟢
+4. On approval: update the tool status in `02-shai-tool-reference.md` from 🔴/🟡 to 🟢

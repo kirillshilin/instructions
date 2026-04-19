@@ -1,4 +1,4 @@
-# Hook Asset Reference
+# Hook Tool Reference
 
 Format spec and writing guide for hook JSON files in the SHAI plugin system.
 

@@ -1,4 +1,4 @@
-# Prompt Asset Reference
+# Prompt Tool Reference
 
 Format spec and writing guide for `.prompt.md` files in the SHAI plugin system.
 

@@ -1,4 +1,4 @@
-# Agent Asset Reference
+# Agent Tool Reference
 
 Format spec and writing guide for `.agent.md` files in the SHAI plugin system.
 

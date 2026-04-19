@@ -1,4 +1,4 @@
-# Instruction Asset Reference
+# Instruction Tool Reference
 
 Format spec and writing guide for `.instructions.md` files in the SHAI plugin system.
 

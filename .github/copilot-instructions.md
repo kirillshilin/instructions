@@ -1,6 +1,6 @@
 # SHAI — Project Instructions
 
-This repository is the **SHAI plugin system**: a modular collection of VS Code / GitHub Copilot customization assets (instructions, skills, agents, hooks, prompts) organized as installable plugins per technology stack.
+This repository is the **SHAI plugin system**: a modular collection of VS Code / GitHub Copilot customization tools (instructions, skills, agents, hooks, prompts) organized as installable plugins per technology stack.
 
 ## Purpose
 
@@ -20,8 +20,8 @@ instructions/
 │   └── shared/                 ← Reusable partials and assets
 ├── dist/                       ← Build output (resolved partials)
 ├── research/                   ← Reference docs, VS Code docs, GoF patterns
-├── obsolete/                   ← Legacy drafts (source material for new assets)
-├── .github/skills/             ← Meta-skills for this repo (shai-create-asset, etc.)
+├── obsolete/                   ← Legacy drafts (source material for new tools)
+├── .github/skills/             ← Meta-skills for this repo (shai-create-tool, etc.)
 └── scripts/build.js            ← Build script: copies src/ → dist/, resolves partials
 ```
 
@@ -90,7 +90,7 @@ Run `npm run build` to resolve all partials from `src/` into `dist/`.
 
 ## Asset Reference Document
 
-[src/reference.md](../src/reference.md) is the **single source of truth** for all 84 assets across 10 plugins. It contains:
+[src/reference.md](../src/reference.md) is the **single source of truth** for all 84 tools across 10 plugins. It contains:
 
 - Asset tree with IDs, names, types, priorities, and status (🔴 not started · 🟡 legacy draft · 🟢 done)
 - Detailed tables per plugin with purpose, examples, applyTo patterns, and tool lists
@@ -98,12 +98,12 @@ Run `npm run build` to resolve all partials from `src/` into `dist/`.
 
 **Every new or updated asset must be reflected in this document.** An asset that exists in `src/` but not in the reference doc is invisible to the workflow.
 
-## Creating Assets — The `shai-create-asset` Skill
+## Creating Tools — The `shai-create-tool` Skill
 
-The primary workflow for building new assets is the `shai-create-asset` skill (`.github/skills/shai-create-asset/SKILL.md`). It handles the full lifecycle:
+The primary workflow for building new tools is the `shai-create-tool` skill (`.github/skills/shai-create-tool/SKILL.md`). It handles the full lifecycle:
 
 1. **Resolve** — Parse an asset ID (`T-I01`, `C-A03`) or name (`shai-typescript-coding-standards`) from the reference doc
-2. **Load type reference** — Read the format spec from `.github/skills/shai-create-asset/references/{type}.md`
+2. **Load type reference** — Read the format spec from `.github/skills/shai-create-tool/references/{type}.md`
 3. **Research** — Check legacy drafts in `obsolete/`, search community skills via `npx skills find`, analyze workspace patterns, read VS Code docs, fetch web docs
 4. **Interview** — Confirm scope, review legacy content, discuss prescriptiveness level, validate applyTo patterns
 5. **Draft** — Generate the asset following the format spec, user preferences, and coding philosophy
@@ -118,7 +118,7 @@ The primary workflow for building new assets is the `shai-create-asset` skill (`
 
 ## Coding Philosophy
 
-These principles apply to all generated assets:
+These principles apply to all generated tools:
 
 - **Pragmatic over dogmatic** — "Prefer X because Y." If the reason doesn't apply, the rule may not either
 - **Composition over inheritance** — small, independently testable pieces
@@ -129,7 +129,7 @@ These principles apply to all generated assets:
 
 ## Installing Plugins
 
-The package ships a CLI at `bin/install.js` that copies built assets from `dist/` into the target project's `.vscode/` directory (instructions, skills, agents).
+The package ships a CLI at `bin/install.js` that copies built tools from `dist/` into the target project's `.vscode/` directory (instructions, skills, agents).
 
 **Local development** (package not yet published — use `npm link` from this repo):
 
@@ -155,7 +155,7 @@ npx @shai/instructions --list             # List available plugins
 npx @shai/instructions shai-core --dir ../my-project  # Custom target
 ```
 
-The installer reads each plugin's `plugin.json` to determine which assets to copy, then places them under `.vscode/{skills,instructions,agents}/` in the target project. Run `npm run build` in this repo first to ensure `dist/` is up to date.
+The installer reads each plugin's `plugin.json` to determine which tools to copy, then places them under `.vscode/{skills,instructions,agents}/` in the target project. Run `npm run build` in this repo first to ensure `dist/` is up to date.
 
 ## Conventions
 

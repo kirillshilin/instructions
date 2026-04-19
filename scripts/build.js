@@ -64,7 +64,7 @@ function resolvePartials(content, baseDir, seen) {
  * Returns an object with `instructions`, `skills`, `hooks`, and `agents` arrays
  * containing plugin-relative paths (e.g. "skills/shai-code-review").
  */
-function collectPluginAssets(pluginSrcDir) {
+function collectPluginTools(pluginSrcDir) {
   const tools = {};
 
   // instructions/ — collect *.instructions.md files
@@ -139,7 +139,7 @@ function buildDir(srcDir, destDir) {
     if (entry.name === "plugin.json") {
       // Enrich plugin.json with auto-collected tools from the plugin's src directory
       const metadata = JSON.parse(fs.readFileSync(srcPath, "utf-8"));
-      const collected = collectPluginAssets(srcDir);
+      const collected = collectPluginTools(srcDir);
       const enriched = Object.assign({}, metadata, collected);
       fs.writeFileSync(destPath, JSON.stringify(enriched, null, 2), "utf-8");
     } else if (entry.name.endsWith(".md")) {
@@ -179,7 +179,7 @@ function copyDir(src, dest) {
  *   from  — path relative to src/ (the shared source directory)
  *   to    — array of paths relative to dist/ (the skill asset destinations)
  */
-function applyAssetRules() {
+function applyToolRules() {
   const rulesFile = path.join(SRC_DIR, "asset-rules.json");
   if (!fs.existsSync(rulesFile)) return;
 
@@ -191,7 +191,7 @@ function applyAssetRules() {
   for (const rule of rules) {
     const srcPath = path.join(SRC_DIR, rule.from);
     if (!fs.existsSync(srcPath)) {
-      console.warn(`\x1b[31m  ⚠  Asset source not found: ${rule.from}\x1b[0m`);
+      console.warn(`\x1b[31m  ⚠  Tool source not found: ${rule.from}\x1b[0m`);
       continue;
     }
 
@@ -220,6 +220,6 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 buildDir(SRC_DIR, OUT_DIR);
 
 console.log();
-applyAssetRules();
+applyToolRules();
 
 console.log("Done ✅");

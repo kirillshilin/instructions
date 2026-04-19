@@ -1,4 +1,4 @@
-# SHAI — Asset Reference & Table of Contents
+# SHAI — Tool Reference & Table of Contents
 
 > Personal AI coding assistant plugin system for VS Code / GitHub Copilot.
 > Designed for Claude Code portability (compatible naming/structure, dual build later).
@@ -46,7 +46,7 @@ Each plugin contains a `plugin.json` + any combination of:
 
 ---
 
-## Asset Tree
+## Tool Tree
 
 Full hierarchy of all 84 tools across all plugins. Status: 🔴 not started · 🟡 draft · 🟢 done
 
@@ -179,7 +179,7 @@ Every project should install this.
 
 ### 1.1 Instructions
 
-| #     | Asset Name                     | Type        | applyTo           | Priority | Status | Purpose                                                                                                         | Example                                                                     |
+| #     | Tool Name                      | Type        | applyTo           | Priority | Status | Purpose                                                                                                         | Example                                                                     |
 | ----- | ------------------------------ | ----------- | ----------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | C-I01 | `shai-coding`                  | instruction | `**`              | Must     | 🟢      | Naming conventions (PascalCase types, camelCase vars, `_private`), comment style, constants, imports ordering   | "Use `_name` for private fields, no `#private`, ALL_CAPS for const"         |
 | C-I02 | `shai-package-json`            | instruction | `**/package.json` | Must     | 🟢      | Exact dependency versions (no `~`/`^`), standard npm scripts (`start`, `build`, `test`, `lint`, `deploy`)       | "Pin exact versions, use `npm start` not `npm run dev`, `test:once` for CI" |
@@ -188,7 +188,7 @@ Every project should install this.
 
 ### 1.2 Agents
 
-| #     | Asset Name           | Type  | Tools                                                       | Priority | Status | Purpose                                                                                                                                                                                                           | Example trigger                                                       |
+| #     | Tool Name            | Type  | Tools                                                       | Priority | Status | Purpose                                                                                                                                                                                                           | Example trigger                                                       |
 | ----- | -------------------- | ----- | ----------------------------------------------------------- | -------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | C-A01 | `shai-architect`     | agent | `search/codebase`, `web/fetch`, `search/usages` (read-only) | Must     | 🟡      | High-level software design: system structure, component boundaries, tech stack decisions, design patterns. Handoff → `implementer`. Also called by `shai-feature-mapping` (V-S02) for technical feasibility input | "Design an event-driven architecture for the order processing module" |
 | C-A02 | `shai-planner`       | agent | `search/codebase`, `web/fetch` (read-only)                  | Must     | 🔴      | Generates implementation plans from feature descriptions. Breaks into tasks. Handoff → `agent`                                                                                                                    | "Plan the implementation of user authentication with OAuth2"          |
@@ -199,7 +199,7 @@ Every project should install this.
 
 ### 1.3 Skills
 
-| #     | Asset Name                | Type  | Priority | Status | Purpose                                                                                                                              | Example invocation                                |
+| #     | Tool Name                 | Type  | Priority | Status | Purpose                                                                                                                              | Example invocation                                |
 | ----- | ------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
 | C-S01 | `shai-code-review`        | skill | Should   | 🟡      | Step-by-step code review workflow: check architecture, security, performance, style. Includes review checklist template              | `/shai-code-review for the auth module`           |
 | C-S02 | `shai-tdd-feature`        | skill | Should   | 🟢      | TDD workflow: write failing tests → implement → refactor. Includes test-first templates per framework                                | `/shai-tdd-feature add discount code to checkout` |
@@ -216,7 +216,7 @@ Every project should install this.
 
 ### 1.4 Hooks
 
-| #     | Asset Name                     | Type | Event                   | Priority | Status | Purpose                                                                           |
+| #     | Tool Name                      | Type | Event                   | Priority | Status | Purpose                                                                           |
 | ----- | ------------------------------ | ---- | ----------------------- | -------- | ------ | --------------------------------------------------------------------------------- |
 | C-H01 | `shai-format-on-edit`          | hook | `PostToolUse`           | Should   | �      | Runs formatter (Prettier/dotnet format) after every file edit by the agent        |
 | C-H02 | `shai-lint-on-edit`            | hook | `PostToolUse`           | Could    | �      | Runs linter after file edit, feeds warnings back as system message                |
@@ -225,7 +225,7 @@ Every project should install this.
 
 ### 1.5 Prompts (workspace-level, not in plugin)
 
-| #     | Asset Name              | Type   | Priority | Status | Purpose                                                                                      |
+| #     | Tool Name               | Type   | Priority | Status | Purpose                                                                                      |
 | ----- | ----------------------- | ------ | -------- | ------ | -------------------------------------------------------------------------------------------- |
 | C-P01 | `shai-quick-plan`       | prompt | Should   | 🔴      | Lightweight: "generate a 5-bullet implementation plan for this feature" (ask mode, no edits) |
 | C-P02 | `shai-explain-codebase` | prompt | Could    | 🔴      | "Explain the architecture and key patterns of this project" (read-only)                      |
@@ -239,7 +239,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 
 ### 2.1 Instructions
 
-| #     | Asset Name                         | Type        | applyTo                     | Priority | Status | Purpose                                                                                                                     | Example                                                                      |
+| #     | Tool Name                          | Type        | applyTo                     | Priority | Status | Purpose                                                                                                                     | Example                                                                      |
 | ----- | ---------------------------------- | ----------- | --------------------------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | T-I01 | `shai-typescript-coding-standards` | instruction | `**/*.ts,**/*.tsx`          | Must     | 🟢      | Strict TS rules: prefer `interface` over `type` for objects, use discriminated unions, no `any`, barrel files, path aliases | "Use `interface` for data shapes, `type` for unions/intersections"           |
 | T-I02 | `shai-typescript-testing`          | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟢      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
@@ -247,7 +247,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 
 ### 2.2 Skills
 
-| #     | Asset Name                   | Type  | Priority | Status | Purpose                                                                                                                    |
+| #     | Tool Name                    | Type  | Priority | Status | Purpose                                                                                                                    |
 | ----- | ---------------------------- | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------- |
 | T-S01 | `shai-scaffold-ts-workspace` | skill | Should   | �      | Scaffold a multi-project TypeScript workspace with npm workspaces, shared base configs, and handoff to app-specific skills |
 | T-S02 | `shai-unit-testing-ts`       | skill | Should   | 🟢      | Write unit tests for TS code: mocking strategy, test utilities, coverage targets                                           |
@@ -260,14 +260,14 @@ React + TypeScript + Tailwind + shadcn patterns. Depends on shai-typescript.
 
 ### 3.1 Instructions
 
-| #     | Asset Name              | Type        | applyTo                       | Priority | Status | Purpose                                                                                                 | Example                                                           |
+| #     | Tool Name               | Type        | applyTo                       | Priority | Status | Purpose                                                                                                 | Example                                                           |
 | ----- | ----------------------- | ----------- | ----------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | R-I01 | `shai-react-components` | instruction | `**/*.tsx,**/*.jsx`           | Must     | 🟢      | Component architecture, hook delegation, folder taxonomy, constants extraction, JSX + Tailwind patterns | "Components are display layers — all logic lives in custom hooks" |
 | R-I03 | `shai-react-testing`    | instruction | `**/*.test.tsx,**/*.spec.tsx` | Should   | 🔴      | React Testing Library patterns, what to test (behavior not implementation), accessibility queries       | "Prefer getByRole over getByTestId, test user interactions"       |
 
 ### 3.2 Skills
 
-| #     | Asset Name                    | Type  | Priority | Status | Purpose                                                                                |
+| #     | Tool Name                     | Type  | Priority | Status | Purpose                                                                                |
 | ----- | ----------------------------- | ----- | -------- | ------ | -------------------------------------------------------------------------------------- |
 | R-S01 | `shai-scaffold-react-app`     | skill | Must     | 🟢      | Scaffold React+Vite+TS+Tailwind+shadcn app: folder structure, routing, base components |
 | R-S02 | `shai-create-react-component` | skill | Should   | 🟡      | Create a React component: component file, tests, story (optional), barrel export       |
@@ -281,7 +281,7 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 
 ### 4.1 Instructions
 
-| #     | Asset Name                | Type        | applyTo                          | Priority | Status | Purpose                                                                                     | Example                                                          |
+| #     | Tool Name                 | Type        | applyTo                          | Priority | Status | Purpose                                                                                     | Example                                                          |
 | ----- | ------------------------- | ----------- | -------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | A-I01 | `shai-angular-components` | instruction | `**/*.component.ts`              | Must     | 🟡      | Component architecture: smart/dumb, OnPush change detection, signals, standalone components | "Prefer standalone components, use OnPush, signals for state"    |
 | A-I02 | `shai-angular-services`   | instruction | `**/*.service.ts`                | Should   | 🔴      | Service patterns: providedIn root vs module, injection tokens, rxjs operators               | "Use `inject()` over constructor injection, pure pipes"          |
@@ -289,7 +289,7 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 
 ### 4.2 Skills
 
-| #     | Asset Name                      | Type  | Priority | Status | Purpose                                                                               |
+| #     | Tool Name                       | Type  | Priority | Status | Purpose                                                                               |
 | ----- | ------------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------- |
 | A-S01 | `shai-scaffold-angular-app`     | skill | Should   | 🟡      | Scaffold Angular app with CLI: routing, lazy loading, shared module structure         |
 | A-S02 | `shai-create-angular-component` | skill | Should   | 🔴      | Create Angular component: standalone, OnPush, signals, test file, module registration |
@@ -302,7 +302,7 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 
 ### 5.1 Instructions
 
-| #     | Asset Name                     | Type        | applyTo                                     | Priority | Status | Purpose                                                                                                                   | Example                                                                   |
+| #     | Tool Name                      | Type        | applyTo                                     | Priority | Status | Purpose                                                                                                                   | Example                                                                   |
 | ----- | ------------------------------ | ----------- | ------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | D-I01 | `shai-dotnet-coding-standards` | instruction | `**/*.cs`                                   | Must     | 🟢      | C# naming (PascalCase public, `_camelCase` private), nullable reference types, records vs classes, file-scoped namespaces | "Enable nullable, use `_name` for private fields, file-scoped namespaces" |
 | D-I02 | `shai-dotnet-architecture`     | instruction | `**/*.cs`                                   | Must     | 🟡      | Clean Architecture layers, DDD aggregates/entities/value objects, CQRS with MediatR                                       | "Domain layer has no dependencies, use Value Objects for identifiers"     |
@@ -312,7 +312,7 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 
 ### 5.2 Agents
 
-| #     | Asset Name              | Type  | Tools                                 | Priority | Status | Purpose                                                                                         |
+| #     | Tool Name               | Type  | Tools                                 | Priority | Status | Purpose                                                                                         |
 | ----- | ----------------------- | ----- | ------------------------------------- | -------- | ------ | ----------------------------------------------------------------------------------------------- |
 | D-A01 | `shai-dotnet-architect` | agent | read-only                             | Must     | 🟡      | .NET architecture design: solution structure, layer boundaries, NuGet packages. Handoff → agent |
 | D-A02 | `shai-dotnet-tester`    | agent | `edit`, `terminal`, `search/codebase` | Should   | 🟡      | Writes and debugs .NET unit tests. Runs tests, analyzes failures                                |
@@ -321,7 +321,7 @@ Angular-specific conventions and workflows. Depends on shai-typescript.
 
 ### 5.3 Skills
 
-| #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                               |
+| #     | Tool Name                  | Type  | Priority | Status | Purpose                                                                               |
 | ----- | -------------------------- | ----- | -------- | ------ | ------------------------------------------------------------------------------------- |
 | D-S01 | `shai-scaffold-dotnet-app` | skill | Must     | 🟡      | Scaffold .NET solution: Clean Architecture layers, projects, base classes, DI wiring  |
 | D-S02 | `shai-unit-testing-dotnet` | skill | Should   | 🟡      | Write .NET unit tests: fixture setup, mocking, assertion patterns, test data builders |
@@ -336,13 +336,13 @@ Node.js / Express backend patterns.
 
 ### 6.1 Instructions
 
-| #     | Asset Name              | Type        | applyTo                         | Priority | Status | Purpose                                                                             | Example                                                         |
+| #     | Tool Name               | Type        | applyTo                         | Priority | Status | Purpose                                                                             | Example                                                         |
 | ----- | ----------------------- | ----------- | ------------------------------- | -------- | ------ | ----------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | N-I02 | `shai-express-patterns` | instruction | `**/routes/**,**/middleware/**` | Should   | 🔴      | Express middleware, router structure, error handling middleware, request validation | "Centralized error handler, validation middleware with Joi/Zod" |
 
 ### 6.2 Skills
 
-| #     | Asset Name               | Type  | Priority | Status | Purpose                                                                                                                                                  |
+| #     | Tool Name                | Type  | Priority | Status | Purpose                                                                                                                                                  |
 | ----- | ------------------------ | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | N-S01 | `shai-scaffold-node-app` | skill | Should   | �      | Scaffold Node.js app (Genkit / Express / CLI / Plain): TypeScript, ESLint, Prettier, Jest, folder structure, barrel exports, env config, optional Docker |
 
@@ -355,7 +355,7 @@ Next.js App Router conventions, scaffolding, and page generation. Install alongs
 
 ### 7.1 Skills
 
-| #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                                  |
+| #     | Tool Name                  | Type  | Priority | Status | Purpose                                                                                                  |
 | ----- | -------------------------- | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------- |
 | X-S01 | `shai-scaffold-nextjs-app` | skill | Must     | 🟢      | Scaffold Next.js project: App Router, TypeScript, Tailwind CSS, error boundaries, middleware, env config |
 | X-S02 | `shai-add-nextjs-page`     | skill | Should   | 🟢      | Add a new page (route) to an existing Next.js App Router project with layouts, loading, error, metadata  |
@@ -368,7 +368,7 @@ Firebase ecosystem: Cloud Functions, Firestore, Hosting, security rules, emulato
 
 ### 8.1 Instructions
 
-| #     | Asset Name                  | Type        | applyTo                                      | Priority | Status | Purpose                                                                                                                              | Example                                                                          |
+| #     | Tool Name                   | Type        | applyTo                                      | Priority | Status | Purpose                                                                                                                              | Example                                                                          |
 | ----- | --------------------------- | ----------- | -------------------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
 | F-I01 | `shai-firebase-conventions` | instruction | `**/functions/**,**/firestore*,**/firebase*` | Must     | 🔴      | Firebase project structure, Cloud Functions patterns, Firestore data modeling, security rules                                        | "Use Firebase Admin SDK, typed Firestore references, security rules first"       |
 | F-I02 | `shai-firestore-modeling`   | instruction | `**/firestore*,**/models/**`                 | Should   | 🔴      | Firestore data modeling: denormalization, subcollections, composite keys, converters                                                 | "Use typed converters, design for query patterns not normalization"              |
@@ -376,7 +376,7 @@ Firebase ecosystem: Cloud Functions, Firestore, Hosting, security rules, emulato
 
 ### 8.2 Skills
 
-| #     | Asset Name               | Type  | Priority | Status | Purpose                                                                                                  |
+| #     | Tool Name                | Type  | Priority | Status | Purpose                                                                                                  |
 | ----- | ------------------------ | ----- | -------- | ------ | -------------------------------------------------------------------------------------------------------- |
 | F-S01 | `shai-scaffold-firebase` | skill | Should   | 🟢      | Scaffold Firebase project: Cloud Functions (TS), Hosting, Firestore Rules, emulators. Consolidates F-S02 |
 | F-S02 | `shai-firebase-function` | skill | Should   | 🟢      | Create a Cloud Function with thin-facade pattern, service delegation, and shared config constants        |
@@ -389,14 +389,14 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 
 ### 9.1 Instructions
 
-| #     | Asset Name                    | Type        | applyTo                             | Priority | Status | Purpose                                                                              | Example                                                                |
+| #     | Tool Name                     | Type        | applyTo                             | Priority | Status | Purpose                                                                              | Example                                                                |
 | ----- | ----------------------------- | ----------- | ----------------------------------- | -------- | ------ | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
 | P-I01 | `shai-playwright-conventions` | instruction | `**/*.spec.ts` (Playwright context) | Must     | 🟡      | Test structure, locator strategy (prefer role-based), POM pattern, test independence | "Use role-based locators, Page Object Model, atomic independent tests" |
 | P-I02 | `shai-playwright-config`      | instruction | `**/playwright.config.ts`           | Could    | 🔴      | Config best practices: parallel workers, retries, reporters, projects for browsers   | "Configure retries=2, parallel, HTML reporter, multi-browser projects" |
 
 ### 9.2 Agents
 
-| #     | Asset Name                  | Type  | Tools                                 | Priority | Status | Purpose                                                                          |
+| #     | Tool Name                   | Type  | Tools                                 | Priority | Status | Purpose                                                                          |
 | ----- | --------------------------- | ----- | ------------------------------------- | -------- | ------ | -------------------------------------------------------------------------------- |
 | P-A01 | `shai-playwright-architect` | agent | read-only + `web/fetch`               | Should   | 🟡      | E2E test strategy: test plan design, POM structure, critical path identification |
 | P-A02 | `shai-playwright-tester`    | agent | `edit`, `terminal`, `search/codebase` | Should   | 🟡      | Writes Playwright tests: creates specs, page objects, fixtures                   |
@@ -404,7 +404,7 @@ End-to-end testing with Playwright. Cross-framework, works with any frontend.
 
 ### 9.3 Skills
 
-| #     | Asset Name               | Type  | Priority | Status | Purpose                                                                    |
+| #     | Tool Name                | Type  | Priority | Status | Purpose                                                                    |
 | ----- | ------------------------ | ----- | -------- | ------ | -------------------------------------------------------------------------- |
 | P-S01 | `shai-setup-playwright`  | skill | Must     | 🟡      | Set up Playwright in a project: install, config, base fixtures, first test |
 | P-S02 | `shai-write-e2e-test`    | skill | Should   | 🟡      | Write E2E tests: scenario → page objects → spec file → run & verify        |
@@ -424,7 +424,7 @@ Use this plugin at the start of any new feature or product initiative.
 
 ### 10.1 Skills
 
-| #     | Asset Name                 | Type  | Priority | Status | Purpose                                                                                                                                                                                                          | Example invocation                                                                            |
+| #     | Tool Name                  | Type  | Priority | Status | Purpose                                                                                                                                                                                                          | Example invocation                                                                            |
 | ----- | -------------------------- | ----- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | V-S01 | `shai-idea-evaluation`     | skill | Must     | 🟢      | Evaluate and investigate a raw idea: assess feasibility, value proposition, key risks, and strategic fit. Produces a structured evaluation report. Handoff → `shai-feature-mapping`                              | `/shai-idea-evaluation "real-time collaborative whiteboard"`                                  |
 | V-S02 | `shai-feature-mapping`     | skill | Must     | 🟢      | Map the features and capabilities the application needs for the idea to work. Groups features by domain area. May call `shai-architect` (C-A01) for technical design input. Handoff → `shai-story-decomposition` | `/shai-feature-mapping using idea-evaluation report for "real-time collaborative whiteboard"` |
@@ -433,7 +433,7 @@ Use this plugin at the start of any new feature or product initiative.
 
 ### 10.2 Agents
 
-| #     | Asset Name           | Type  | Tools                                      | Priority | Status | Purpose                                                                                                                                                         |
+| #     | Tool Name            | Type  | Tools                                      | Priority | Status | Purpose                                                                                                                                                         |
 | ----- | -------------------- | ----- | ------------------------------------------ | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | V-A01 | `shai-product-owner` | agent | `search/codebase`, `web/fetch` (read-only) | Should   | 🔴      | Orchestrates the full product discovery pipeline in sequence: idea evaluation → feature mapping (with architect handoff) → story decomposition → task breakdown |
 
@@ -441,7 +441,7 @@ Use this plugin at the start of any new feature or product initiative.
 
 ## Summary
 
-### Asset counts by plugin
+### Tool counts by plugin
 
 | Plugin              | Instructions | Agents | Skills | Hooks | Prompts | Total  |
 | ------------------- | ------------ | ------ | ------ | ----- | ------- | ------ |
@@ -457,7 +457,7 @@ Use this plugin at the start of any new feature or product initiative.
 | **shai-product**    | —            | 1      | 4      | —     | —       | **5**  |
 | **TOTAL**           | **25**       | **14** | **37** | **4** | **3**   | **83** |
 
-### Asset counts by priority (MoSCoW)
+### Tool counts by priority (MoSCoW)
 
 | Priority   | Count | Description                                                                                                                            |
 | ---------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------- |
@@ -466,11 +466,11 @@ Use this plugin at the start of any new feature or product initiative.
 | **Could**  | ~18   | Nice-to-have: advanced config, deployment, utility skills — included if time permits                                                   |
 | **Won't**  | ~5    | Deferred: orchestrator, audit logging — planned for future phases, not this iteration                                                  |
 
-### Assets with existing legacy drafts (🟡)
+### Tools with existing legacy drafts (🟡)
 
 The following tools have prior work in the `obsolete/` folder that can be used as starting points:
 
-| Asset ID | Name                             | Legacy source                                                               |
+| Tool ID  | Name                             | Legacy source                                                               |
 | -------- | -------------------------------- | --------------------------------------------------------------------------- |
 | C-I01    | shai-coding                      | `src/shai-core/instructions/shai-coding.instructions.md`                    |
 | C-I03    | shai-documentation-standards     | `obsolete/readme-style.instructions.md`                                     |

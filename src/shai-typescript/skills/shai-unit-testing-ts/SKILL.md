@@ -40,19 +40,9 @@ Before writing any tests, read the source file to identify:
 
 Produce a brief test plan:
 
-```
-## Test Plan for {FileName}
+Before producing the test plan, read this reference first:
 
-### Exported: {ClassName}
-- methodA(params): {what it does} → {N test cases}
-- methodB(params): {what it does} → {N test cases}
-
-### Exported: {functionName}
-- {what it does} → {N test cases}
-
-### Dependencies to mock:
-- {ServiceName} — used by {methods}
-```
+- `references/test-plan.md`
 
 ### Step 2: Create the Test File
 

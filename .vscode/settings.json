@@ -4,6 +4,14 @@
         "Rename-Item": true,
         "npm link": true,
         "npx -y skills": true,
-        "type": true
+        "type": true,
+        "node scripts/build-md-tree*": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^node scripts/build-md-tree\\.js.+/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
     }
 }

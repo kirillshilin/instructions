@@ -77,7 +77,7 @@ function installPlugin(plugin, targetDir, dryRun) {
     const tools = meta[type];
     if (!Array.isArray(tools) || tools.length === 0) continue;
 
-    const ghAssetDir = path.join(targetDir, ".github", type);
+    const ghToolDir = path.join(targetDir, ".github", type);
 
     for (const toolPath of tools) {
       const srcPath = path.join(pluginDir, toolPath);
@@ -88,7 +88,7 @@ function installPlugin(plugin, targetDir, dryRun) {
       }
 
       const name = path.basename(toolPath);
-      const destPath = path.join(ghAssetDir, name);
+      const destPath = path.join(ghToolDir, name);
 
       if (dryRun) {
         console.log(`    → .github/${type}/${name}`);

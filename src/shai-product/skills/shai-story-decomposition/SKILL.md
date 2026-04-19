@@ -27,61 +27,11 @@ Each story gets its own `{brief-name}.story.md` file in `docs/stories/`, ready f
 
 ## Story File Format
 
-Each story is a separate Markdown file: `docs/stories/{brief-name}.story.md`
+Before writing any story files, read this reference first:
 
-```markdown
----
-id: S-001
-subject: "{Parent feature name}"
-featureId: F-001
-status: 🔴
-priority: Must
----
+- `references/story-file-template.md`
 
-# {Story title}
-
-As a **{role/persona}**, I want to **{goal/need}** so that **{value/benefit}**.
-
-## Acceptance Criteria
-
-**Scenario 1: {Happy path description}**
-
-- **GIVEN** {initial context or precondition}
-- **WHEN** {action the user takes}
-- **THEN** {expected observable outcome}
-
-**Scenario 2: {Edge case or alternative path}**
-
-- **GIVEN** {context}
-- **WHEN** {action}
-- **THEN** {outcome}
-
-## Implementation Details
-
-> Optional — include only when architect findings or technical constraints are relevant.
-
-- {Architecture decision or constraint from `@shai-architect`}
-- {Technical dependency or integration note}
-- {Reference to architecture document if available}
-```
-
-### Metadata Fields
-
-| Field       | Required | Description                                                       |
-| ----------- | -------- | ----------------------------------------------------------------- |
-| `id`        | Yes      | Sequential ID: S-001, S-002... Global counter across all features |
-| `subject`   | Yes      | Parent feature name from the feature map                          |
-| `featureId` | Yes      | Reference to the feature ID (F-001) from feature-mapping          |
-| `status`    | Yes      | 🔴 Not started · 🟡 In progress · 🟢 Done                         |
-| `priority`  | Yes      | Inherited from the parent feature's MoSCoW: Must / Should / Could |
-
-### Naming Convention
-
-The filename `{brief-name}` should be:
-
-- Lowercase, hyphenated slug
-- 2-5 words describing the user action
-- Examples: `create-board.story.md`, `filter-by-date.story.md`, `invite-collaborator.story.md`
+Each story is a separate Markdown file in `docs/stories/{brief-name}.story.md`.
 
 ## Workflow
 
@@ -170,20 +120,13 @@ Not every feature maps to all six — use the lens to ensure you don't miss obvi
 
 Present the story list per feature before writing full stories:
 
-```
-## Feature: F-001 — {Feature Name}
-
-Stories identified:
-1. S-001: {Title} — As a {role}, I want to {goal}...
-2. S-002: {Title} — As a {role}, I want to {goal}...
-3. S-003: {Title} — As a {role}, I want to {goal}...
-```
-
 Ask the user to confirm, add, or remove stories before writing the full files.
 
 ### Step 4: Write Story Files
 
 For each confirmed story, generate the `.story.md` file.
+
+Before writing the first story in this step, read `references/story-file-template.md` and follow it exactly.
 
 **Writing the user story statement:**
 
@@ -241,23 +184,9 @@ Sources for implementation details:
 
 ### Step 5: Generate Stories Index
 
-After writing all story files, create or update `docs/stories/stories.md` — a reference index listing all stories.
+Before generating the index, read this reference first:
 
-```markdown
-# Stories
-
-Index of all user stories.
-
-| ID    | Story         | Feature        | Feature ID | Priority | Status | File                                           |
-| ----- | ------------- | -------------- | ---------- | -------- | ------ | ---------------------------------------------- |
-| S-001 | {Story title} | {Feature name} | F-001      | Must     | 🔴     | [{brief-name}.story.md]({brief-name}.story.md) |
-| S-002 | {Story title} | {Feature name} | F-001      | Must     | 🔴     | [{brief-name}.story.md]({brief-name}.story.md) |
-| ...   |               |                |            |          |        |                                                |
-
-**Total stories**: {N} ({Must count} Must, {Should count} Should, {Could count} Could) **Features covered**: {N} of {total features}
-```
-
-If `stories.md` already exists, append new rows to the existing table — don't overwrite previous entries.
+- `references/stories-index.md`
 
 ### Step 6: Review & Handoff
 

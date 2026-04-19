@@ -159,7 +159,7 @@ docs/
     └── *.task.md
 ```
 
-When these assets exist, consider adding a "Product Discovery" section to `docs/README.md` that links to the relevant index files. This helps new contributors understand not just what the system does, but why it was built that way.
+When these tools exist, consider adding a "Product Discovery" section to `docs/README.md` that links to the relevant index files. This helps new contributors understand not just what the system does, but why it was built that way.
 
 ## Gotchas
 
