@@ -91,7 +91,8 @@ shai/
 │   ├── instructions/
 │   │   ├── T-I01  shai-typescript-coding-standards  🟢  Must
 │   │   ├── T-I02  shai-typescript-testing           🟢  Should
-│   │   └── T-I03  shai-tsconfig-standards           🟢  Could
+│   │   ├── T-I03  shai-tsconfig-standards           🟢  Could
+│   │   └── T-I04  shai-zod-schema                   🟢  Should
 │   └── skills/
 │       ├── T-S01  shai-scaffold-ts-workspace        🟢  Should
 │       └── T-S02  shai-unit-testing-ts              🟢  Should
@@ -244,6 +245,7 @@ TypeScript-specific conventions and workflows. Install alongside shai-core for a
 | T-I01 | `shai-typescript-coding-standards` | instruction | `**/*.ts,**/*.tsx`          | Must     | 🟢      | Strict TS rules: prefer `interface` over `type` for objects, use discriminated unions, no `any`, barrel files, path aliases | "Use `interface` for data shapes, `type` for unions/intersections"           |
 | T-I02 | `shai-typescript-testing`          | instruction | `**/*.spec.ts,**/*.test.ts` | Should   | 🟢      | Test file structure, naming (`describe/it`), mocking patterns, assertion style                                              | "Arrange-Act-Assert pattern, descriptive test names"                         |
 | T-I03 | `shai-tsconfig-standards`          | instruction | `**/tsconfig*.json`         | Could    | 🟢      | Strict mode, path aliases, module resolution, recommended compiler options                                                  | "Always enable strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes" |
+| T-I04 | `shai-zod-schema`                  | instruction | `**/schemas/*.schema.ts`    | Should   | 🟢      | Enforce concise schema file naming and exports for Zod model schemas (`{ModelName}Schema` + inferred `{ModelName}` type). | "Use `ProcessVariantParameterSchema` and `ProcessVariantParameter` exports"   |
 
 ### 2.2 Skills
 
@@ -446,7 +448,7 @@ Use this plugin at the start of any new feature or product initiative.
 | Plugin              | Instructions | Agents | Skills | Hooks | Prompts | Total  |
 | ------------------- | ------------ | ------ | ------ | ----- | ------- | ------ |
 | **shai-core**       | 5            | 6      | 12     | 4     | 3       | **30** |
-| **shai-typescript** | 3            | —      | 2      | —     | —       | **5**  |
+| **shai-typescript** | 4            | —      | 2      | —     | —       | **6**  |
 | **shai-react**      | 3            | —      | 3      | —     | —       | **6**  |
 | **shai-angular**    | 3            | —      | 2      | —     | —       | **5**  |
 | **shai-dotnet**     | 5            | 4      | 4      | —     | —       | **13** |
@@ -455,7 +457,7 @@ Use this plugin at the start of any new feature or product initiative.
 | **shai-firebase**   | 2            | —      | 3      | —     | —       | **5**  |
 | **shai-playwright** | 2            | 3      | 4      | —     | —       | **9**  |
 | **shai-product**    | —            | 1      | 4      | —     | —       | **5**  |
-| **TOTAL**           | **25**       | **14** | **37** | **4** | **3**   | **83** |
+| **TOTAL**           | **26**       | **14** | **37** | **4** | **3**   | **84** |
 
 ### Tool counts by priority (MoSCoW)
 

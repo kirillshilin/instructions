@@ -71,7 +71,7 @@ Override individual options only for legitimate exceptions (e.g. a scheduled job
 
 ---
 
-## Request Validation — onRequest Functions
+## Request Validation — onRequest/onCall Functions
 
 `onRequest` functions MUST validate the request body with a Zod schema before delegating. The parsed, typed value is what gets passed to the service — never the raw `req.body`.
 
@@ -142,7 +142,7 @@ See [shai-typescript-testing](../../shai-typescript/instructions/shai-typescript
 
 - Mock the service with `jest.mock(...)` — never use the emulator for unit tests
 - Wrap the exported function with `firebase-functions-test` to invoke the handler in tests — do not export a separate `_handle*` function; the service delegation is already the separation of concerns
-- Validate Firestore document data with a Zod schema imported from `src/fn/schemas/<name>.schema.ts` — same `safeParse` guard pattern as `onRequest`
+- Validate Firestore document data with a Zod schema imported from `src/fn/schemas/<name>.schema.ts` — same `safeParse` guard pattern as `onRequest` or `onCall`
 
 ```typescript
 // schemas/on-user-created.schema.ts

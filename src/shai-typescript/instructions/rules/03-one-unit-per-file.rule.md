@@ -19,7 +19,7 @@ class with other functions in the same file.
 | Component        | `{name}.tsx`        | `order-card.tsx`        |
 | Hook             | `use-{name}.ts`     | `use-auth.ts`           |
 | Large function   | `{name}.ts`         | `calculate-shipping.ts` |
-| Type definitions | `{name}.types.ts`   | `order.types.ts`        |
+| Type definitions | `{name}.model.ts`   | `order.model.ts`        |
 
 ## Utility functions
 

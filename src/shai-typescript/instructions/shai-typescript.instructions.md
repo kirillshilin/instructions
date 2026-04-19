@@ -6,7 +6,6 @@ applyTo: "**/*.ts,**/*.tsx"
 
 TypeScript conventions for architecture, structure, and patterns not covered by ESLint or the compiler.
 
-
 ## Rules
 
 {rules/01-naming.rule.md}
@@ -17,11 +16,6 @@ TypeScript conventions for architecture, structure, and patterns not covered by 
 
 ## Constants
 
-Use `ALL_CAPS` for all `const` declarations to clearly distinguish immutable
-values from mutable variables.
+Before applying constant naming rules, read and use this reference first:
 
-```typescript
-const MAX_RETRIES = 3;
-const API_BASE_URL = "/api/v1";
-const DEFAULT_TIMEOUT = 5000;
-```
+- [rules/04-constants.rule.md](rules/04-constants.rule.md)
