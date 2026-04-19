@@ -62,11 +62,8 @@ This is a full conversation round to validate the input and surface features the
 
 **Capability validation:**
 
-| #   | Question                                                                                                                              |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | "Looking at these capabilities, which ones feel most core to the product's identity? If you had to ship only 3, which would they be?" |
-| 2   | "Are there any capabilities here that feel like they belong in a v2 or v3, not the first version?"                                    |
-| 3   | "Which capability scares you the most technically? Which feels trivially easy?"                                                       |
+| #   | Question |
+| --- | -------- |
 
 **Domain discovery:**
 
@@ -108,28 +105,15 @@ Group all validated capabilities into domain areas. A domain is a cohesive area 
 
 **Guidelines for domain boundaries:**
 
-- Each domain should own 3-8 features (fewer = merge with another, more = split)
 - Domains should be recognizable to a non-technical stakeholder
 - Cross-cutting concerns (auth, notifications, search) get their own domain
 - Use names that describe what the domain does, not how it's built
   - ✅ "Collaboration", "Content Management", "Analytics"
-  - ❌ "WebSocket Module", "Database Layer", "API Gateway"
+  - ❌ "WebSocket Module", "Database Layer", "API Gateway" Present the domain map to the user for feedback before proceeding:
 
-Present the domain map to the user for feedback before proceeding:
-
-```
+````
 ## Domain Map
 
-| Domain     | Features | Description                             |
-| ---------- | -------- | --------------------------------------- |
-| {Domain 1} | {N}      | {What this area of the product handles} |
-| {Domain 2} | {N}      | {What this area of the product handles} |
-| ...        | ...      | ...                                     |
-```
-
-### Step 4: Web Research per Domain
-
-For each domain, search the web to validate features against industry best practices and competitor patterns. This grounds the feature map in reality.
 
 **What to look for per domain:**
 
@@ -150,7 +134,7 @@ The filename combines the lowercase ID and a hyphenated slug (2-5 words). Exampl
 
 Before writing feature files, read this reference first:
 
-- `references/feature.md`
+- `references/feature.template.md`
 
 ### Feature file metadata fields
 
@@ -185,7 +169,7 @@ graph TD
     F-001 --> F-005[Collaboration]
     F-002[Content Editor] --> F-006[Sharing]
     F-003 --> F-005
-```
+````
 
 **Rules for dependencies:**
 
@@ -231,27 +215,9 @@ Present the full output to the user and ask:
 
 ### Individual feature file: `docs/features/f-001-{feature-name}.feature.md`
 
-```markdown
----
-name: "{Feature Name}"
-priority: Must
-status: 🔴
----
+To write the individual feature file or create `docs/features/f-001-{feature-name}.feature.md`, use this template:
 
-# F-001: {Feature Name}
-
-**Domain**: Collaboration · **RICE Score**: 12.0 (R:8 × I:3 × C:1.0 / E:2)
-
-{2-3 sentence description of what this feature does and why it matters.}
-
-## Acceptance Signals
-
-- {Observable behavior 1}
-- {Observable behavior 2}
-- {Observable behavior 3}
-
-**Depends on**: None **Enables**: F-002, F-005
-```
+- [references/feature.template.md](references/feature.template.md)
 
 ### Feature map index: `docs/features/{name}.features.md`
 

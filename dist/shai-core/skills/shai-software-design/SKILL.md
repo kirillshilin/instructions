@@ -35,9 +35,7 @@ At the start of each workflow step, output a progress indicator in bold blue:
 
 **🔹 Step M/N — {Step title}**
 
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
-
+where M is the current step number and N is the total number of steps in the workflow. This is mandatory for every step — never skip it.
 
 ### Step 1: Understand the Problem
 
@@ -117,33 +115,9 @@ For each selected pattern, state:
 
 Produce a structured design proposal:
 
-```
-## Design Proposal: {ComponentName}
+To propose the design or create the design proposal, use this template:
 
-### Principles Applied
-- SRP: {what was split and why}
-- OCP: {what was made extensible and how}
-- DIP: {what abstraction was introduced}
-
-### Pattern(s) Selected
-- **{Pattern}**: {one-line reason}
-
-### Component Structure
-{ASCII diagram or class list with responsibilities}
-
-### Key Interfaces / Abstractions
-- `{InterfaceName}` — {what it defines}
-
-### What Changes From Current Design (if refactoring)
-- {Before} → {After}
-
-### Tradeoffs
-- {Benefit}: {explanation}
-- {Cost}: {explanation}
-
-### Recommended Next Step
-{One concrete action to start implementation}
-```
+- [references/proposal.template.md](references/proposal.template.md)
 
 ### Step 5: Validate the Proposal
 

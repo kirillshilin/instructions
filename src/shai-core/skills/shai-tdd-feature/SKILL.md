@@ -50,20 +50,9 @@ Before writing any test, gather enough context to enumerate all meaningful input
 
 Produce a brief feature summary:
 
-```
-## Feature: {name}
+Before producing the feature summary, read this reference first:
 
-Function/method signature:
-  {signature}
-
-Input axes (things that vary):
-  - {parameter}: {value range or options}
-  - {parameter}: {value range or options}
-
-Expected behaviors:
-  - {input condition} → {expected output or side effect}
-  - {error condition} → {expected error type}
-```
+- [references/feature.md](references/feature.md)
 
 If anything is unclear, ask the user before proceeding — tests written on a misunderstood spec waste everyone's time.
 
@@ -71,24 +60,9 @@ If anything is unclear, ask the user before proceeding — tests written on a mi
 
 Enumerate every test case systematically. For each parameter or branching axis, list the cases you intend to cover. Aim for completeness, not minimalism — the goal of TDD is to think through all scenarios _before_ implementation traps you.
 
-```
-## Test Plan: {FeatureName}
+Before designing the test plan, read this reference first:
 
-### Happy Path
-1. {scenario description} — verifies {expected behavior}
-2. {scenario description} — verifies {expected behavior}
-
-### Boundary Conditions
-3. {empty / zero / min / max scenario}
-4. ...
-
-### Error Cases
-5. {invalid input type or format} → throws {ErrorType}
-6. ...
-
-### Special Combinations
-7. {combination scenario}
-```
+- [references/testplan.md](references/testplan.md)
 
 Show this plan to the user. Adjust based on feedback before writing code.
 
@@ -189,30 +163,9 @@ describe("ExpressionParser", () => {
 
 Present the complete test file(s) to the user with this summary:
 
-```
-## Test Suite Ready for Review
+Before presenting the review summary, read this reference first:
 
-### Files created:
-- `{path/to/file.spec.ts}` — {N} tests
-- `test-cases/{scenario-group}.json` — {N} test cases
-
-### Coverage summary:
-- Happy path: {N} cases
-- Boundary conditions: {N} cases
-- Error cases: {N} cases
-- Special combinations: {N} cases
-
-### Test status: 🔴 All tests FAIL (expected — no implementation yet)
-
-**Review checklist:**
-- [ ] All expected behaviors are represented
-- [ ] Edge cases you care about are included
-- [ ] Error types and messages look correct
-- [ ] Input/output shapes match what you intended
-- [ ] Any missing scenarios?
-
-**Waiting for your approval before implementing.**
-```
+- [references/review.template.md](references/review.template.md)
 
 Wait for explicit user approval. If the user requests changes:
 

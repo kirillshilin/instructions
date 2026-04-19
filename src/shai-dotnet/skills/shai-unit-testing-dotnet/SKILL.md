@@ -40,19 +40,9 @@ Before writing any tests, read the source file to identify:
 
 Produce a brief test plan:
 
-```
-## Test Plan for {ClassName}
+Before producing the test plan, read this reference first:
 
-### Public Methods
-- MethodA(params): {what it does} → {N test cases}
-- MethodB(params): {what it does} → {N test cases}
-
-### Dependencies to mock:
-- I{ServiceName} — used by {methods}
-
-### Edge cases:
-- {nullable param, boundary, error condition}
-```
+- [references/testplan.template.md](references/testplan.template.md)
 
 ### Step 2: Create the Test File
 
@@ -346,19 +336,11 @@ Report the coverage numbers in the output. Do not run coverage by default — on
 
 Produce a complete `*Tests.cs` file ready to run with `dotnet test`. After writing and running the tests, report the results summary:
 
-```
-## Test Results for {ClassName}
+To report test results or create the output summary, use this template:
 
-- **Tests created**: {N} (list new test methods added)
-- **Total tests**: {N} (including any pre-existing tests)
-- **Test run**: ✅ All passed | ❌ {N} failed (details)
-```
+- [references/results.template.md](references/results.template.md)
 
 If coverage was explicitly requested, append:
-
-```
-- **Coverage**: {line}% line, {branch}% branch
-```
 
 The `*Tests.cs` file itself should:
 

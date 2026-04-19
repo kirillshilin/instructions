@@ -1,4 +1,3 @@
-```markdown
 # {Idea Name} — Feature Map
 
 > {One-liner: what features this product needs and how they're organized.}
@@ -77,4 +76,3 @@ Suggested build order based on dependency chains and RICE scores.
 This feature map is ready for **`/story-decomposition`** — pass it as input to break features into user stories.
 
 For architecture decisions on technically complex features, consult **`@shai-architect`** (C-A01).
-```

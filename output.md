@@ -23,24 +23,14 @@
 │       │           ├── ## Output Format                                                                  7
 │       │           └── ## Gotchas                                                                        10
 │       └── 📁 shai-tdd-feature/
-│           └── 📄 SKILL.md                                                                               294
-│               └── # tdd-feature                                                                         288
+│           └── 📄 SKILL.md                                                                               247
+│               └── # tdd-feature                                                                         241
 │                   ├── ## When to Use                                                                    16
-│                   ├── ## Workflow                                                                       18
-│                   │   └── ### Step 1: Understand the Feature                                            14
-│                   ├── ## Feature: {name}                                                                21
-│                   │   └── ### Step 2: Design the Test Plan                                              5
-│                   ├── ## Test Plan: {FeatureName}                                                       118
-│                   │   ├── ### Happy Path                                                                4
-│                   │   ├── ### Boundary Conditions                                                       4
-│                   │   ├── ### Error Cases                                                               4
-│                   │   ├── ### Special Combinations                                                      6
+│                   ├── ## Workflow                                                                       177
+│                   │   ├── ### Step 1: Understand the Feature                                            19
+│                   │   ├── ### Step 2: Design the Test Plan                                              10
 │                   │   ├── ### Step 3: Write the Failing Tests (RED)                                     91
-│                   │   └── ### Step 4: Stop — Present Tests to User for Review                           7
-│                   ├── ## Test Suite Ready for Review                                                    67
-│                   │   ├── ### Files created:                                                            4
-│                   │   ├── ### Coverage summary:                                                         6
-│                   │   ├── ### Test status: 🔴 All tests FAIL (expected — no implementation yet)         21
+│                   │   ├── ### Step 4: Stop — Present Tests to User for Review                           19
 │                   │   ├── ### Step 5: Implement — Make Tests Pass (GREEN)                               19
 │                   │   ├── ### Step 6: Refactor (Keep Tests Green)                                       12
 │                   │   └── ### Step 7: Report                                                            3
@@ -53,15 +43,11 @@
 ├── 📁 shai-dotnet/
 │   └── 📁 skills/
 │       └── 📁 shai-unit-testing-dotnet/
-│           └── 📄 SKILL.md                                                                               386
-│               └── # unit-testing-dotnet                                                                 380
+│           └── 📄 SKILL.md                                                                               376
+│               └── # unit-testing-dotnet                                                                 370
 │                   ├── ## When to Use                                                                    15
-│                   ├── ## Workflow                                                                       16
-│                   │   └── ### Step 1: Analyze the Source Code                                           12
-│                   ├── ## Test Plan for {ClassName}                                                      301
-│                   │   ├── ### Public Methods                                                            4
-│                   │   ├── ### Dependencies to mock:                                                     3
-│                   │   ├── ### Edge cases:                                                               4
+│                   ├── ## Workflow                                                                       307
+│                   │   ├── ### Step 1: Analyze the Source Code                                           15
 │                   │   ├── ### Step 2: Create the Test File                                              67
 │                   │   ├── ### Step 3: Write Tests Following the Rules                                   45
 │                   │   ├── ### Step 4: Mock Dependencies                                                 37
@@ -198,57 +184,39 @@
 ├── 📁 shai-product/
 │   └── 📁 skills/
 │       ├── 📁 shai-feature-mapping/
-│       │   └── 📄 SKILL.md                                                                               373
-│       │       ├── # Feature Mapping                                                                     151
+│       │   └── 📄 SKILL.md                                                                               276
+│       │       ├── # Feature Mapping                                                                     204
 │       │       │   ├── ## When to Use                                                                    10
 │       │       │   ├── ## Workflow                                                                       92
 │       │       │   │   ├── ### Step 1: Ingest the Input                                                  26
 │       │       │   │   ├── ### Step 2: Interview — Validate & Expand                                     46
 │       │       │   │   └── ### Step 3: Domain Mapping                                                    16
-│       │       │   └── ## Domain Map                                                                     37
+│       │       │   └── ## Domain Map                                                                     90
 │       │       │       ├── ### Step 4: Web Research per Domain                                           13
-│       │       │       └── ### Step 5: Feature Cards                                                     15
-│       │       ├── # F-001: {Feature Name}                                                               72
-│       │       │   └── ## Acceptance Signals                                                             66
+│       │       │       ├── ### Step 5: Feature Cards                                                     12
 │       │       │       ├── ### Feature file metadata fields                                              21
 │       │       │       ├── ### Step 6: Dependency Graph                                                  23
 │       │       │       └── ### Step 7: Assemble the Feature Map                                          12
 │       │       ├── # Features                                                                            30
 │       │       │   └── ## Output Templates                                                               11
 │       │       │       └── ### Individual feature file: `docs/features/f-001-{feature-name}.feature.md`  9
-│       │       ├── # F-001: {Feature Name}                                                               19
-│       │       │   └── ## Acceptance Signals                                                             13
-│       │       │       └── ### Feature map index: `docs/features/{name}.features.md`                     3
-│       │       └── # {Idea Name} — Feature Map                                                           95
-│       │           ├── ## Feature Reference                                                              11
-│       │           ├── ## Domain: {Domain Name}                                                          10
-│       │           ├── ## Domain: {Domain Name 2}                                                        6
-│       │           ├── ## Dependency Graph                                                               13
-│       │           ├── ## Implementation Roadmap                                                         29
-│       │           │   ├── ### Phase 1: Foundation (Must-have enablers)                                  7
-│       │           │   ├── ### Phase 2: Core Experience (Must-haves)                                     6
-│       │           │   ├── ### Phase 3: Differentiation (Should-haves with high RICE)                    6
-│       │           │   └── ### Phase 4: Polish (Could-haves)                                             6
-│       │           ├── ## Next Steps                                                                     9
+│       │       └── # F-001: {Feature Name}                                                               36
+│       │           ├── ## Acceptance Signals                                                             17
+│       │           │   └── ### Feature map index: `docs/features/{name}.features.md`                     8
 │       │           └── ## Gotchas                                                                        13
 │       ├── 📁 shai-idea-evaluation/
-│       │   └── 📄 SKILL.md                                                                               267
-│       │       ├── # Idea Evaluation                                                                     87
+│       │   └── 📄 SKILL.md                                                                               244
+│       │       ├── # Idea Evaluation                                                                     95
 │       │       │   ├── ## When to Use                                                                    9
-│       │       │   └── ## Workflow                                                                       72
+│       │       │   └── ## Workflow                                                                       80
 │       │       │       ├── ### Step 1: Capture the Idea                                                  8
 │       │       │       ├── ### Step 2: Round 1 — Core Concept Questions                                  18
 │       │       │       ├── ### Step 3: Competitor Research                                               14
 │       │       │       ├── ### Step 4: Round 2 — Deepening Questions                                     10
 │       │       │       ├── ### Step 5: Round 3 — Expand & Stress-Test (Optional)                         11
-│       │       │       └── ### Step 6: Build the Evaluation Report                                       7
-│       │       ├── # Personas                                                                            23
-│       │       │   ├── ## {Persona Name}                                                                 8
-│       │       │   └── ## {Persona Name 2}                                                               10
-│       │       ├── # Ideas                                                                               16
-│       │       │   └── ## Report Template                                                                5
-│       │       └── # {Idea Name} — Idea Evaluation                                                       135
-│       │           ├── ## Core Concept                                                                   4
+│       │       │       └── ### Step 6: Build the Evaluation Report                                       15
+│       │       └── # Ideas                                                                               143
+│       │           ├── ## Report Template                                                                6
 │       │           ├── ## Target Audience                                                                12
 │       │           │   ├── ### Persona 1: {Name}                                                         6
 │       │           │   └── ### Persona 2: {Name}                                                         4
@@ -264,7 +232,7 @@
 │       │           ├── ## Technical Feasibility Signals                                                  7
 │       │           ├── ## Monetization Hints                                                             6
 │       │           ├── ## Review Perspectives                                                            8
-│       │           ├── ## Next Steps                                                                     9
+│       │           ├── ## Next Steps                                                                     8
 │       │           └── ## Gotchas                                                                        12
 │       ├── 📁 shai-story-decomposition/
 │       │   └── 📄 SKILL.md                                                                               218
@@ -281,28 +249,23 @@
 │       │           │   └── ### Step 6: Review & Handoff                                                  16
 │       │           └── ## Gotchas                                                                        12
 │       └── 📁 shai-task-breakdown/
-│           └── 📄 SKILL.md                                                                               329
-│               ├── # Task Breakdown                                                                      48
+│           └── 📄 SKILL.md                                                                               288
+│               ├── # Task Breakdown                                                                      216
 │               │   ├── ## Core Principles                                                                12
 │               │   ├── ## When to Use                                                                    9
-│               │   └── ## Task File Format                                                               15
-│               ├── # {Task title}                                                                        207
-│               │   ├── ## What to Do                                                                     6
-│               │   ├── ## Acceptance Criteria                                                            6
-│               │   ├── ## PR Template                                                                    10
-│               │   ├── ## Notes                                                                          35
+│               │   ├── ## Task File Format                                                               36
 │               │   │   ├── ### Metadata Fields                                                           12
 │               │   │   ├── ### Type Definitions                                                          9
 │               │   │   └── ### Naming Convention                                                         9
-│               │   ├── ## Workflow                                                                       98
+│               │   ├── ## Workflow                                                                       97
 │               │   │   ├── ### Progress Reporting (mandatory)                                            6
 │               │   │   ├── ### Step 1: Ingest the Input                                                  21
 │               │   │   ├── ### Step 2: Detect Breakdown Strategy                                         19
-│               │   │   └── ### Step 3: Decompose Stories into Tasks                                      50
-│               │   └── ## Story: S-001 — {Story Title}                                                   48
-│               │       ├── ### Step 4: Write Task Files                                                  33
+│               │   │   └── ### Step 3: Decompose Stories into Tasks                                      49
+│               │   └── ## Story: S-001 — {Story Title}                                                   50
+│               │       ├── ### Step 4: Write Task Files                                                  35
 │               │       └── ### Step 5: Generate Tasks Index                                              5
-│               └── # Tasks                                                                               68
+│               └── # Tasks                                                                               66
 │                   ├── ### Step 6: Review & Handoff                                                      22
 │                   ├── ## Implementation Order                                                           16
 │                   └── ## Gotchas                                                                        13
@@ -331,34 +294,26 @@
 └── 📁 shai-typescript/
     └── 📁 skills/
         ├── 📁 shai-scaffold-ts-workspace/
-        │   └── 📄 SKILL.md                                                                               338
-        │       ├── # Scaffold TypeScript Workspace                                                       277
-        │       │   ├── ## When to Use                                                                    12
-        │       │   └── ## Workflow                                                                       250
-        │       │       ├── ### Assets                                                                    4
-        │       │       ├── ### Step 1: Gather Requirements                                               27
-        │       │       ├── ### Step 2: Initialize the Workspace                                          27
-        │       │       ├── ### Step 3: Configure TypeScript Base                                         10
-        │       │       ├── ### Step 4: Set Up ESLint + Prettier                                          37
-        │       │       ├── ### Step 5: Set Up Jest Base Config                                           51
-        │       │       ├── ### Step 6: Scaffold Sub-Project Folders                                      71
-        │       │       └── ### Step 7: Copy Root Config Files and Create .gitignore                      19
-        │       └── # {workspace}                                                                         55
-        │           ├── ## Structure                                                                      7
-        │           ├── ## Commands                                                                       9
-        │           ├── ## Sub-projects                                                                   27
+        │   └── 📄 SKILL.md                                                                               316
+        │       └── # Scaffold TypeScript Workspace                                                       310
+        │           ├── ## When to Use                                                                    12
+        │           ├── ## Workflow                                                                       275
+        │           │   ├── ### Assets                                                                    4
+        │           │   ├── ### Step 1: Gather Requirements                                               27
+        │           │   ├── ### Step 2: Initialize the Workspace                                          27
+        │           │   ├── ### Step 3: Configure TypeScript Base                                         10
+        │           │   ├── ### Step 4: Set Up ESLint + Prettier                                          37
+        │           │   ├── ### Step 5: Set Up Jest Base Config                                           51
+        │           │   ├── ### Step 6: Scaffold Sub-Project Folders                                      71
+        │           │   ├── ### Step 7: Copy Root Config Files and Create .gitignore                      22
         │           │   └── ### Step 8: Next Steps — Hand Off to App-Specific Skills                      22
         │           └── ## Gotchas                                                                        8
         └── 📁 shai-unit-testing-ts/
-            └── 📄 SKILL.md                                                                               256
-                └── # unit-testing-ts                                                                     250
+            └── 📄 SKILL.md                                                                               246
+                └── # unit-testing-ts                                                                     240
                     ├── ## When to Use                                                                    15
-                    ├── ## Workflow                                                                       16
-                    │   └── ### Step 1: Analyze the Source Code                                           12
-                    ├── ## Test Plan for {FileName}                                                       176
-                    │   ├── ### Exported: {ClassName}                                                     4
-                    │   ├── ### Exported: {functionName}                                                  3
-                    │   ├── ### Dependencies to mock:                                                     4
+                    ├── ## Workflow                                                                       182
+                    │   ├── ### Step 1: Analyze the Source Code                                           15
                     │   ├── ### Step 2: Create the Test File                                              46
                     │   ├── ### Step 3: Write Tests Following the Rules                                   36
                     │   ├── ### Step 4: Mock Dependencies                                                 32
