@@ -1,3 +1,9 @@
+---
+id: C-I01-r05
+priority: must
+status: done
+related: [C-I01]
+---
 ### Comments
 
 - **No comments during scaffolding** — freshly generated code speaks for itself.

@@ -1,6 +1,3 @@
----
-applyTo: "**/*.cs"
----
 
 # .NET / C# Coding Standards
 

@@ -1,5 +1,9 @@
 ---
+id: F-S02
 name: shai-firebase-function
+priority: should
+status: done
+related: [F-I03, F-I04, F-S01]
 description: >
   Scaffold and implement a Firebase Cloud Function following project conventions. Use when the user asks to "create a function", "add a cloud function", "write a Firebase function", "add an HTTP endpoint", "add a Firestore trigger", or any request to add server-side logic to a Firebase project.
 ---

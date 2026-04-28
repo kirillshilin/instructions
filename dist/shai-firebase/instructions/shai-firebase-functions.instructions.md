@@ -1,7 +1,3 @@
----
-applyTo: "**/*.fn.ts"
-description: "Firebase Cloud Function file conventions: thin-facade structure, naming, config import, service delegation, and test requirements."
----
 
 # Firebase Cloud Function Conventions
 

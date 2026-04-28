@@ -1,5 +1,10 @@
 ---
+id: T-I04
+name: shai-zod-schema
 applyTo: "**/schemas/*.schema.ts"
+priority: should
+status: done
+related: [T-I01]
 ---
 
 # Zod Schema File Standards

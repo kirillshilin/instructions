@@ -1,5 +1,9 @@
 ---
+id: T-S01
 name: shai-scaffold-ts-workspace
+priority: should
+status: done
+related: [T-I01, T-I03]
 description: >
   Scaffold a multi-project TypeScript workspace using npm workspaces with shared base configs (tsconfig, ESLint, Prettier, EditorConfig, Jest). Creates apps/ and packages/ directories, asks which sub-projects to include, then hands off to app-specific scaffolding skills. Use this skill when the user says "create a TypeScript workspace", "scaffold a monorepo", "new multi-project setup", "init typescript monorepo", "set up a workspace", "new ts workspace" — even if they just say "new workspace" or "monorepo setup".
 ---

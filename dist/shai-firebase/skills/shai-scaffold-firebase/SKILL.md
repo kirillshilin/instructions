@@ -1,8 +1,3 @@
----
-name: shai-scaffold-firebase
-description: >
-  Scaffold Firebase in a project using the Firebase MCP. Initialises Cloud Functions (TypeScript), Hosting, Firestore Rules, and the local emulator suite. Use when the user asks to "add Firebase", "set up Firebase", "scaffold Firebase", "init Firebase", or needs Functions and Hosting configured from scratch.
----
 
 # shai-scaffold-firebase
 

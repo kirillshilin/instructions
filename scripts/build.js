@@ -25,6 +25,16 @@ const PARTIAL_PATTERN = /\{([^}]+\.(rule|partial)\.md)\}/g;
 
 const PARTIAL_FILE_RE = /\.(rule|partial)\.md$/;
 
+const FRONTMATTER_RE = /^---\r?\n[\s\S]*?\n---\r?\n?/;
+
+/**
+ * Strip YAML frontmatter from `content` if present.
+ * Frontmatter is a `---`-delimited block at the very start of the file.
+ */
+function stripFrontmatter(content) {
+  return content.replace(FRONTMATTER_RE, "");
+}
+
 function isPartialFile(filePath) {
   return PARTIAL_FILE_RE.test(filePath);
 }
@@ -54,7 +64,10 @@ function resolvePartials(content, baseDir, seen) {
 
     const branch = new Set(seen);
     branch.add(resolved);
-    const partialContent = fs.readFileSync(resolved, "utf-8");
+    const rawPartial = fs.readFileSync(resolved, "utf-8");
+    // Strip frontmatter from partials before inlining so metadata is not
+    // embedded in the resolved output.
+    const partialContent = stripFrontmatter(rawPartial);
 
     // Recursively resolve any partials inside the included file
     return resolvePartials(partialContent, path.dirname(resolved), branch);
@@ -155,7 +168,8 @@ function buildDir(srcDir, destDir) {
     } else if (entry.name.endsWith(".md")) {
       const raw = fs.readFileSync(srcPath, "utf-8");
       const resolved = resolvePartials(raw, path.dirname(srcPath), new Set());
-      fs.writeFileSync(destPath, resolved, "utf-8");
+      const output = stripFrontmatter(resolved);
+      fs.writeFileSync(destPath, output, "utf-8");
       const refCount = (raw.match(PARTIAL_PATTERN) || []).length;
       if (refCount > 0) {
         console.log(`  ✔ ${path.relative(ROOT, destPath)} (${refCount} partial(s) resolved)`);

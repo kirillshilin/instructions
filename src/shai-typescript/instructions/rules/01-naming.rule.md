@@ -1,3 +1,9 @@
+---
+id: T-I01-r01
+priority: must
+status: done
+related: [T-I01]
+---
 ### Naming — TypeScript
 
 These supplement — not repeat — TypeScript's widely-known conventions (camelCase functions, PascalCase types). Only non-obvious rules belong here.

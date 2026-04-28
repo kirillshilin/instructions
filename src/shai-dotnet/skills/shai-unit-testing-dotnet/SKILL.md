@@ -1,5 +1,9 @@
 ---
+id: D-S02
 name: shai-unit-testing-dotnet
+priority: should
+status: draft
+related: [D-I01]
 description: >
   Comprehensive guide for writing C# unit tests with xUnit, Moq, and FluentAssertions. Use this skill when the user asks to create, write, add, or generate unit tests for .NET / C# code; when they mention "Tests.cs", "test coverage", "write tests", "add tests", "test this class", or "test this service"; or when they need help with mocking, test structure, test data builders, or assertion patterns in C#. For integration tests with WebApplicationFactory or TestContainers, use the integration-testing skill instead — this skill covers unit-level testing only.
 ---

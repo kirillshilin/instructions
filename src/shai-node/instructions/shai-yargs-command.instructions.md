@@ -1,7 +1,11 @@
 ---
-name: "Yargs Command Structure"
-description: "Conventions for yargs CLI commands: keep the builder in a separate file."
+id: N-I01
+name: shai-yargs-command
 applyTo: "**/*.command.ts"
+priority: should
+status: done
+related: [T-I01]
+description: "Conventions for yargs CLI commands: keep the builder in a separate file."
 ---
 
 # Yargs Command Structure

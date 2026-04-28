@@ -1,3 +1,9 @@
+---
+id: D-I01-r02
+priority: must
+status: done
+related: [D-I01]
+---
 ### Folder Structure — C#
 
 Keep folders **flat** and **semantically named**. Avoid deep nesting, but don't

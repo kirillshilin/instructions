@@ -1,5 +1,9 @@
 ---
+id: N-S01
 name: shai-scaffold-node-app
+priority: should
+status: done
+related: [T-I01, T-I03]
 description: >
   Scaffold a Node.js project with TypeScript, ESLint, Prettier, and Jest. Supports four app types: Genkit (Firebase AI), Express REST API, CLI tool (yargs), or plain Node.js library. Use this skill when the user says "create a Node app", "scaffold Node.js project", "new express api", "set up genkit", "init node project", "bootstrap a CLI tool", "new node backend", or wants to start any Node.js project from scratch — even if they just say "new node app".
 ---

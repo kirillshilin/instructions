@@ -1,8 +1,3 @@
----
-name: shai-scaffold-react-app
-description: >
-  Scaffold a React + Vite + TypeScript + Tailwind CSS + React Router SPA with optional shadcn/ui, data fetching, and state management. Use this skill when the user asks to "create a new React app", "scaffold a React project", "set up a React SPA", "initialize a React frontend", "new react vite app", or "start a new React project" — even if they just say "new React app".
----
 
 # Scaffold React App
 

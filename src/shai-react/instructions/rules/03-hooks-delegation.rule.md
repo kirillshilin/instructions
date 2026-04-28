@@ -1,3 +1,9 @@
+---
+id: R-I01-r03
+priority: must
+status: done
+related: [R-I01]
+---
 ### Hook Delegation
 
 Move data loading, state, transformations, side effects, and handler logic

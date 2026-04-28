@@ -1,5 +1,10 @@
 ---
+id: T-I02
+name: shai-typescript-testing
 applyTo: "**/*.spec.ts"
+priority: should
+status: done
+related: [T-I01, T-S02]
 description: "TypeScript unit test conventions: colocated .spec.ts files, file-name describe blocks, explicit API coverage, and AAA comments."
 ---
 

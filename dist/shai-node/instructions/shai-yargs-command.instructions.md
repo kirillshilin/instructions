@@ -1,8 +1,3 @@
----
-name: "Yargs Command Structure"
-description: "Conventions for yargs CLI commands: keep the builder in a separate file."
-applyTo: "**/*.command.ts"
----
 
 # Yargs Command Structure
 

@@ -1,5 +1,10 @@
 ---
+id: F-I03
+name: shai-firebase-functions
 applyTo: "**/*.fn.ts"
+priority: must
+status: done
+related: [F-I04, T-I01]
 description: "Firebase Cloud Function file conventions: thin-facade structure, naming, config import, service delegation, and test requirements."
 ---
 

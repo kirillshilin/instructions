@@ -1,3 +1,9 @@
+---
+id: C-I01-r03
+priority: must
+status: done
+related: [C-I01]
+---
 ### Early Returns
 
 Prefer early returns and guard clauses to reduce nesting — validate preconditions
