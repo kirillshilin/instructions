@@ -10,7 +10,7 @@ description: >
 
 # unit-testing-dotnet
 
-Write high-quality unit tests for C# code using xUnit, Moq, and FluentAssertions. Covers test file structure, naming conventions, mocking strategy, assertion patterns, test data builders, JSON resource loading, and test execution. For Angular- or React-specific testing, use the corresponding framework testing skills — this skill is the .NET counterpart of [unit-testing-ts](../../../shai-typescript/skills/unit-testing-ts/SKILL.md).
+Write high-quality unit tests for C# code using xUnit, Moq, and FluentAssertions. Covers test file structure, naming conventions, mocking strategy, assertion patterns, test data builders, JSON resource loading, and test execution. For Angular- or React-specific testing, use the corresponding framework testing skills. If you need the TypeScript equivalent, use the `/unit-testing-ts` skill instead.
 
 See also: D-I03 `dotnet-testing` instruction for the condensed rule set applied automatically to `*Tests.cs` files.
 

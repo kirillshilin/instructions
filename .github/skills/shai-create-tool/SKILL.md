@@ -361,3 +361,4 @@ Use exactly this format:
 - **Test philosophy**: AAA pattern + pragmatic coverage. Tests are NOT required during scaffolding or on non-stable architecture. Prefer functional (use-case) tests that test 2-3 subsystems together. Declarative test cases in JSONs. Start with basic functionality, grow incrementally.
 - **dotnet sln add**: Avoid running `dotnet sln add` via terminal — it rewrites large sections of .sln files. Add project references manually only when explicitly required.
 - **Long Markdown templates**: Never leave fenced markdown templates longer than 5 lines inline in instruction/skill/agent primary files. Externalize using `rules/` includes for instructions and `references/` pointers for skills/agents.
+- **Related skill references**: Do not reference other skills via relative SKILL.md file links (for example `../../../.../SKILL.md`). Instead, use instruction-style wording such as: `Use the /{skill-name} skill for {purpose}.`

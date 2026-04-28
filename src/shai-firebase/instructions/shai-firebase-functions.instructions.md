@@ -12,8 +12,6 @@ description: "Firebase Cloud Function file conventions: thin-facade structure, n
 
 Rules for `*.fn.ts` files. A function file is the **interface between the outside world and your logic** — it wires a trigger to a service and nothing more. All business logic lives in services, making it testable without the Firebase runtime.
 
-Apply [TypeScript coding standards](../../shai-typescript/instructions/shai-typescript.instructions.md) alongside these rules.
-
 ---
 
 ## File Naming and Structure
@@ -139,4 +137,4 @@ export { processPayment } from "./process-payment.fn";
 
 ## Testing
 
-Every `<name>.fn.ts` must have a `<name>.fn.spec.ts`. See [shai-firebase-functions-testing](./shai-firebase-functions-testing.instructions.md) for the wiring-test pattern, mock setup, and `firebase-functions-test` usage.
+Every `<name>.fn.ts` must have a `<name>.fn.spec.ts`.

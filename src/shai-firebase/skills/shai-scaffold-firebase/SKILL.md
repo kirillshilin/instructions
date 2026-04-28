@@ -12,7 +12,7 @@ description: >
 
 Set up Firebase in a project via `#tool:firebase`. Focuses on **Cloud Functions** and **Hosting** — the two most common Firebase features for web apps. Also supports **Firestore Rules** and other Firebase "Build" components. Configures the local emulator suite so the user can develop and test entirely offline.
 
-See also: [shai-firebase-function](../shai-firebase-function/SKILL.md) for Cloud Functions coding conventions and file-structure guidelines.
+If you need to implement Cloud Functions after scaffolding, use the `/shai-firebase-function` skill in addition to this one.
 
 ## When to Use
 

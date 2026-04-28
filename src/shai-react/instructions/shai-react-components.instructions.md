@@ -13,8 +13,6 @@ Conventions for React component architecture, file organization, and composition
 
 These rules **do not apply** to shadcn components in `src/components/ui/` — those follow shadcn's own conventions and should be left intact.
 
-For general coding standards see [shai-coding](./shai-coding.instructions.md). For TypeScript specifics see [shai-typescript](./shai-typescript.instructions.md). For component testing patterns see [shai-react-testing](./shai-react-testing.instructions.md).
-
 ## Rules
 
 {rules/01-component-structure.rule.md}

@@ -12,8 +12,6 @@ description: "Strictest TypeScript compiler options, root+sub-app inheritance, t
 
 Enforce the most demanding TypeScript compiler configuration to prevent `any` leakage, null-reference errors, and type ambiguity at compile time — not at runtime, not in code review.
 
-See also [shai-typescript](./shai-typescript.instructions.md) for code-level type rules.
-
 ---
 
 ## File Structure

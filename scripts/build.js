@@ -25,14 +25,98 @@ const PARTIAL_PATTERN = /\{([^}]+\.(rule|partial)\.md)\}/g;
 
 const PARTIAL_FILE_RE = /\.(rule|partial)\.md$/;
 
-const FRONTMATTER_RE = /^---\r?\n[\s\S]*?\n---\r?\n?/;
+const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\n---\r?\n?/;
+
+const FRONTMATTER_ALLOWLIST = {
+  "SKILL.md": new Set(["name", "description", "argument-hint", "user-invocable", "disable-model-invocation"]),
+  ".instructions.md": new Set(["name", "description", "applyTo"]),
+  ".prompt.md": new Set(["name", "description", "agent", "model", "tools", "mode"]),
+  ".agent.md": new Set(["name", "description", "tools", "model"]),
+};
 
 /**
  * Strip YAML frontmatter from `content` if present.
  * Frontmatter is a `---`-delimited block at the very start of the file.
  */
+function splitFrontmatter(content) {
+  const match = content.match(FRONTMATTER_RE);
+  if (!match) {
+    return { hasFrontmatter: false, frontmatterRaw: "", body: content };
+  }
+
+  return {
+    hasFrontmatter: true,
+    frontmatterRaw: match[1],
+    body: content.replace(FRONTMATTER_RE, ""),
+  };
+}
+
 function stripFrontmatter(content) {
-  return content.replace(FRONTMATTER_RE, "");
+  return splitFrontmatter(content).body;
+}
+
+function getAllowedFrontmatterKeys(fileName) {
+  if (fileName === "SKILL.md") return FRONTMATTER_ALLOWLIST["SKILL.md"];
+  if (fileName.endsWith(".instructions.md")) return FRONTMATTER_ALLOWLIST[".instructions.md"];
+  if (fileName.endsWith(".prompt.md")) return FRONTMATTER_ALLOWLIST[".prompt.md"];
+  if (fileName.endsWith(".agent.md")) return FRONTMATTER_ALLOWLIST[".agent.md"];
+  return null;
+}
+
+function filterFrontmatterRaw(frontmatterRaw, allowedKeys) {
+  const lines = frontmatterRaw.split(/\r?\n/);
+  const keptLines = [];
+  let keepCurrentKey = false;
+
+  for (const line of lines) {
+    const topLevelKeyMatch = line.match(/^([A-Za-z0-9_-]+)\s*:/);
+    if (topLevelKeyMatch) {
+      keepCurrentKey = allowedKeys.has(topLevelKeyMatch[1]);
+      if (keepCurrentKey) {
+        keptLines.push(line);
+      }
+      continue;
+    }
+
+    if (/^\s+/.test(line) || line.trim() === "") {
+      if (keepCurrentKey) {
+        keptLines.push(line);
+      }
+      continue;
+    }
+
+    // Unknown top-level syntax in frontmatter; stop carrying continuation lines.
+    keepCurrentKey = false;
+  }
+
+  while (keptLines.length > 0 && keptLines[0].trim() === "") {
+    keptLines.shift();
+  }
+  while (keptLines.length > 0 && keptLines[keptLines.length - 1].trim() === "") {
+    keptLines.pop();
+  }
+
+  return keptLines.join("\n");
+}
+
+function keepSupportedFrontmatter(content, fileName) {
+  const { hasFrontmatter, frontmatterRaw, body } = splitFrontmatter(content);
+  if (!hasFrontmatter) {
+    return content;
+  }
+
+  const allowedKeys = getAllowedFrontmatterKeys(fileName);
+  if (!allowedKeys) {
+    return body;
+  }
+
+  const filteredFrontmatter = filterFrontmatterRaw(frontmatterRaw, allowedKeys);
+  if (!filteredFrontmatter) {
+    return body;
+  }
+
+  const normalizedBody = body.replace(/^\r?\n/, "");
+  return `---\n${filteredFrontmatter}\n---\n\n${normalizedBody}`;
 }
 
 function isPartialFile(filePath) {
@@ -168,7 +252,7 @@ function buildDir(srcDir, destDir) {
     } else if (entry.name.endsWith(".md")) {
       const raw = fs.readFileSync(srcPath, "utf-8");
       const resolved = resolvePartials(raw, path.dirname(srcPath), new Set());
-      const output = stripFrontmatter(resolved);
+      const output = keepSupportedFrontmatter(resolved, entry.name);
       fs.writeFileSync(destPath, output, "utf-8");
       const refCount = (raw.match(PARTIAL_PATTERN) || []).length;
       if (refCount > 0) {

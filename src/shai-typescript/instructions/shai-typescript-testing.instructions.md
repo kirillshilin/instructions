@@ -12,8 +12,6 @@ description: "TypeScript unit test conventions: colocated .spec.ts files, file-n
 
 Rules for `*.spec.ts` unit tests.
 
-Use [shai-typescript](./shai-typescript.instructions.md) for general TypeScript rules.
-
 Use [shai-unit-testing-ts](../skills/shai-unit-testing-ts/SKILL.md) for mocks, factories, and test execution.
 
 Framework-specific test instructions may add rules. They must not weaken these ones.

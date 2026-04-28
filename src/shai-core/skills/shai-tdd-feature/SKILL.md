@@ -19,7 +19,7 @@ This skill enforces the **Red → Review → Green → Refactor** cycle:
 3. **Green** — implement the minimum code to make every test pass
 4. **Refactor** — clean up without breaking anything
 
-See also: [unit-testing-ts](../../../shai-typescript/skills/unit-testing-ts/SKILL.md) for general unit testing rules that apply inside each test file.
+Use the `/unit-testing-ts` skill for general unit testing rules that apply inside each test file.
 
 ## When to Use
 
@@ -207,7 +207,7 @@ Once all tests are green, refactor the implementation for clarity and quality:
 - Rename for clarity
 - Remove duplication
 - Add type annotations if missing
-- Apply SOLID principles where appropriate (see [software-design](../../software-design/SKILL.md))
+- Apply SOLID principles where appropriate; if design refactoring is needed, use the `/shai-software-design` skill in addition to this one.
 
 **Rule:** Run the full test suite after every refactor step. If any test turns red, revert the last change and try a smaller step.
 

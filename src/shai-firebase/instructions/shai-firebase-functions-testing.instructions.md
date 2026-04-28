@@ -14,8 +14,6 @@ Rules for `*.fn.spec.ts` files — unit tests for Firebase Cloud Function entry 
 
 A function spec validates **the wiring** — that the function calls the right service method with the right arguments. Business logic is tested in the service spec.
 
-Apply [shai-typescript-testing](../../shai-typescript/instructions/shai-typescript-testing.instructions.md) for base structure (AAA, `describe`/`it` naming, `jest.Mocked<T>`). Apply [shai-firebase-functions](./shai-firebase-functions.instructions.md) for the function file conventions being tested.
-
 ---
 
 ## Rules
