@@ -280,3 +280,7 @@ Ask:
 - **Effort is T-shirt, not hours.** S = a few hours of focused work. M = roughly a day. L = 2-3 days. Anything bigger than L means the task should be split. Don't estimate in hours — it creates false precision.
 - **Dependencies should be sparse.** Most tasks in a story depend on at most one prep task. If you're creating chains of 4+ dependent tasks, the decomposition is too fine-grained.
 - **The PR template is a starting point.** Actual PR descriptions should be written (or refined) after implementation with `/shai-pr-preparation` (C-S09), not copy-pasted blindly from the task file.
+
+## Related
+
+- Skill: `shai-story-decomposition` (V-S03)

@@ -14,6 +14,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const YAML = require("yaml");
 const { analyzeInstructionSizes, reportInstructionSizes } = require("./budget");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -33,6 +34,94 @@ const FRONTMATTER_RE = /^---\r?\n[\s\S]*?\n---\r?\n?/;
  */
 function stripFrontmatter(content) {
   return content.replace(FRONTMATTER_RE, "");
+}
+
+/**
+ * Parse the YAML frontmatter of `content` and return it as an object.
+ * Returns null if no frontmatter is present or if parsing fails.
+ */
+function parseFrontmatter(content) {
+  const match = content.match(/^---\r?\n([\s\S]*?)\n---\r?\n?/);
+  if (!match) return null;
+  try {
+    return YAML.parse(match[1]);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Return "Instruction" or "Skill" based on the asset ID pattern.
+ * IDs follow the format `{PREFIX}-I{N}` for instructions and `{PREFIX}-S{N}` for skills.
+ */
+function assetTypeLabel(id) {
+  if (/^[A-Z]+-I\d+/.test(id)) return "Instruction";
+  if (/^[A-Z]+-S\d+/.test(id)) return "Skill";
+  return "Asset";
+}
+
+/**
+ * Scan all instruction and skill source files under `srcDir` and return a map
+ * of asset ID → { name, type } for use when generating Related sections.
+ */
+function buildAssetIndex(srcDir) {
+  const index = {};
+
+  function scan(dir) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        scan(fullPath);
+      } else if (entry.name.endsWith(".instructions.md") || entry.name === "SKILL.md") {
+        const content = fs.readFileSync(fullPath, "utf-8");
+        const fm = parseFrontmatter(content);
+        if (fm && fm.id && fm.name) {
+          index[fm.id] = {
+            name: fm.name,
+            type: assetTypeLabel(fm.id),
+          };
+        }
+      }
+    }
+  }
+
+  scan(srcDir);
+  return index;
+}
+
+/**
+ * Generate a `## Related` section for the given list of related asset IDs.
+ * Unknown IDs are omitted from the output (they are reported as warnings separately).
+ * Returns an empty string if `relatedIds` is empty or all IDs are unknown.
+ */
+function generateRelatedSection(relatedIds, assetIndex) {
+  if (!Array.isArray(relatedIds) || relatedIds.length === 0) return "";
+
+  const lines = relatedIds
+    .filter((id) => assetIndex[id])
+    .map((id) => {
+      const asset = assetIndex[id];
+      return `- ${asset.type}: \`${asset.name}\` (${id})`;
+    });
+
+  if (lines.length === 0) return "";
+
+  return "\n\n## Related\n\n" + lines.join("\n") + "\n";
+}
+
+/**
+ * Validate that every ID in `relatedIds` exists in `assetIndex`.
+ * Returns an array of warning strings for any unknown IDs.
+ */
+function validateRelatedIds(assetId, relatedIds, assetIndex) {
+  const warnings = [];
+  for (const relId of relatedIds) {
+    if (!assetIndex[relId]) {
+      warnings.push(`  ⚠  ${assetId}: related ID "${relId}" not found in asset index`);
+    }
+  }
+  return warnings;
 }
 
 function isPartialFile(filePath) {
@@ -168,7 +257,23 @@ function buildDir(srcDir, destDir) {
     } else if (entry.name.endsWith(".md")) {
       const raw = fs.readFileSync(srcPath, "utf-8");
       const resolved = resolvePartials(raw, path.dirname(srcPath), new Set());
-      const output = stripFrontmatter(resolved);
+      let output = stripFrontmatter(resolved);
+
+      // Append auto-generated ## Related section for instructions and skills
+      const isInstruction = entry.name.endsWith(".instructions.md");
+      const isSkill = entry.name === "SKILL.md";
+      if (isInstruction || isSkill) {
+        const fm = parseFrontmatter(raw);
+        if (fm && Array.isArray(fm.related) && fm.related.length > 0) {
+          const warnings = validateRelatedIds(fm.id || path.relative(ROOT, srcPath), fm.related, assetIndex);
+          for (const w of warnings) {
+            console.warn(`\x1b[33m${w}\x1b[0m`);
+            relatedValidationWarnings.push(w);
+          }
+          output = output.trimEnd() + generateRelatedSection(fm.related, assetIndex);
+        }
+      }
+
       fs.writeFileSync(destPath, output, "utf-8");
       const refCount = (raw.match(PARTIAL_PATTERN) || []).length;
       if (refCount > 0) {
@@ -185,6 +290,10 @@ console.log("Building instructions…\n");
 console.log(`  Source:  ${path.relative(ROOT, SRC_DIR)}/`);
 console.log(`  Output:  ${path.relative(ROOT, OUT_DIR)}/\n`);
 
+// Build asset index before processing files so Related sections can be resolved
+const assetIndex = buildAssetIndex(SRC_DIR);
+const relatedValidationWarnings = [];
+
 // Clean previous output
 if (fs.existsSync(OUT_DIR)) {
   fs.rmSync(OUT_DIR, { recursive: true });
@@ -192,6 +301,14 @@ if (fs.existsSync(OUT_DIR)) {
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 buildDir(SRC_DIR, OUT_DIR);
+
+if (relatedValidationWarnings.length > 0) {
+  console.log();
+  console.warn("\x1b[33mRelated ID validation warnings:\x1b[0m");
+  for (const w of relatedValidationWarnings) {
+    console.warn(`\x1b[33m${w}\x1b[0m`);
+  }
+}
 
 console.log();
 

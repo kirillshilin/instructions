@@ -308,3 +308,8 @@ npm install
 - **Jest ESM requires `--experimental-vm-modules`.** Each sub-project's test script must include `NODE_OPTIONS='--experimental-vm-modules'`. The root Jest config just delegates.
 - **`private: true`** on the root `package.json` and all `apps/*` — only `packages/*` may be published.
 - **Use `_name` convention** for private fields in all generated code, not `#private`.
+
+## Related
+
+- Instruction: `shai-typescript-coding-standards` (T-I01)
+- Instruction: `shai-tsconfig-standards` (T-I03)

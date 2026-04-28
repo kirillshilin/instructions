@@ -238,3 +238,9 @@ The `.spec.ts` file itself should:
 - **Natural naming** — name the object under test naturally (e.g., `service`, `calculator`, `validator`). Avoid abstract names like `sut` — a descriptive name communicates the test's subject immediately.
 - **Timer-dependent code** — use `jest.useFakeTimers()` and `jest.advanceTimersByTime()` instead of real `setTimeout`/`setInterval`.
 - **File naming** — always `.spec.ts`, not `.test.ts`. This project uses `.spec.ts` as the convention.
+
+## Related
+
+- Instruction: `shai-typescript-coding-standards` (T-I01)
+- Instruction: `shai-typescript-testing` (T-I02)
+- Skill: `shai-tdd-feature` (C-S02)

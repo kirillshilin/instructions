@@ -220,3 +220,9 @@ src/fn/
 - **Admin key must be gitignored** — never commit service account JSON files. Use `.secret.local` for local development and inject secrets via CI/CD environment variables in production.
 - **Region matters** — choosing a region close to users reduces latency. It is set once in `config.ts` and used by every function. Changing it later means redeploying all functions.
 - **Emulator data is ephemeral** — use `emulators:export` / `emulators:import` to persist local data across restarts if needed.
+
+## Related
+
+- Instruction: `shai-firebase-functions` (F-I03)
+- Instruction: `shai-firebase-functions-testing` (F-I04)
+- Instruction: `shai-typescript-coding-standards` (T-I01)

@@ -217,3 +217,9 @@ firebase emulators:start
 - **One function per file** — `on-user-created.fn.ts` exports exactly one function. This keeps functions independently deployable and easy to find.
 - **Service singletons survive warm starts** — Cloud Functions may reuse the same container. Services instantiated at module level persist across invocations, which is efficient. Don't re-initialise on every call.
 - **Always test with the emulator** — never test against production. The emulator suite (`firebase emulators:start`) replicates Functions, Firestore, Auth, and Hosting locally.
+
+## Related
+
+- Instruction: `shai-firebase-functions` (F-I03)
+- Instruction: `shai-firebase-functions-testing` (F-I04)
+- Skill: `shai-scaffold-firebase` (F-S01)

@@ -282,3 +282,8 @@ Check if the `ErrorBoundary` component exists at `src/components/error-boundary.
 - **Route groups affect file structure, not URLs** — a `(marketing)` folder does not add `/marketing` to the URL. Use groups to organize code and share layouts without polluting the URL structure.
 - **`not-found.tsx` is per-segment** — calling `notFound()` from a page triggers the nearest `not-found.tsx` up the tree. Add segment-specific not-found pages for dynamic routes.
 - **Colocation is encouraged** — place components, styles, and utilities used by a single route inside that route's folder. Shared components go in `src/components/`.
+
+## Related
+
+- Skill: `shai-scaffold-nextjs-app` (X-S01)
+- Instruction: `shai-typescript-coding-standards` (T-I01)

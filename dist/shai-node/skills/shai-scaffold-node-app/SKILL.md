@@ -362,3 +362,8 @@ Present the summary:
 - **Genkit dev UI** — Genkit includes a built-in developer UI at `http://localhost:4000` when running `genkit start`. Use it to test flows interactively during development.
 - **Express types** — `@types/express` must be installed separately as a dev dependency. The main `express` package doesn't include TypeScript types.
 - **`_private` convention** — always use `_name` for private fields, never `#private`. This applies to all generated code examples.
+
+## Related
+
+- Instruction: `shai-typescript-coding-standards` (T-I01)
+- Instruction: `shai-tsconfig-standards` (T-I03)

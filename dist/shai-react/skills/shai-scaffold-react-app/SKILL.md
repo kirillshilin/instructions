@@ -352,3 +352,8 @@ Suggest next steps:
 - **Don't delete `public/`** — Vite serves static assets from `public/`. Keep it even if empty.
 - **ESLint flat config** — Vite's template uses the new ESLint flat config format (`eslint.config.js`), not `.eslintrc`. Make sure Prettier integration uses the flat config approach.
 - **React Router v7** uses `react-router` package (not `react-router-dom`). The `createBrowserRouter` API is imported from `react-router` directly.
+
+## Related
+
+- Instruction: `shai-typescript-coding-standards` (T-I01)
+- Instruction: `shai-react-components` (R-I01)

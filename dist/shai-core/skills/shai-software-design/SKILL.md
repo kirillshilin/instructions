@@ -161,3 +161,7 @@ Present the design proposal using the template in Step 4. After the proposal:
 - **DIP without DI containers**: Introducing interfaces satisfies DIP; a DI container helps wire them but is not required. Don't prescribe a specific DI framework unless the user's stack already uses one.
 - **YAGNI vs extensibility**: The tension between YAGNI (don't build it until needed) and OCP (design for extension) is real. Default to YAGNI unless the variation axis is _known_ and _imminent_.
 - **Singleton is almost always wrong**: It creates hidden global state and makes testing hard. Prefer dependency injection of a single shared instance instead of the Singleton pattern.
+
+## Related
+
+- Instruction: `shai-coding` (C-I01)

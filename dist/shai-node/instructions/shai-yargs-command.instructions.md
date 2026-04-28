@@ -48,3 +48,7 @@ export const builder = (yargs: Argv) =>
   yargs.option("env", { type: "string", demandOption: true }).option("dry-run", { type: "boolean", default: false }).option("verbose", { type: "boolean", default: false });
 // ... grows without bound
 ```
+
+## Related
+
+- Instruction: `shai-typescript-coding-standards` (T-I01)

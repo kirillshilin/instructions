@@ -261,3 +261,9 @@ console.log("[module > unit] Before Some logging message ", result);
 Before applying constant naming rules, read and use this reference first:
 
 - [rules/04-constants.rule.md](rules/04-constants.rule.md)
+
+## Related
+
+- Instruction: `shai-typescript-testing` (T-I02)
+- Instruction: `shai-tsconfig-standards` (T-I03)
+- Instruction: `shai-zod-schema` (T-I04)

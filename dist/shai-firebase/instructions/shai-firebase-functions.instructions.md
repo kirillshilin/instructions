@@ -131,3 +131,8 @@ export { processPayment } from "./process-payment.fn";
 ## Testing
 
 Every `<name>.fn.ts` must have a `<name>.fn.spec.ts`. See [shai-firebase-functions-testing](./shai-firebase-functions-testing.instructions.md) for the wiring-test pattern, mock setup, and `firebase-functions-test` usage.
+
+## Related
+
+- Instruction: `shai-firebase-functions-testing` (F-I04)
+- Instruction: `shai-typescript-coding-standards` (T-I01)

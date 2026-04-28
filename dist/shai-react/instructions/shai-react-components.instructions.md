@@ -404,3 +404,7 @@ Use `useMemo` and `useCallback` to avoid unnecessary re-renders in components th
 For **large-scale, highly interactive components** that need deeper optimization (eliminating waterfalls, bundle splitting, re-render analysis), use the `vercel-react-best-practices` skill on demand — it covers 69 performance rules across 8 categories prioritized by impact.
 
 When generating or reviewing a component that may have performance sensitivity — large lists, real-time data, complex forms, heavy interactions — **always suggest applying the Vercel performance skill** for a detailed audit.
+
+## Related
+
+- Instruction: `shai-typescript-coding-standards` (T-I01)
