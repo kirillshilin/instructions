@@ -39,7 +39,13 @@ This skill uses the following MCP tools:
 
 ## Workflow
 
-{../../../shared/\_assets.partial.md}
+{../../../shared/\_progress.partial.md}
+
+### Prefer the `scaf` CLI
+
+{../../../shared/\_scaf-cli.partial.md}
+
+There is no **`nextjs`** template yet. Follow the manual steps below.
 
 ### Step 1: Gather Project Requirements
 

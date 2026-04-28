@@ -39,9 +39,11 @@ Scaffold a multi-project TypeScript workspace using npm workspaces. Produces a w
 
 {../../../shared/\_progress.partial.md}
 
-### Assets
+### Prefer the `scaf` CLI
 
-{../../../shared/\_assets.partial.md}
+{../../../shared/\_scaf-cli.partial.md}
+
+There is no **`ts-workspace`** template yet. Follow the manual steps below.
 
 ### Step 1: Gather Requirements
 
@@ -79,9 +81,9 @@ mkdir {workspace} && cd {workspace}
 npm init -y
 ```
 
-Update the root `package.json` — contents: [shared/assets/package.workspace.json](../../../../shared/assets/package.workspace.json)
+Update the root `package.json` so that it is `private`, `type: module`, declares `workspaces: ["apps/*", "packages/*"]`, and exposes the standard scripts (`build`, `build:prod`, `test` watching, `test:once`, `lint`, `lint:fix`, `typecheck`). Replace `{workspace}` with the actual workspace name.
 
-Replace `{workspace}` with the actual workspace name. Scripts follow the [shai-package-json](../../../shai-core/instructions/shai-package-json.instructions.md) convention — `test` watches, `test:once` runs once (for CI), `build:prod` delegates the production build to each sub-project.
+> **Static file** — belongs in a `ts-workspace` scaf template. Scripts follow the [shai-package-json](../../../shai-core/instructions/shai-package-json.instructions.md) convention — `test` watches, `test:once` runs once (for CI), `build:prod` delegates the production build to each sub-project.
 
 > **Why `private: true`?** The workspace root is not published. Individual packages declare their own publishability.
 
@@ -99,11 +101,13 @@ npm install -D typescript
 
 ### Step 3: Configure TypeScript Base
 
-Create `tsconfig.base.json` at the workspace root. All sub-projects extend this — contents: [shared/assets/tsconfig.base.json](../../../../shared/assets/tsconfig.base.json)
+Create `tsconfig.base.json` at the workspace root. All sub-projects extend this. Use `target: ES2022`, `module: Node16`, `moduleResolution: Node16`, `strict: true`, plus `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `declaration`, `declarationMap`, `sourceMap`, `resolveJsonModule`, `isolatedModules`, `esModuleInterop`, `skipLibCheck`, `forceConsistentCasingInFileNames`.
+
+> **Static file** — belongs in a `ts-workspace` scaf template.
 
 > **Why `Node16` resolution?** It enforces explicit `.js` extensions in imports, which is correct for ESM. Frontend apps (React, Next.js) will override to `"module": "ESNext"` + `"moduleResolution": "Bundler"` in their own tsconfig — bundlers don't need file extensions.
 
-Also create a minimal root `tsconfig.json` that references all sub-projects — contents: [shared/assets/tsconfig.workspace-root.json](../../../../shared/assets/tsconfig.workspace-root.json)
+Also create a minimal root `tsconfig.json` with `"files": []` and an empty `"references": []` array — each sub-project will register itself.
 
 > **Populated later.** Each sub-project skill adds its own reference to this file. The root tsconfig is for IDE-level project resolution only — each app builds independently.
 
@@ -223,7 +227,9 @@ Create `apps/{app-name}/package.json`:
 }
 ```
 
-Create `apps/{app-name}/tsconfig.json` — contents: [shared/assets/tsconfig.subproject.json](../../../../shared/assets/tsconfig.subproject.json)
+Create `apps/{app-name}/tsconfig.json` extending `../../tsconfig.base.json` with `rootDir: ./src`, `outDir: ./dist`, `include: ["src/**/*"]`.
+
+> **Static file** — belongs in a `ts-workspace` scaf template.
 
 **For shared packages (under `packages/`):**
 
@@ -256,7 +262,7 @@ Create `packages/{pkg-name}/package.json`:
 }
 ```
 
-Create `packages/{pkg-name}/tsconfig.json` — contents: [shared/assets/tsconfig.subproject.json](../../../../shared/assets/tsconfig.subproject.json)
+Create `packages/{pkg-name}/tsconfig.json` with the same shape as the apps tsconfig above.
 
 Create a barrel `packages/{pkg-name}/src/index.ts`:
 
@@ -266,11 +272,13 @@ Create a barrel `packages/{pkg-name}/src/index.ts`:
 
 > **Cross-referencing packages:** Apps consume shared packages via their npm scope name (e.g., `import { validate } from "@my-platform/shared"`). npm workspaces resolves these to the local source automatically — no `workspace:*` protocol needed in `package.json` dependencies (npm handles it). Add the dependency when the app-specific scaffolding skill runs.
 
-### Step 7: Copy Root Config Files and Create .gitignore
+### Step 7: Create Root Config Files and .gitignore
 
-Copy asset files from this skill's `assets/` folder to the workspace root (`.prettierrc`, `.gitattributes`, `.editorconfig`).
+Create `.editorconfig`, `.gitattributes`, `.prettierrc` (the last one is created by the ESLint + Prettier step), and `.gitignore` at the workspace root using standard contents.
 
-Create `.gitignore`:
+> **Static files** — belong in a `ts-workspace` scaf template.
+
+Minimum `.gitignore` entries:
 
 ```
 node_modules/

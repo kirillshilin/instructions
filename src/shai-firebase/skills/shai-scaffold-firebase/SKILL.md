@@ -30,6 +30,10 @@ See also: [shai-firebase-function](../shai-firebase-function/SKILL.md) for Cloud
 
 {../../../shared/\_progress.partial.md}
 
+### Prefer the `scaf` CLI
+
+{../../../shared/\_scaf-cli.partial.md}
+
 ### Step 1: Gather Requirements
 
 Use `#tool:vscode/askQuestions` to ask the user:

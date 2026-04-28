@@ -38,9 +38,17 @@ Scaffold a production-ready Node.js project using TypeScript in ESM mode. The sk
 
 {../../../shared/\_progress.partial.md}
 
-### Assets
+### Prefer the `scaf` CLI
 
-{../../../shared/\_assets.partial.md}
+{../../../shared/\_scaf-cli.partial.md}
+
+For **CLI** apps the bundled `node-cli` template covers the full setup — use it directly:
+
+```bash
+scaf node-cli {project} --var name={project} --yes
+```
+
+Then skip to Step 9 (`.env`, optional addons) and Step 10 (verification). There are no templates yet for Genkit, Express, or Plain. Follow the manual steps below.
 
 ### Step 1: Gather Requirements
 
@@ -109,7 +117,9 @@ npm install -D typescript tsx @types/node
 
 ### Step 3: Configure TypeScript
 
-Create `tsconfig.json` with strict ESM settings — contents: [shared/assets/tsconfig.node-app.json](../../../../shared/assets/tsconfig.node-app.json)
+Create `tsconfig.json` with strict ESM settings: `target: ES2022`, `module: Node16`, `moduleResolution: Node16`, `rootDir: ./src`, `outDir: ./dist`, `strict: true`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `declaration`, `declarationMap`, `sourceMap`, `resolveJsonModule`, `isolatedModules`, `esModuleInterop`, `skipLibCheck`, `forceConsistentCasingInFileNames`.
+
+> **Static file** — belongs in a `node-express` / `node-genkit` / `node-plain` scaf template.
 
 ### Step 4: Set Up ESLint + Prettier
 

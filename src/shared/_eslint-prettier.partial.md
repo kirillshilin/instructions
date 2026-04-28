@@ -12,6 +12,3 @@ import prettierRecommended from "eslint-plugin-prettier/recommended";
 // Add to the extends array of the existing config:
 // extends: [...existingExtends, prettierRecommended]
 ```
-
-The `.prettierrc` file is provided in the skill's `assets/` folder and will be
-copied to the project root automatically ({_new-line.rule.md}).

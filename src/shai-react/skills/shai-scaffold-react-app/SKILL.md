@@ -29,9 +29,11 @@ Do NOT use this skill when:
 
 {../../../shared/\_progress.partial.md}
 
-### Assets
+### Prefer the `scaf` CLI
 
-{../../../shared/\_assets.partial.md}
+{../../../shared/\_scaf-cli.partial.md}
+
+There is no **`react-vite`** template yet. Follow the manual steps below.
 
 ### Step 1: Gather Requirements
 
@@ -94,7 +96,9 @@ Replace `src/index.css` content with:
 
 The `@` alias is already set in `vite.config.ts` (Step 3). Now add TypeScript path resolution.
 
-Add to `tsconfig.app.json` `compilerOptions` (merge, don't overwrite) — contents: [shared/assets/tsconfig.app.json](../../../../shared/assets/tsconfig.app.json)
+Add `baseUrl: "."` and `paths: { "@/*": ["./src/*"] }` to `tsconfig.app.json` `compilerOptions` (merge, don't overwrite).
+
+> **Static file** — belongs in a `react-vite` scaf template.
 
 ### Step 5: Set Up ESLint + Prettier
 
