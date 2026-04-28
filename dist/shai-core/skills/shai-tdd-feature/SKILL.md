@@ -239,3 +239,8 @@ Tests and implementation files must be co-located per the project's convention.
 - **Import before implementation is valid** — TypeScript will fail to compile when the import target doesn't exist. This is the first "red" state. It's correct.
 - **Test the contract, not the internals** — test inputs and outputs (or errors thrown). Never test private methods or internal implementation details.
 - **One failing test at a time (strict TDD)** — for experienced practitioners, write one test, implement just enough to pass it, then write the next. The workflow above allows writing all tests first because the user review gate creates a natural checkpoint. Either approach is valid; follow the user's preference.
+
+## Related
+
+- Skill: `shai-unit-testing-ts` (T-S02)
+- Instruction: `shai-coding` (C-I01)

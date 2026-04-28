@@ -210,3 +210,8 @@ Ask:
 - **Story IDs are global.** S-001, S-002... across all features, not per-feature. This makes it easy to reference stories from task breakdown without ambiguity.
 - **Pipeline personas are a starting point.** The `personas.md` entries are great defaults, but some features surface new roles (admin, moderator, API consumer) that weren't in the original evaluation. Add them during the interview — and update `docs/product/personas.md` with any new personas discovered.
 - **Keep it fun.** Like feature mapping, this is product discovery. Be opinionated about which stories matter most, flag stories that feel like "checkbox features" vs. genuinely valuable ones.
+
+## Related
+
+- Skill: `shai-feature-mapping` (V-S02)
+- Skill: `shai-task-breakdown` (V-S04)

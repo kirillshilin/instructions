@@ -245,3 +245,8 @@ If any check fails, fix the issue before presenting the result.
 - **`cn()` utility** — the `clsx` + `tailwind-merge` combo is the community standard for merging Tailwind classes. Always include it for Tailwind projects.
 - **Don't eject or customize Webpack** — Next.js manages its own bundling. Use `next.config.ts` for configuration. Avoid custom Webpack configs unless absolutely necessary.
 - **`middleware.ts` location** — must be at the project root (next to `next.config.ts`), NOT inside `src/`. Next.js only detects it at the root.
+
+## Related
+
+- Instruction: `shai-typescript-coding-standards` (T-I01)
+- Instruction: `shai-tsconfig-standards` (T-I03)

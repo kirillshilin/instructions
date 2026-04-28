@@ -234,3 +234,8 @@ Before writing the feature map index, read this reference first:
 - **Don't skip web research.** 5 minutes of validation per domain saves hours of building the wrong thing. Look for table-stakes features you're missing.
 - **The dependency graph reveals build order.** Features with no dependencies and many dependents are your Phase 1. Features with many dependencies are your Phase 3+. Let the graph guide the roadmap, don't force it.
 - **Keep it fun.** This is product discovery, not a compliance audit. Be opinionated, have opinions about which features are exciting vs. boring, and help the user see the shape of their product.
+
+## Related
+
+- Skill: `shai-idea-evaluation` (V-S01)
+- Skill: `shai-story-decomposition` (V-S03)

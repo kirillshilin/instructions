@@ -236,3 +236,7 @@ For technical architecture decisions, consult **`@shai-architect`** (C-A01).
 - **MoSCoW is for capabilities, not features.** At this stage we're listing broad capabilities. `feature-mapping` handles the formal feature decomposition.
 - **Ideas should be fun.** If the evaluation makes the idea feel boring, you're doing it wrong. Highlight what's exciting, not just what's viable.
 - **Adapt questioning rounds.** Two rounds is the minimum. If the user's idea is already well-articulated, Round 3 is optional. If it's vague, you might need an extra round. Read the room.
+
+## Related
+
+- Skill: `shai-feature-mapping` (V-S02)

@@ -360,3 +360,7 @@ The `*Tests.cs` file itself should:
 - **File naming** — always `{ClassName}Tests.cs`. The `Tests` suffix is the project convention.
 - **No `IClassFixture` for unit tests** — reserve `IClassFixture<T>` and `ICollectionFixture<T>` for integration tests that need expensive shared resources. Unit tests should be fully isolated.
 - **Avoid `dotnet sln add` in terminal** — it rewrites large sections of .sln files. Add project references manually only when explicitly required.
+
+## Related
+
+- Instruction: `shai-dotnet-coding-standards` (D-I01)
