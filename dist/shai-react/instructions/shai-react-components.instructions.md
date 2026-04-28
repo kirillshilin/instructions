@@ -1,6 +1,3 @@
----
-applyTo: "**/*.tsx,**/*.jsx"
----
 
 # React Component Conventions
 

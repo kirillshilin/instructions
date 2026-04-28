@@ -1,5 +1,10 @@
 ---
+id: T-I03
+name: shai-tsconfig-standards
 applyTo: "**/tsconfig*.json"
+priority: could
+status: done
+related: [T-I01]
 description: "Strictest TypeScript compiler options, root+sub-app inheritance, test config, and project-specific path aliases."
 ---
 

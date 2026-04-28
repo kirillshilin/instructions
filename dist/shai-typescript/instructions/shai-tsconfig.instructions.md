@@ -1,7 +1,3 @@
----
-applyTo: "**/tsconfig*.json"
-description: "Strictest TypeScript compiler options, root+sub-app inheritance, test config, and project-specific path aliases."
----
 
 # tsconfig Standards
 

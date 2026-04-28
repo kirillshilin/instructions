@@ -1,3 +1,9 @@
+---
+id: T-I02-r01
+priority: should
+status: done
+related: [T-I02]
+---
 ### Unit Test Structure — TypeScript
 
 #### File Naming and Suite Layout

@@ -1,5 +1,10 @@
 ---
+id: T-I01
+name: shai-typescript-coding-standards
 applyTo: "**/*.ts,**/*.tsx"
+priority: must
+status: done
+related: [T-I02, T-I03, T-I04]
 ---
 
 # TypeScript Coding Standards

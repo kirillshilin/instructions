@@ -1,3 +1,9 @@
+---
+id: C-I01-r06
+priority: must
+status: done
+related: [C-I01]
+---
 ### Error Handling
 
 Let unexpected errors propagate.

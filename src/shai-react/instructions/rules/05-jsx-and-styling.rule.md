@@ -1,3 +1,9 @@
+---
+id: R-I01-r05
+priority: must
+status: done
+related: [R-I01]
+---
 ### JSX and Styling
 
 #### JSX patterns

@@ -1,6 +1,3 @@
----
-applyTo: "docs/**/*.md,**/README.md"
----
 
 # Documentation Standards
 

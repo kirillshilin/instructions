@@ -1,7 +1,3 @@
----
-applyTo: "**/*.spec.ts"
-description: "TypeScript unit test conventions: colocated .spec.ts files, file-name describe blocks, explicit API coverage, and AAA comments."
----
 
 # TypeScript Unit Testing
 

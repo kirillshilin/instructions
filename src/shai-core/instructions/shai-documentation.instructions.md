@@ -1,5 +1,10 @@
 ---
+id: C-I03
+name: shai-documentation-standards
 applyTo: "docs/**/*.md,**/README.md"
+priority: should
+status: done
+related: []
 ---
 
 # Documentation Standards

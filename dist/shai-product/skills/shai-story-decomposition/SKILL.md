@@ -1,8 +1,3 @@
----
-name: shai-story-decomposition
-description: >
-  Decompose product features into user stories with BDD acceptance criteria. Takes features from a feature-mapping output or standalone user input and produces individual story files with YAML metadata, user story descriptions, and GIVEN/WHEN/THEN scenarios. Use this skill when the user wants to break features into stories, write user stories, create acceptance criteria, decompose requirements, do story mapping, or when passing output from feature-mapping to task-breakdown. Also triggers on: user stories, story decomposition, BDD scenarios, acceptance criteria, story writing, "break this feature into stories", or "what stories do we need?"
----
 
 # Story Decomposition
 

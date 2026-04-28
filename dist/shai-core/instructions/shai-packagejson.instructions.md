@@ -1,7 +1,3 @@
----
-applyTo: "**/package.json"
-description: "Exact dependency versions, standard npm scripts, and package.json conventions for Angular, React, Next.js, and Node projects."
----
 
 # package.json Standards
 

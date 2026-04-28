@@ -1,3 +1,9 @@
+---
+id: D-I01-r01
+priority: must
+status: done
+related: [D-I01]
+---
 ### Naming Conventions — C#
 
 - **Private fields** — `_camelCase`: `_repository`, `_logger`, `_connectionString`.

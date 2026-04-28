@@ -1,8 +1,3 @@
----
-name: shai-firebase-function
-description: >
-  Scaffold and implement a Firebase Cloud Function following project conventions. Use when the user asks to "create a function", "add a cloud function", "write a Firebase function", "add an HTTP endpoint", "add a Firestore trigger", or any request to add server-side logic to a Firebase project.
----
 
 # shai-firebase-function
 

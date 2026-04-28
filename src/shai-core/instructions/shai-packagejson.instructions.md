@@ -1,5 +1,10 @@
 ---
+id: C-I02
+name: shai-package-json
 applyTo: "**/package.json"
+priority: must
+status: done
+related: []
 description: "Exact dependency versions, standard npm scripts, and package.json conventions for Angular, React, Next.js, and Node projects."
 ---
 
