@@ -6,6 +6,7 @@
   "publisher": "shai",
   "keywords": [],
   "instructions": [
+    "instructions/shai-firebase-functions-testing.instructions.md",
     "instructions/shai-firebase-functions.instructions.md"
   ],
   "skills": [

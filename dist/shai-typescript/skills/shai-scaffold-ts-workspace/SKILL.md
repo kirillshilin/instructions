@@ -33,22 +33,11 @@ Scaffold a multi-project TypeScript workspace using npm workspaces. Produces a w
 
 ## Workflow
 
-### Progress Reporting (mandatory)
-
-At the start of each workflow step, output a progress indicator in bold blue:
-
-**🔹 Step M/N — {Step title}**
-
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
-
+<!-- missing: ../../../shared/\_progress.partial.md -->
 
 ### Assets
 
-### Copy Asset Files
-
-This skill's `assets/` folder contains template files that must be copied into the project root when scaffolding from scratch. Copy every file from `assets/` to the new project directory, preserving relative paths.
-
+<!-- missing: ../../../shared/\_assets.partial.md -->
 
 ### Step 1: Gather Requirements
 
@@ -116,25 +105,7 @@ Also create a minimal root `tsconfig.json` that references all sub-projects — 
 
 ### Step 4: Set Up ESLint + Prettier
 
-The project already includes ESLint. Add Prettier integration:
-
-```bash
-npm install -D prettier eslint-config-prettier eslint-plugin-prettier
-```
-
-Add `prettierRecommended` to `eslint.config.js`:
-
-```js
-import prettierRecommended from "eslint-plugin-prettier/recommended";
-
-// Add to the extends array of the existing config:
-// extends: [...existingExtends, prettierRecommended]
-```
-
-The `.prettierrc` file is provided in the skill's `assets/` folder and will be
-copied to the project root automatically (All generated files MUST use LF (`\n`) line endings — never CRLF (`\r\n`). When Prettier is configured, set `"endOfLine": "lf"` in `.prettierrc`.
-).
-
+<!-- missing: ../../../shared/\_eslint-prettier.partial.md -->
 
 Install ESLint with TypeScript support at the workspace root:
 
@@ -309,31 +280,9 @@ coverage/
 
 Create `README.md`:
 
-```markdown
-# {workspace}
+Before creating `README.md`, read this reference first:
 
-TypeScript monorepo using npm workspaces.
-
-## Structure
-
-| Directory   | Purpose                        |
-| ----------- | ------------------------------ |
-| `apps/`     | Deployable applications        |
-| `packages/` | Shared libraries and utilities |
-
-## Commands
-
-| Command          | Description                    |
-| ---------------- | ------------------------------ |
-| `npm run build`  | Build all projects             |
-| `npm test`       | Run all tests                  |
-| `npm run lint`   | Lint all projects              |
-| `npm run format` | Format all files with Prettier |
-
-## Sub-projects
-
-{list each sub-project with name and brief purpose}
-```
+- `references/readme-template.md`
 
 ### Step 8: Next Steps — Hand Off to App-Specific Skills
 

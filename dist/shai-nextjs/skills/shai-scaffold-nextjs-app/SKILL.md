@@ -35,10 +35,7 @@ This skill uses the following MCP tools:
 
 ## Workflow
 
-### Copy Asset Files
-
-This skill's `assets/` folder contains template files that must be copied into the project root when scaffolding from scratch. Copy every file from `assets/` to the new project directory, preserving relative paths.
-
+<!-- missing: ../../../shared/\_assets.partial.md -->
 
 ### Step 1: Gather Project Requirements
 
@@ -198,25 +195,7 @@ See [shadcn/ui docs](https://ui.shadcn.com/docs/installation/next) for the full 
 
 ### Step 5: Set Up Prettier
 
-The project already includes ESLint. Add Prettier integration:
-
-```bash
-npm install -D prettier eslint-config-prettier eslint-plugin-prettier
-```
-
-Add `prettierRecommended` to `eslint.config.js`:
-
-```js
-import prettierRecommended from "eslint-plugin-prettier/recommended";
-
-// Add to the extends array of the existing config:
-// extends: [...existingExtends, prettierRecommended]
-```
-
-The `.prettierrc` file is provided in the skill's `assets/` folder and will be
-copied to the project root automatically (All generated files MUST use LF (`\n`) line endings — never CRLF (`\r\n`). When Prettier is configured, set `"endOfLine": "lf"` in `.prettierrc`.
-).
-
+<!-- missing: ../../../shared/\_eslint-prettier.partial.md -->
 
 ### Step 6: Verify the Setup
 

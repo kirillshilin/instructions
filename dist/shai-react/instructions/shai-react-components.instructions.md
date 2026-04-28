@@ -12,12 +12,9 @@ For general coding standards see [shai-coding](./shai-coding.instructions.md). F
 
 ## Rules
 
-## Component Structure
+### Component Structure
 
-Each React component is a focused, single-responsibility unit that fits on one
-screen. Smaller components are easier to read, test, and refactor.
-
-### One component per file
+#### One component per file
 
 Each `.tsx` / `.jsx` file exports **one** component. No sibling components,
 no helper functions, no constants — just the component and its types.
@@ -27,30 +24,23 @@ no helper functions, no constants — just the component and its types.
 // checkout-form.tsx → exports CheckoutForm
 ```
 
-Why: Single-export files are discoverable by filename, produce clean git blame,
-and allow bundlers to tree-shake effectively.
+Why: single-export files are easier to find, review, and tree-shake.
 
-### Target size: 50–70 lines
+#### Target size: 50–70 lines
 
-A component should fit in a single editor viewport — roughly **50–70 lines**
-including imports, types, and JSX. If it exceeds ~70 lines, that's a signal to
-decompose.
+A component should fit in one editor viewport, roughly **50–70 lines** including imports, types, and JSX. If it grows past ~70 lines, decompose it.
 
 **How to shrink an oversized component:**
 
 1. Extract a visual section into a child component
 2. Move logic into a custom hook (`hooks/useSomething.hook.ts`)
-3. Move constants to a separate file
-4. Simplify conditional rendering with early returns
+3. Move constants out of the file or simplify rendering with early returns
 
-**Exception:** A component at 80–90 lines that is purely declarative JSX (a
-form with many fields, a data table) can stay intact if splitting would harm
-readability. Use judgment — but default to splitting.
+**Exception:** A component at 80–90 lines can stay intact if it is mostly declarative JSX and splitting would hurt readability.
 
-### Single responsibility
+#### Single responsibility
 
-A component should have **one reason to change**. If you need to modify a
-component for two unrelated reasons, it's doing too much.
+A component should have one reason to change.
 
 Good signals:
 
@@ -64,19 +54,15 @@ Bad signals:
 - It handles two unrelated user interactions
 - Props span multiple domains (user data + cart state + theme)
 
-### shadcn components — leave intact
+#### shadcn components — leave intact
 
-Components in `src/components/ui/` are **shadcn design-system primitives**.
-Do not refactor, split, or restructure them. They follow shadcn's conventions,
-not ours. Treat them as an external library that happens to live in-tree.
+Components in `src/components/ui/` are shadcn primitives. Do not refactor,
+split, or restructure them. Treat them as an external library in-tree.
 
 
-## Folder Taxonomy
+### Folder Taxonomy
 
-React files are organized by **purpose and scale**, not by technical type. Each
-folder has a clear role — when creating a new component, pick the right home.
-
-### The five folders
+#### The five folders
 
 | Folder              | Purpose                                                   | Examples                                     |
 | ------------------- | --------------------------------------------------------- | -------------------------------------------- |
@@ -86,22 +72,15 @@ folder has a clear role — when creating a new component, pick the right home.
 | `src/organisms`     | **Large application-wide shells.** Layout and navigation  | `AppShell`, `Header`, `Sidebar`, `Footer`    |
 | `src/pages`         | **Navigatable screens.** Tied to routes                   | `DashboardPage`, `SettingsPage`, `LoginPage` |
 
-### Placement rules
+#### Placement rules
 
-- **`src/components/ui`** — installed by shadcn. Never modify, never add custom
-  components here. If you need to extend a shadcn primitive, wrap it in
-  `src/components` instead.
-- **`src/components`** — generic, reusable across any feature. No business logic.
-  If a component is used in only one place and carries domain meaning, it
-  belongs in `src/elements` instead.
-- **`src/elements`** — feature-specific components with domain knowledge. A
-  `UserCard` knows what a user looks like; a `Card` in `src/components` does not.
-- **`src/organisms`** — application structural components. Layout shells, navigation
-  bars, sidebars, footers. These rarely change and are typically singleton.
-- **`src/pages`** — one file per route. Pages compose organisms, elements, and
-  components. They wire up data hooks and pass props down. Minimal logic.
+- **`src/components/ui`** — installed by shadcn. Never modify, never add custom components here. If you need to extend a shadcn primitive, wrap it in `src/components` instead.
+- **`src/components`** — generic and reusable across features. No business logic. If a component is used in one place and carries domain meaning, move it to `src/elements`.
+- **`src/elements`** — feature-specific components with domain knowledge. A `UserCard` knows what a user looks like; a `Card` in `src/components` does not.
+- **`src/organisms`** — application structural components. Layout shells, navigation bars, sidebars, footers. These rarely change and are typically singleton.
+- **`src/pages`** — one file per route. Pages compose organisms, elements, and components. They wire up data hooks and pass props down. Minimal logic.
 
-### Co-located hooks
+#### Co-located hooks
 
 Each component folder can have a `hooks/` subfolder for hooks specific to that
 component or feature group:
@@ -113,28 +92,29 @@ src/elements/
 │   └── useUserCard.hook.ts
 ```
 
-Shared hooks that serve multiple components live in `src/hooks/`.
+Shared hooks live in `src/hooks/`.
 
-### Where NOT to put things
+#### Where NOT to put things
 
-- **No `utils/` in component folders** — utility functions belong in a
-  top-level `src/utilities/` or `src/lib/` folder.
-- **No constants in component files** — move to `src/constants/` or a
-  feature-specific `constants.ts` file.
+- **No `utils/` in component folders** — utility functions belong in a top-level `src/utilities/` or `src/lib/` folder.
+- **No constants in component files** — move to `src/constants/` or a feature-specific `constants.ts` file.
 - **No barrel files with logic** — `index.ts` re-exports only.
 
 
-## Hook Delegation
+### Hook Delegation
 
-Components are for **displaying data and capturing user input**. All logic —
-data loading, state management, transformations, side effects — lives in custom
-hooks. This is the single most important architectural rule.
+Move data loading, state, transformations, side effects, and handler logic
+into custom hooks.
 
-### The principle
+#### Rule
 
-A component's body should be trivial: call hooks, destructure results, return
-JSX. If you're writing an `if` chain, a `.map().filter()`, or a `try/catch`
-inside a component — move it to a hook.
+Keep a component body trivial:
+
+- Call hooks
+- Destructure results
+- Return JSX
+
+Move `if` chains, `.map().filter()`, and `try/catch` blocks into a hook.
 
 **Preferred:**
 
@@ -198,11 +178,9 @@ const OrderList = ({ userId }: OrderListProps) => {
 };
 ```
 
-Why: The component is now coupled to the data-fetching implementation. You can't
-test the filtering logic without rendering the component. You can't reuse the
-data-fetching in another component.
+Why: logic in the component is harder to test, reuse, and replace.
 
-### What belongs in hooks
+#### What belongs in hooks
 
 | Concern                      | Where                            | Example hook                        |
 | ---------------------------- | -------------------------------- | ----------------------------------- |
@@ -213,35 +191,36 @@ data-fetching in another component.
 | Side effects / subscriptions | `hooks/useWebSocket.hook.ts`     | `useWebSocket`, `useInterval`       |
 | Event handlers with logic    | `hooks/useKeyboardNav.hook.ts`   | `useKeyboardNav`, `useDragDrop`     |
 
-### What stays in the component
+#### What stays in the component
 
-- Destructuring hook results
-- Early returns for loading / error states
-- Event handler wiring (passing hook callbacks to JSX)
-- Simple conditional rendering (ternary, `&&`)
-- Trivial derived values (a single `!isOpen` toggle — no need for a hook)
+- Destructure hook results
+- Return loading and error states
+- Wire hook callbacks to JSX
+- Render simple conditionals
+- Keep trivial derived values only
 
-### Hook file naming convention
+#### Hook file naming convention
 
 - File name: `useSomething.hook.ts`
 - Export name: `useSomething`
 - Location: `hooks/` subfolder co-located with the component, or top-level
   `src/hooks/` for shared hooks
 
-### No helper functions in components
+#### No helper functions in components
 
-Component files must not contain standalone helper functions. Extract them to:
+Do not keep standalone helper functions in component files. Extract them to:
 
 - A custom hook (if they use React state or effects)
 - A utility module in `src/utilities/` (if they're pure functions)
 
 
-## Constants and Data
+### Constants and Data
 
-Component files contain **zero** inline data — no hardcoded strings, magic
-numbers, configuration objects, or option arrays. Everything is imported.
+Do not keep inline data in component files.
 
-### No inline data in components
+Import strings, numbers, configuration objects, and option arrays.
+
+#### No inline data in components
 
 **Preferred:**
 
@@ -286,10 +265,10 @@ const OrderFilter = ({ onFilter }: OrderFilterProps) => {
 };
 ```
 
-Why: Inline data recreates on every render, can't be shared across components,
-and clutters the component with non-UI concerns.
+Why: inline data recreates on each render and mixes non-UI concerns into the
+component.
 
-### Where constants live
+#### Where constants live
 
 | Scope              | Location                     | Example                     |
 | ------------------ | ---------------------------- | --------------------------- |
@@ -297,14 +276,14 @@ and clutters the component with non-UI concerns.
 | Feature-specific   | `src/{feature}/constants.ts` | `src/checkout/constants.ts` |
 | Enum-like mappings | `src/constants/{domain}.ts`  | `src/constants/status.ts`   |
 
-### Naming
+#### Naming
 
 - Use `ALL_CAPS` for primitive constants: `MAX_ITEMS`, `API_TIMEOUT`
 - Use `PascalCase` or `ALL_CAPS` for object/array constants:
   `ORDER_STATUS_OPTIONS`, `ROUTES`
 - Never name a constant `data`, `values`, `items`, or `list` — be specific
 
-### Default prop values
+#### Default prop values
 
 Extract default prop objects to module-level constants, not inline:
 
@@ -326,18 +305,15 @@ const DataTable = ({ pagination = { page: 1, pageSize: 20 } }: DataTableProps) =
 };
 ```
 
-Why: Inline default objects create a new reference on every render, which can
-trigger unnecessary re-renders in child components that depend on referential
-equality.
+Why: inline default objects create a new reference on each render and can
+trigger unnecessary child re-renders.
 
 
-## JSX and Styling
+### JSX and Styling
 
-Keep JSX clean, declarative, and styled with Tailwind CSS utility classes.
+#### JSX patterns
 
-### JSX patterns
-
-- Use `<>...</>` fragments to avoid unnecessary wrapper `<div>` elements
+- Use fragments instead of wrapper `<div>` elements
 - Prefer ternary for simple conditionals: `{isOpen ? <Panel /> : null}`
 - Use early returns for loading/error states instead of nested ternaries
 - Arrays: always provide a stable, unique `key` prop — never use index as key
@@ -380,21 +356,16 @@ const UserProfile = ({ user, isLoading }: UserProfileProps) => {
 };
 ```
 
-Why: Early returns flatten the component logic, making it easier to read and
-trace. Nested ternaries are hard to follow beyond one level.
+Why: early returns flatten control flow. Nested ternaries become hard to scan.
 
-### Styling with Tailwind
+#### Styling with Tailwind
 
-- **Tailwind utility classes are the default** styling approach. Prefer
-  composing utilities directly on JSX elements.
-- Use CSS modules only when explicitly requested or for complex animations
-  that don't map well to utility classes.
-- For conditional classes, use `clsx` or `cn` (shadcn's `cn` utility):
-  `className={cn("text-sm", isActive && "font-bold")}`
-- Extract repeated class combinations into component abstractions, not into
-  CSS files.
+- Tailwind utilities are the default. Compose them directly on JSX elements.
+- Use CSS modules only when explicitly requested or for complex animations that don't map well to utility classes.
+- For conditional classes, use `clsx` or `cn`: `className={cn("text-sm", isActive && "font-bold")}`
+- Extract repeated class combinations into component abstractions, not into CSS files.
 
-### Prop types
+#### Prop types
 
 - Define props with a `{ComponentName}Props` interface in the same file,
   above the component:
@@ -411,14 +382,14 @@ const UserCard = ({ user, onSelect, variant = "compact" }: UserCardProps) => {
 };
 ```
 
-- Use explicit props interfaces — do not use `React.FC` (it adds implicit
-  `children` prop and obscures the signature)
+- Use explicit props interfaces. Do not use `React.FC`.
 - Use discriminated unions for components with mutually exclusive prop sets
 - Avoid `any` in props — use `unknown` or proper generics
 
-### Component export
+#### Component export
 
-- Use **named exports**, not default exports — matches the one-component-per-file rule and improves refactoring support:
+- Use named exports, not default exports. This matches the one-component-per-file
+  rule and improves refactoring support.
 
 ```tsx
 // Preferred

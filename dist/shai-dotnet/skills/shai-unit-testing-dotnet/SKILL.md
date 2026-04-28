@@ -27,15 +27,7 @@ See also: D-I03 `dotnet-testing` instruction for the condensed rule set applied 
 
 ## Workflow
 
-### Progress Reporting (mandatory)
-
-At the start of each workflow step, output a progress indicator in bold blue:
-
-**🔹 Step M/N — {Step title}**
-
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
-
+<!-- missing: ../../../shared/\_progress.partial.md -->
 
 ### Step 1: Analyze the Source Code
 
@@ -48,19 +40,9 @@ Before writing any tests, read the source file to identify:
 
 Produce a brief test plan:
 
-```
-## Test Plan for {ClassName}
+Before producing the test plan, read this reference first:
 
-### Public Methods
-- MethodA(params): {what it does} → {N test cases}
-- MethodB(params): {what it does} → {N test cases}
-
-### Dependencies to mock:
-- I{ServiceName} — used by {methods}
-
-### Edge cases:
-- {nullable param, boundary, error condition}
-```
+- [references/testplan.template.md](references/testplan.template.md)
 
 ### Step 2: Create the Test File
 
@@ -354,19 +336,11 @@ Report the coverage numbers in the output. Do not run coverage by default — on
 
 Produce a complete `*Tests.cs` file ready to run with `dotnet test`. After writing and running the tests, report the results summary:
 
-```
-## Test Results for {ClassName}
+To report test results or create the output summary, use this template:
 
-- **Tests created**: {N} (list new test methods added)
-- **Total tests**: {N} (including any pre-existing tests)
-- **Test run**: ✅ All passed | ❌ {N} failed (details)
-```
+- [references/results.template.md](references/results.template.md)
 
 If coverage was explicitly requested, append:
-
-```
-- **Coverage**: {line}% line, {branch}% branch
-```
 
 The `*Tests.cs` file itself should:
 

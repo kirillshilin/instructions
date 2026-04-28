@@ -90,12 +90,20 @@ function collectPluginTools(pluginSrcDir) {
     }
   }
 
-  // hooks/ — collect *.json files
+  // hooks/ — collect *.json files and any subdirectories (e.g. scripts/)
   const hooksDir = path.join(pluginSrcDir, "hooks");
   if (fs.existsSync(hooksDir)) {
-    const files = fs.readdirSync(hooksDir).filter((f) => f.endsWith(".json"));
-    if (files.length > 0) {
-      tools.hooks = files.map((f) => `hooks/${f}`);
+    const entries = fs.readdirSync(hooksDir, { withFileTypes: true });
+    const hookPaths = [];
+    for (const entry of entries) {
+      if (entry.isFile() && entry.name.endsWith(".json")) {
+        hookPaths.push(`hooks/${entry.name}`);
+      } else if (entry.isDirectory()) {
+        hookPaths.push(`hooks/${entry.name}`);
+      }
+    }
+    if (hookPaths.length > 0) {
+      tools.hooks = hookPaths;
     }
   }
 
