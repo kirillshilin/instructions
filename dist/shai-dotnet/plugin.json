@@ -18,5 +18,7 @@
   ],
   "skills": [
     "skills/shai-unit-testing-dotnet"
-  ]
+  ],
+  "agents": [],
+  "hooks": []
 }

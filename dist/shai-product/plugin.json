@@ -11,10 +11,13 @@
     "discovery",
     "ideation"
   ],
+  "instructions": [],
   "skills": [
     "skills/shai-feature-mapping",
     "skills/shai-idea-evaluation",
     "skills/shai-story-decomposition",
     "skills/shai-task-breakdown"
-  ]
+  ],
+  "agents": [],
+  "hooks": []
 }

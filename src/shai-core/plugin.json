@@ -11,5 +11,19 @@
     "tdd",
     "architecture",
     "security"
+  ],
+  "instructions": [
+    "instructions/shai-coding.instructions.md",
+    "instructions/shai-documentation.instructions.md",
+    "instructions/shai-packagejson.instructions.md"
+  ],
+  "skills": [
+    "skills/shai-software-design",
+    "skills/shai-tdd-feature"
+  ],
+  "agents": [],
+  "hooks": [
+    "hooks/shai-format-on-edit.json",
+    "hooks/shai-lint-on-edit.json"
   ]
 }

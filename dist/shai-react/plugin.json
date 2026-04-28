@@ -16,5 +16,7 @@
   ],
   "skills": [
     "skills/shai-scaffold-react-app"
-  ]
+  ],
+  "agents": [],
+  "hooks": []
 }

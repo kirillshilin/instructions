@@ -12,8 +12,11 @@
     "tailwind",
     "scaffolding"
   ],
+  "instructions": [],
   "skills": [
     "skills/shai-add-nextjs-page",
     "skills/shai-scaffold-nextjs-app"
-  ]
+  ],
+  "agents": [],
+  "hooks": []
 }

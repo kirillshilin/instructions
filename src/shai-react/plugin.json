@@ -10,5 +10,13 @@
     "tailwind",
     "shadcn",
     "components"
-  ]
+  ],
+  "instructions": [
+    "instructions/shai-react-components.instructions.md"
+  ],
+  "skills": [
+    "skills/shai-scaffold-react-app"
+  ],
+  "agents": [],
+  "hooks": []
 }

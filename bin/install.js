@@ -75,7 +75,11 @@ function installPlugin(plugin, targetDir, dryRun) {
 
   for (const type of TOOL_TYPES) {
     const tools = meta[type];
-    if (!Array.isArray(tools) || tools.length === 0) continue;
+    if (!Array.isArray(tools)) {
+      throw new Error(`Invalid plugin manifest for ${plugin.dir}: "${type}" must be an array.`);
+    }
+
+    if (tools.length === 0) continue;
 
     const ghToolDir = path.join(targetDir, ".github", type);
 
@@ -83,8 +87,7 @@ function installPlugin(plugin, targetDir, dryRun) {
       const srcPath = path.join(pluginDir, toolPath);
 
       if (!fs.existsSync(srcPath)) {
-        console.warn(`  ⚠  Missing: ${toolPath} (in ${plugin.dir})`);
-        continue;
+        throw new Error(`Invalid plugin manifest for ${plugin.dir}: listed ${type} asset is missing: ${toolPath}`);
       }
 
       const name = path.basename(toolPath);
@@ -201,11 +204,15 @@ function main() {
   }
 
   let totalCopied = 0;
-
-  for (const plugin of toInstall) {
-    const count = installPlugin(plugin, targetDir, dryRun);
-    console.log(`  ✔ ${plugin.meta.name} (${count} tools(s))`);
-    totalCopied += count;
+  try {
+    for (const plugin of toInstall) {
+      const count = installPlugin(plugin, targetDir, dryRun);
+      console.log(`  ✔ ${plugin.meta.name} (${count} tools(s))`);
+      totalCopied += count;
+    }
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
   }
 
   const verb = dryRun ? "would be installed" : "installed";

@@ -21,6 +21,7 @@
     "skills/shai-software-design",
     "skills/shai-tdd-feature"
   ],
+  "agents": [],
   "hooks": [
     "hooks/shai-format-on-edit.json",
     "hooks/shai-lint-on-edit.json"
