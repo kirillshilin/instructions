@@ -2,11 +2,9 @@
 
 #### File Naming and Suite Layout
 
-- Place the spec file next to the source file:
-  `something.service.ts` -> `something.service.spec.ts`.
+- Place the spec file next to the source file:  `something.service.ts` -> `something.service.spec.ts`.
 - Use `.spec.ts` only. Do not create `.test.ts` files.
-- Name the top-level suite with the source file name:
-  `describe("something.service.ts", ...)`.
+- Name the top-level suite with the source file name:  `describe("something.service.ts", ...)`.
 - Create one nested `describe(...)` per public API entrypoint.
 - Group class tests by public member. Do not group by private helpers.
 
@@ -20,8 +18,7 @@
 
 #### Test Body Rules
 
-- Every `it(...)` block must include:
-  `// arrange`, `// act`, `// assert`.
+- Every `it(...)` block must include:  `// arrange`, `// act`, `// assert`.
 - Keep the act step to one invocation when practical.
 - Prefer `testCase.name` or `should <behavior> when <condition>`.
 

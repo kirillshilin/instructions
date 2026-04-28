@@ -12,18 +12,11 @@
 
 #### Placement rules
 
-- **`src/components/ui`** — installed by shadcn. Never modify, never add custom
-  components here. If you need to extend a shadcn primitive, wrap it in
-  `src/components` instead.
-- **`src/components`** — generic and reusable across features. No business
-  logic. If a component is used in one place and carries domain meaning, move
-  it to `src/elements`.
-- **`src/elements`** — feature-specific components with domain knowledge. A
-  `UserCard` knows what a user looks like; a `Card` in `src/components` does not.
-- **`src/organisms`** — application structural components. Layout shells, navigation
-  bars, sidebars, footers. These rarely change and are typically singleton.
-- **`src/pages`** — one file per route. Pages compose organisms, elements, and
-  components. They wire up data hooks and pass props down. Minimal logic.
+- **`src/components/ui`** — installed by shadcn. Never modify, never add custom components here. If you need to extend a shadcn primitive, wrap it in `src/components` instead.
+- **`src/components`** — generic and reusable across features. No business logic. If a component is used in one place and carries domain meaning, move it to `src/elements`.
+- **`src/elements`** — feature-specific components with domain knowledge. A `UserCard` knows what a user looks like; a `Card` in `src/components` does not.
+- **`src/organisms`** — application structural components. Layout shells, navigation bars, sidebars, footers. These rarely change and are typically singleton.
+- **`src/pages`** — one file per route. Pages compose organisms, elements, and components. They wire up data hooks and pass props down. Minimal logic.
 
 #### Co-located hooks
 
@@ -41,8 +34,6 @@ Shared hooks live in `src/hooks/`.
 
 #### Where NOT to put things
 
-- **No `utils/` in component folders** — utility functions belong in a
-  top-level `src/utilities/` or `src/lib/` folder.
-- **No constants in component files** — move to `src/constants/` or a
-  feature-specific `constants.ts` file.
+- **No `utils/` in component folders** — utility functions belong in a top-level `src/utilities/` or `src/lib/` folder.
+- **No constants in component files** — move to `src/constants/` or a feature-specific `constants.ts` file.
 - **No barrel files with logic** — `index.ts` re-exports only.

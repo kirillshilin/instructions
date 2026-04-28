@@ -1,0 +1,19 @@
+rules:
+  # Exceptions: matched first; raise the limit for known oversized files.
+  - label: instruction-exception
+    filePath: "**/shai-react/instructions/shai-react-components.instructions.md"
+    warningThreshold: 400
+    errorThreshold: 450
+  - label: instruction-exception
+    filePath: "**/shai-typescript/instructions/shai-typescript.instructions.md"
+    warningThreshold: 250
+    errorThreshold: 300
+
+  - label: instruction
+    fileNameRegex: "\\.instructions\\.md$"
+    warningThreshold: 120
+    errorThreshold: 200
+  - label: skill
+    fileName: SKILL.md
+    warningThreshold: 300
+    errorThreshold: 500

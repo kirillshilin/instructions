@@ -12,6 +12,12 @@
     "dist/"
   ],
   "scripts": {
-    "build": "node scripts/build.js"
+    "build": "node scripts/build.js",
+    "check:budget": "node scripts/budget.js --all",
+    "check:budget:instructions": "node scripts/budget.js --instructions",
+    "check:instruction-size": "node scripts/budget.js --instructions"
+  },
+  "dependencies": {
+    "yaml": "2.8.3"
   }
 }

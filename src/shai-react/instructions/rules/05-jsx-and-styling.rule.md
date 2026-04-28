@@ -50,12 +50,9 @@ Why: early returns flatten control flow. Nested ternaries become hard to scan.
 #### Styling with Tailwind
 
 - Tailwind utilities are the default. Compose them directly on JSX elements.
-- Use CSS modules only when explicitly requested or for complex animations
-  that don't map well to utility classes.
-- For conditional classes, use `clsx` or `cn`:
-  `className={cn("text-sm", isActive && "font-bold")}`
-- Extract repeated class combinations into component abstractions, not into
-  CSS files.
+- Use CSS modules only when explicitly requested or for complex animations that don't map well to utility classes.
+- For conditional classes, use `clsx` or `cn`: `className={cn("text-sm", isActive && "font-bold")}`
+- Extract repeated class combinations into component abstractions, not into CSS files.
 
 #### Prop types
 

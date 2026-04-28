@@ -5,18 +5,11 @@ only inside the same local folder module.
 
 #### Rules
 
-- **Prefer aliases first** — import shared code from stable aliases such as
-  `@/models`, `@/utilities`, `@/services`, not from long relative paths.
-- **Import through barrels at module boundaries** — when importing from another
-  folder module, target its public entrypoint (`@/services`, `../services`,
-  `./models`), not an internal file.
-- **Direct sibling imports stay local** — only files already inside the same
-  folder module may import sibling files directly, such as `./payment.model`
-  or `./payment.client`.
-- **Outside consumers use the folder surface** — code outside that folder must
-  not reach into `../services/payment/payment.service` or similar deep paths.
-- **One public import surface per folder** — reusable folders should expose a
-  barrel and consumers should import only from it.
+- **Prefer aliases first** — import shared code from stable aliases such as `@/models`, `@/utilities`, `@/services`, not from long relative paths.
+- **Import through barrels at module boundaries** — when importing from another folder module, target its public entrypoint (`@/services`, `../services`,  `./models`), not an internal file.
+- **Direct sibling imports stay local** — only files already inside the same folder module may import sibling files directly, such as `./payment.model` or `./payment.client`.
+- **Outside consumers use the folder surface** — code outside that folder must not reach into `../services/payment/payment.service` or similar deep paths.
+- **One public import surface per folder** — reusable folders should expose a barrel and consumers should import only from it.
 
 #### Preferred
 
