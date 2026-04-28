@@ -4,7 +4,7 @@ const os = require("os");
 const path = require("path");
 const test = require("node:test");
 
-const { collectPluginTools, validatePluginTools } = require("./build");
+const { buildDir, collectPluginTools, validatePluginTools } = require("./build");
 
 function createTempPlugin(t) {
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "shai-build-test-"));
@@ -88,5 +88,30 @@ test("validatePluginTools rejects unlisted and missing assets", (t) => {
         hooks: [],
       }),
     /Unlisted instructions asset found in plugin folder: instructions\/demo\.instructions\.md/
+  );
+});
+
+test("buildDir fails when a plugin manifest lists a missing asset", (t) => {
+  const pluginDir = createTempPlugin(t);
+  const outputDir = path.join(pluginDir, "dist");
+
+  fs.writeFileSync(
+    path.join(pluginDir, "plugin.json"),
+    JSON.stringify(
+      {
+        name: "demo-plugin",
+        instructions: ["instructions/missing.instructions.md"],
+        skills: [],
+        agents: [],
+        hooks: [],
+      },
+      null,
+      2
+    ) + "\n"
+  );
+
+  assert.throws(
+    () => buildDir(pluginDir, outputDir),
+    /Invalid plugin manifest: .*plugin\.json[\s\S]*Listed instructions asset is missing: instructions\/missing\.instructions\.md/
   );
 });
