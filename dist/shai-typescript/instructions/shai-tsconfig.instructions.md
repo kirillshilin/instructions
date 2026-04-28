@@ -5,55 +5,52 @@ description: "Strictest TypeScript compiler options, root+sub-app inheritance, t
 
 # tsconfig Standards
 
-Enforce the most demanding TypeScript compiler configuration to prevent `any` leakage, null-reference errors, and type ambiguity at compile time — not at runtime and not in code review.
+Enforce the most demanding TypeScript compiler configuration to prevent `any` leakage, null-reference errors, and type ambiguity at compile time — not at runtime, not in code review.
 
-See also: [typescript-coding-standards](./typescript-coding-standards.instructions.md) for code-level type rules.
+See also [shai-typescript](./shai-typescript.instructions.md) for code-level type rules.
 
 ---
 
 ## File Structure
 
-For projects with multiple TypeScript applications, always use a **root base + per-app extension** hierarchy. Never duplicate compiler options across apps.
+For multi-app projects, always use a **root base + per-app extension** hierarchy. Never duplicate compiler options across apps.
 
 ```
 project-root/
-├── tsconfig.base.json        ← shared, strictest options — no include/exclude
-├── tsconfig.json             ← optional: root editor experience (extends base)
+├── tsconfig.base.json        ← shared strictest options — no include/exclude
+├── tsconfig.json             ← optional root editor experience (extends base)
 ├── apps/
 │   ├── frontend/
-│   │   ├── tsconfig.json     ← extends base, adds jsx / lib / paths
-│   │   └── tsconfig.test.json← extends apps/frontend/tsconfig.json
+│   │   ├── tsconfig.json     ← extends base, adds jsx/lib/paths
+│   │   └── tsconfig.test.json
 │   └── backend/
-│       ├── tsconfig.json     ← extends base, adds lib / paths
-│       └── tsconfig.test.json← extends apps/backend/tsconfig.json
+│       ├── tsconfig.json
+│       └── tsconfig.test.json
 └── packages/
-    └── shared/
-        └── tsconfig.json     ← extends base, adds paths
+    └── shared/tsconfig.json
 ```
 
-Rules:
-
 - `tsconfig.base.json` — compiler options only, no `include`/`exclude`/`files`. It is a template, not a build target.
-- App-level `tsconfig.json` — extends base, adds only what is app-specific (`outDir`, `rootDir`, `lib`, `jsx`, `paths`). Keep additions minimal.
-- `tsconfig.test.json` — extends the app tsconfig, overrides only what tests need (typically: include test files, relax `noUnusedParameters` if test fixtures trigger it). This is the "mostly clean" starting point — add test-specific options only when you have a concrete reason.
+- App `tsconfig.json` — extends base, adds only what is app-specific (`outDir`, `rootDir`, `lib`, `jsx`, `paths`).
+- `tsconfig.test.json` — extends the app config; override only what tests need.
 
 ---
 
 ## Base Config — Strictest Compiler Options
 
-Place `tsconfig.base.json` at the project root. These are the non-negotiable options for all apps in the project.
+`tsconfig.base.json` at the project root. Non-negotiable for all apps.
 
 ```json
 {
   "compilerOptions": {
-    // --- strictness core ---
-    "strict": true, // enables the strict family (see Gotchas)
-    "noUncheckedIndexedAccess": true, // arr[i] returns T | undefined — prevents silent undefined reads
-    "exactOptionalPropertyTypes": true, // { x?: string } ≠ { x?: string | undefined }
-    "noImplicitOverride": true, // must use `override` keyword in subclasses
-    "noPropertyAccessFromIndexSignature": true, // dict.key must use dict['key']
+    // strictness
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
 
-    // --- unused code & reachability ---
+    // unused & reachability
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -61,116 +58,82 @@ Place `tsconfig.base.json` at the project root. These are the non-negotiable opt
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
 
-    // --- module / resolution ---
+    // module / resolution
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "isolatedModules": true, // safe for esbuild/swc/vite — catches module-level side effects
+    "isolatedModules": true,
 
-    // --- output quality ---
+    // output
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true // skip .d.ts checking for 3rd-party libs; focus on your own code
+    "skipLibCheck": true
   }
 }
 ```
 
-**Preferred:**
-
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true
-  }
-}
-```
-
-**Avoid:**
-
-```json
-{
-  "compilerOptions": {
-    "strict": false,
-    "noImplicitAny": true
-  }
-}
-```
-
-Why: Enabling individual flags instead of `strict: true` is fragile — you miss new flags added to the strict family in future TypeScript versions. Always enable `strict`, then add _extra_ flags on top.
+**Avoid** enabling individual strict flags instead of `strict: true` — you miss new members of the strict family in future TypeScript versions. Always enable `strict`, then add extras on top.
 
 ---
 
-## App-Specific Configs — Minimal Extensions
+## App-Specific Configs
 
-Each app extends `tsconfig.base.json` and adds only what the app requires. Start with the minimum; add options only when you have a concrete reason.
+Each app extends `tsconfig.base.json` and adds only what it requires (`outDir`, `rootDir`, `lib`, `jsx`, `types`, `paths`). Start minimum; add only with a concrete reason.
 
-### Node.js / Backend
-
-See [shared/assets/tsconfig.node.json](../../shared/assets/tsconfig.node.json)
-
-### React / Vite Frontend
-
-See [shared/assets/tsconfig.react.json](../../shared/assets/tsconfig.react.json)
-
-### Angular Frontend
-
-See [shared/assets/tsconfig.angular.json](../../shared/assets/tsconfig.angular.json)
-
-### Firebase Functions
-
-See [shared/assets/tsconfig.firebase.json](../../shared/assets/tsconfig.firebase.json)
+| App                | Add to base                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| Node backend       | `"lib": ["ES2022"]`, `"types": ["node"]`, `"outDir": "./dist"`, `"rootDir": "./src"`             |
+| React + Vite       | `"lib": ["ES2022", "DOM", "DOM.Iterable"]`, `"jsx": "react-jsx"`, `"types": ["vite/client"]`     |
+| Angular            | `"lib": ["ES2022", "DOM"]`, `"experimentalDecorators": true`, `"useDefineForClassFields": false` |
+| Firebase Functions | `"lib": ["ES2022"]`, `"types": ["node"]`, `"outDir": "lib"`, `"module": "CommonJS"`              |
 
 ---
 
-## Test Config — Clean Slate, Extend As Needed
+## Test Config
 
-`tsconfig.test.json` extends the app config. Start with the minimum — only include test files and exclude the build output. Add test-specific overrides only when you have a concrete reason (e.g., a testing framework requires it).
+`tsconfig.test.json` extends the app config. Start minimum — include test files, exclude build output. Add overrides only with a concrete reason.
 
-See [shared/assets/tsconfig.test.json](../../shared/assets/tsconfig.test.json)
+Common additions when justified:
 
-Common additions when you have a reason:
+- `"noUnusedParameters": false` — test fixtures and callback stubs trigger this without benefit
+- `"types": ["jest"]` or `"types": ["vitest/globals"]` — global `describe`/`it`/`expect`
+- `"module": "CommonJS"` — Jest + Node without ESM transform
 
-- `"noUnusedParameters": false` — if test fixtures or callback stubs regularly trigger this without benefit
-- `"types": ["jest"]` / `"types": ["vitest/globals"]` — to pick up global `describe`/`it`/`expect`
-- `"module": "CommonJS"` — only for Jest + Node.js without ESM transform
-
-**Do not** relax `strictNullChecks`, `noImplicitAny`, or `exactOptionalPropertyTypes` in the test config — tests must type-check with the same rigor as production code.
+**Do not** relax `strictNullChecks`, `noImplicitAny`, or `exactOptionalPropertyTypes` — tests must type-check with the same rigor as production.
 
 ---
 
 ## Path Aliases
 
-Use path aliases to avoid deep relative imports and to make refactoring folder structure less painful.
+Use path aliases to avoid deep relative imports and ease folder refactoring.
 
 ### Rules
 
-- **Only add an alias if the folder already exists in the project.** An alias for `@services` when there is no `src/services/` directory creates confusion.
-- When you create a new folder under `src/`, add its alias to the app's `tsconfig.json` at the same time.
+- **Only add an alias if the folder exists.** `@services` with no `src/services/` directory creates confusion.
+- When creating a new folder under `src/`, add its alias to the app's `tsconfig.json` at the same time.
 - Mirror every `paths` entry in `vite.config.ts` / `webpack.config.js` / `jest.config.ts` — bundlers do not read tsconfig paths automatically.
-- Use `@/` as the catch-all root alias pointing to `src/`. Add named aliases on top of it for the most-accessed folders.
+- Use `@/` as the catch-all root alias pointing to `src/`. Add named aliases on top for hot folders.
 
-### Standard Alias Set
+### Standard alias set
 
-Add only the aliases for folders that exist in your project:
+Add only the aliases for folders that exist:
 
-| Alias           | Resolves to        | Add when…                              |
-| --------------- | ------------------ | -------------------------------------- |
-| `@/*`           | `src/*`            | always (root alias, covers everything) |
-| `@components/*` | `src/components/*` | project has a `src/components/` folder |
-| `@models/*`     | `src/models/*`     | project has a `src/models/` folder     |
-| `@services/*`   | `src/services/*`   | project has a `src/services/` folder   |
-| `@utils/*`      | `src/utils/*`      | project has a `src/utils/` folder      |
-| `@hooks/*`      | `src/hooks/*`      | project has a `src/hooks/` folder      |
-| `@store/*`      | `src/store/*`      | project has a `src/store/` folder      |
-| `@shared/*`     | `src/shared/*`     | project has a `src/shared/` folder     |
-| `@lib/*`        | `src/lib/*`        | project has a `src/lib/` folder        |
-| `@types/*`      | `src/types/*`      | project has a `src/types/` folder      |
-| `@config/*`     | `src/config/*`     | project has a `src/config/` folder     |
+| Alias           | Resolves to        |
+| --------------- | ------------------ |
+| `@/*`           | `src/*` (always)   |
+| `@components/*` | `src/components/*` |
+| `@models/*`     | `src/models/*`     |
+| `@services/*`   | `src/services/*`   |
+| `@utilities/*`  | `src/utilities/*`  |
+| `@hooks/*`      | `src/hooks/*`      |
+| `@store/*`      | `src/store/*`      |
+| `@shared/*`     | `src/shared/*`     |
+| `@lib/*`        | `src/lib/*`        |
+| `@types/*`      | `src/types/*`      |
+| `@config/*`     | `src/config/*`     |
 
 **Preferred:**
 
@@ -179,29 +142,14 @@ Add only the aliases for folders that exist in your project:
   "paths": {
     "@/*": ["./src/*"],
     "@components/*": ["./src/components/*"],
-    "@services/*": ["./src/services/*"],
-    "@utils/*": ["./src/utils/*"]
+    "@services/*": ["./src/services/*"]
   }
 }
 ```
 
-**Avoid:**
+**Avoid** declaring aliases for folders that do not exist yet — they mislead contributors and auto-import tooling.
 
-```json
-{
-  "paths": {
-    "@/*": ["./src/*"],
-    "@components/*": ["./src/components/*"],
-    "@services/*": ["./src/services/*"],
-    "@api/*": ["./src/api/*"],
-    "@repositories/*": ["./src/repositories/*"]
-  }
-}
-```
-
-Why: The second example declares aliases for `@api` and `@repositories` that may not exist yet. Unused aliases mislead contributors and auto-import tooling.
-
-### Bundler Mirror (Vite example)
+### Bundler mirror (Vite)
 
 ```typescript
 // vite.config.ts
@@ -213,7 +161,6 @@ export default {
       "@": path.resolve(__dirname, "./src"),
       "@components": path.resolve(__dirname, "./src/components"),
       "@services": path.resolve(__dirname, "./src/services"),
-      "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
 };
@@ -223,16 +170,10 @@ export default {
 
 ## Gotchas
 
-- **`strict: true` does not enable `noUncheckedIndexedAccess` or `exactOptionalPropertyTypes`** — these must be added explicitly. They are intentionally excluded from the strict family because they require the most code changes.
-
-- **`exactOptionalPropertyTypes` breaks common patterns** where code assigns `undefined` to clean an optional property: `obj.x = undefined`. With this flag, you must `delete obj.x` or type the property as `x?: string | undefined` explicitly. It catches real bugs — but plan for a migration pass when enabling it on an existing codebase.
-
-- **`isolatedModules` is required for Vite / esbuild / swc** — these tools transpile files individually without type context. With `isolatedModules: true`, TypeScript warns you when you write code that is unsafe in that model (e.g., re-exporting a type without the `type` keyword).
-
-- **tsconfig `paths` are not picked up by the bundler** — TypeScript uses them for type resolution only. You must duplicate them in `vite.config.ts`, `webpack.config.js`, `jest.config.ts` (with `moduleNameMapper`), etc. Forgetting this causes type-check to pass but runtime/test to fail.
-
-- **`noUnusedParameters` in tests** — test stubs and callback fixtures often have unused parameters by design (e.g., `(req, _res, next) => ...`). Either prefix intentionally unused parameters with `_` or relax this flag in `tsconfig.test.json` only.
-
-- **`moduleResolution: "bundler"` is only valid with TypeScript 5.0+** and is the correct setting for Vite/webpack projects. For Node.js without a bundler use `"node16"` or `"nodenext"` to enforce proper ESM import paths. Avoid the legacy `"node"` resolution mode for new projects.
-
-- **Do not put `outDir` in `tsconfig.base.json`** — it causes relative-path resolution issues when extended. Keep `outDir` and `rootDir` in each app-specific config.
+- **`strict: true` does not enable `noUncheckedIndexedAccess` or `exactOptionalPropertyTypes`** — they require explicit opt-in because they force the most code changes.
+- **`exactOptionalPropertyTypes` breaks `obj.x = undefined`** — use `delete obj.x` or type as `x?: string | undefined`. Plan a migration pass before enabling on legacy code.
+- **`isolatedModules` is required for Vite/esbuild/swc** — they transpile files individually. The flag warns when re-exporting a type without `type` keyword and similar single-file-unsafe patterns.
+- **tsconfig `paths` are not picked up by bundlers** — duplicate them in `vite.config.ts`, `webpack.config.js`, `jest.config.ts` (`moduleNameMapper`). Skipping this makes type-check pass but runtime/test fail.
+- **`noUnusedParameters` in tests** — prefix intentionally unused params with `_` (e.g. `(req, _res, next)`), or relax the flag only in `tsconfig.test.json`.
+- **`moduleResolution: "bundler"`** requires TypeScript 5.0+ and is correct for Vite/webpack. For Node without a bundler use `"node16"` or `"nodenext"`. Avoid the legacy `"node"` mode.
+- **Do not put `outDir` in `tsconfig.base.json`** — relative paths resolve from the extending file, causing surprises. Keep `outDir`/`rootDir` per app.

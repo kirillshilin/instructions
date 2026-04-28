@@ -39,70 +39,30 @@ These rules are non-negotiable — they define what a "good task" looks like in 
 
 ## Task File Format
 
-Each task is a separate Markdown file: `docs/tasks/{slug}.task.md`
+Each task is a separate Markdown file: `docs/tasks/{slug}.task.md` Before writing task files, read this reference first:
 
-```markdown
----
-id: T-001
-storyId: S-001
-type: feature
-layer: fullstack
-effort: M
-status: 🔴
-dependencies: []
----
-
-# {Task title}
-
-> {One-sentence summary of what this task delivers and why it matters.}
-
-## What to Do
-
-- {Concrete implementation step 1}
-- {Concrete implementation step 2}
-- {Concrete implementation step 3}
-
-## Acceptance Criteria
-
-- [ ] {Observable, testable criterion 1}
-- [ ] {Observable, testable criterion 2}
-- [ ] {Observable, testable criterion 3}
-
-## PR Template
-
-**Title**: `{type}({scope}): {short description}`
-
-**Description**:
-> {2-3 sentence PR description explaining the change, why it's needed, and what it enables.}
->
-> Story: S-001 — {story title}
-> Task: T-001
-
-## Notes
-
-- {Technical consideration, gotcha, or dependency detail — optional}
-```
+- `references/task.md`
 
 ### Metadata Fields
 
-| Field          | Required | Values                                              | Description                                                        |
-| -------------- | -------- | --------------------------------------------------- | ------------------------------------------------------------------ |
-| `id`           | Yes      | T-001, T-002...                                     | Global sequential ID across all stories                            |
-| `storyId`      | Yes      | S-001                                               | Parent story reference from story-decomposition                    |
-| `type`         | Yes      | `feature` / `refactor` / `chore` / `fix`            | PR change type — one type per task, never mixed                    |
-| `layer`        | Yes      | `backend` / `frontend` / `fullstack`                | Which part of the stack this task touches                          |
-| `effort`       | Yes      | `S` / `M` / `L`                                     | T-shirt size: S ≈ hours, M ≈ a day, L ≈ 2-3 days                  |
-| `status`       | Yes      | 🔴 / 🟡 / 🟢                                        | Not started / In progress / Done                                   |
-| `dependencies` | Yes      | `[T-001]` or `[]`                                   | Task IDs that must be completed first. Empty array = no blockers   |
+| Field          | Required | Values                                   | Description                                                      |
+| -------------- | -------- | ---------------------------------------- | ---------------------------------------------------------------- |
+| `id`           | Yes      | T-001, T-002...                          | Global sequential ID across all stories                          |
+| `storyId`      | Yes      | S-001                                    | Parent story reference from story-decomposition                  |
+| `type`         | Yes      | `feature` / `refactor` / `chore` / `fix` | PR change type — one type per task, never mixed                  |
+| `layer`        | Yes      | `backend` / `frontend` / `fullstack`     | Which part of the stack this task touches                        |
+| `effort`       | Yes      | `S` / `M` / `L`                          | T-shirt size: S ≈ hours, M ≈ a day, L ≈ 2-3 days                 |
+| `status`       | Yes      | 🔴 / 🟡 / 🟢                             | Not started / In progress / Done                                 |
+| `dependencies` | Yes      | `[T-001]` or `[]`                        | Task IDs that must be completed first. Empty array = no blockers |
 
 ### Type Definitions
 
-| Type       | When to use                                                                     | Examples                                                     |
-| ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| `feature`  | Adds user-facing value or a new capability                                      | New API endpoint, UI component, business logic               |
+| Type       | When to use                                                                     | Examples                                                      |
+| ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `feature`  | Adds user-facing value or a new capability                                      | New API endpoint, UI component, business logic                |
 | `refactor` | Restructures existing code to prepare for or improve a feature. No new behavior | Extract interface, rename module, reorganize folder structure |
-| `chore`    | Infrastructure, config, CI/CD, dependency updates. No behavior change           | Add DB migration, configure linter, update package versions  |
-| `fix`      | Corrects a defect discovered during breakdown or implementation                 | Fix broken validation, correct data mapping                  |
+| `chore`    | Infrastructure, config, CI/CD, dependency updates. No behavior change           | Add DB migration, configure linter, update package versions   |
+| `fix`      | Corrects a defect discovered during breakdown or implementation                 | Fix broken validation, correct data mapping                   |
 
 ### Naming Convention
 
@@ -173,8 +133,7 @@ For each story, ask:
 2. **Build** — What's the core logic / UI / endpoint that delivers the story's value? → `feature` task(s)
 3. **Wire** — Does anything need to be connected, integrated, or cleaned up? → Usually part of the feature task, but sometimes a separate `chore`
 
-**Vertical breakdown (monorepo):**
-Slice thin. Each task delivers a narrow but full-stack slice:
+**Vertical breakdown (monorepo):** Slice thin. Each task delivers a narrow but full-stack slice:
 
 ```
 Story: "As a user, I want to filter products by category"
@@ -184,14 +143,14 @@ T-002 feature: Filter products by category (API endpoint + UI filter dropdown + 
 ```
 
 Not:
+
 ```
 T-001: Build backend filter endpoint
 T-002: Build frontend filter UI
 T-003: Connect frontend to backend
 ```
 
-**Horizontal breakdown (separate repos):**
-Scope to a single repo. Tasks are self-contained within their layer:
+**Horizontal breakdown (separate repos):** Scope to a single repo. Tasks are self-contained within their layer:
 
 ```
 Story: "As a user, I want to filter products by category"
@@ -234,6 +193,7 @@ Be specific enough that a developer (or AI agent) can start working without re-r
 - What to test and how
 
 Avoid vague instructions:
+
 - ✅ "Add `category_id` foreign key to `products` table with a migration. Index the column."
 - ❌ "Update the database schema."
 
@@ -247,6 +207,7 @@ Map the story's BDD scenarios to task-level criteria. The story says WHAT the us
 **Writing PR templates:**
 
 Use conventional commit format for the PR title:
+
 - `feat(products): add category filter endpoint`
 - `refactor(auth): extract token validation into middleware`
 - `chore(db): add products.category_id migration`
@@ -263,15 +224,13 @@ After writing all task files, create or update `docs/tasks/tasks.md` — a refer
 
 Index of all development tasks.
 
-| ID    | Task          | Type    | Layer     | Effort | Story   | Story ID | Status | Dependencies | File                                   |
-| ----- | ------------- | ------- | --------- | ------ | ------- | -------- | ------ | ------------ | -------------------------------------- |
-| T-001 | {Task title}  | chore   | backend   | S      | {title} | S-001    | 🔴     | —            | [{slug}.task.md]({slug}.task.md)       |
-| T-002 | {Task title}  | feature | fullstack | M      | {title} | S-001    | 🔴     | T-001        | [{slug}.task.md]({slug}.task.md)       |
-| ...   |               |         |           |        |         |          |        |              |                                        |
+| ID    | Task         | Type    | Layer     | Effort | Story   | Story ID | Status | Dependencies | File                             |
+| ----- | ------------ | ------- | --------- | ------ | ------- | -------- | ------ | ------------ | -------------------------------- |
+| T-001 | {Task title} | chore   | backend   | S      | {title} | S-001    | 🔴     | —            | [{slug}.task.md]({slug}.task.md) |
+| T-002 | {Task title} | feature | fullstack | M      | {title} | S-001    | 🔴     | T-001        | [{slug}.task.md]({slug}.task.md) |
+| ...   |              |         |           |        |         |          |        |              |                                  |
 
-**Total tasks**: {N} ({feature count} feature, {refactor count} refactor, {chore count} chore, {fix count} fix)
-**Stories covered**: {N}
-**Breakdown strategy**: {Vertical / Horizontal}
+**Total tasks**: {N} ({feature count} feature, {refactor count} refactor, {chore count} chore, {fix count} fix) **Stories covered**: {N} **Breakdown strategy**: {Vertical / Horizontal}
 ```
 
 If `tasks.md` already exists, append new rows to the existing table — don't overwrite previous entries.

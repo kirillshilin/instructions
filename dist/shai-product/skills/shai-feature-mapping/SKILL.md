@@ -28,15 +28,7 @@ The goal is to turn vague capabilities into features that are concrete enough to
 
 ## Workflow
 
-### Progress Reporting (mandatory)
-
-At the start of each workflow step, output a progress indicator in bold blue:
-
-**🔹 Step M/N — {Step title}**
-
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
-
+<!-- missing: ../../../shared/\_progress.partial.md -->
 
 ### Step 1: Ingest the Input
 
@@ -70,11 +62,8 @@ This is a full conversation round to validate the input and surface features the
 
 **Capability validation:**
 
-| #   | Question                                                                                                                              |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | "Looking at these capabilities, which ones feel most core to the product's identity? If you had to ship only 3, which would they be?" |
-| 2   | "Are there any capabilities here that feel like they belong in a v2 or v3, not the first version?"                                    |
-| 3   | "Which capability scares you the most technically? Which feels trivially easy?"                                                       |
+| #   | Question |
+| --- | -------- |
 
 **Domain discovery:**
 
@@ -116,28 +105,15 @@ Group all validated capabilities into domain areas. A domain is a cohesive area 
 
 **Guidelines for domain boundaries:**
 
-- Each domain should own 3-8 features (fewer = merge with another, more = split)
 - Domains should be recognizable to a non-technical stakeholder
 - Cross-cutting concerns (auth, notifications, search) get their own domain
 - Use names that describe what the domain does, not how it's built
   - ✅ "Collaboration", "Content Management", "Analytics"
-  - ❌ "WebSocket Module", "Database Layer", "API Gateway"
+  - ❌ "WebSocket Module", "Database Layer", "API Gateway" Present the domain map to the user for feedback before proceeding:
 
-Present the domain map to the user for feedback before proceeding:
-
-```
+````
 ## Domain Map
 
-| Domain     | Features | Description                             |
-| ---------- | -------- | --------------------------------------- |
-| {Domain 1} | {N}      | {What this area of the product handles} |
-| {Domain 2} | {N}      | {What this area of the product handles} |
-| ...        | ...      | ...                                     |
-```
-
-### Step 4: Web Research per Domain
-
-For each domain, search the web to validate features against industry best practices and competitor patterns. This grounds the feature map in reality.
 
 **What to look for per domain:**
 
@@ -156,36 +132,17 @@ The filename combines the lowercase ID and a hyphenated slug (2-5 words). Exampl
 
 **Feature file format:**
 
-```markdown
----
-name: "{Feature Name}"
-priority: Must
-status: 🔴
----
+Before writing feature files, read this reference first:
 
-# F-001: {Feature Name}
-
-**Domain**: {Domain name} · **RICE Score**: 12.0 (R:8 × I:3 × C:1.0 / E:2)
-
-{2-3 sentence description of what this feature does and why it matters.}
-
-## Acceptance Signals
-
-- {Observable behavior 1 — how you know this feature works}
-- {Observable behavior 2}
-- {Observable behavior 3}
-
-**Depends on**: F-002, F-005 or "None"
-**Enables**: F-003, F-007 or "—"
-```
+- `references/feature.template.md`
 
 ### Feature file metadata fields
 
-| Field      | Required | Description                                                  |
-| ---------- | -------- | ------------------------------------------------------------ |
-| `name`     | Yes      | Human-readable feature name                                  |
-| `priority` | Yes      | MoSCoW priority: Must / Should / Could / Won't               |
-| `status`   | Yes      | 🔴 Not started · 🔵 In progress · 🟢 Done                     |
+| Field      | Required | Description                                    |
+| ---------- | -------- | ---------------------------------------------- |
+| `name`     | Yes      | Human-readable feature name                    |
+| `priority` | Yes      | MoSCoW priority: Must / Should / Could / Won't |
+| `status`   | Yes      | 🔴 Not started · 🔵 In progress · 🟢 Done      |
 
 **RICE scoring guide:**
 
@@ -212,7 +169,7 @@ graph TD
     F-001 --> F-005[Collaboration]
     F-002[Content Editor] --> F-006[Sharing]
     F-003 --> F-005
-```
+````
 
 **Rules for dependencies:**
 
@@ -258,111 +215,15 @@ Present the full output to the user and ask:
 
 ### Individual feature file: `docs/features/f-001-{feature-name}.feature.md`
 
-```markdown
----
-name: "{Feature Name}"
-priority: Must
-status: 🔴
----
+To write the individual feature file or create `docs/features/f-001-{feature-name}.feature.md`, use this template:
 
-# F-001: {Feature Name}
-
-**Domain**: Collaboration · **RICE Score**: 12.0 (R:8 × I:3 × C:1.0 / E:2)
-
-{2-3 sentence description of what this feature does and why it matters.}
-
-## Acceptance Signals
-
-- {Observable behavior 1}
-- {Observable behavior 2}
-- {Observable behavior 3}
-
-**Depends on**: None
-**Enables**: F-002, F-005
-```
+- [references/feature.template.md](references/feature.template.md)
 
 ### Feature map index: `docs/features/{name}.features.md`
 
-```markdown
-# {Idea Name} — Feature Map
+Before writing the feature map index, read this reference first:
 
-> {One-liner: what features this product needs and how they're organized.}
-
-## Feature Reference
-
-| ID    | Feature                                            | Domain   | MoSCoW | RICE    | Depends On | Status |
-| ----- | -------------------------------------------------- | -------- | ------ | ------- | ---------- | ------ |
-| F-001 | [{name}](f-001-{slug}.feature.md)                  | {domain} | Must   | {score} | —          | 🔴     |
-| F-002 | [{name}](f-002-{slug}.feature.md)                  | {domain} | Must   | {score} | F-001      | 🔴     |
-| F-003 | [{name}](f-003-{slug}.feature.md)                  | {domain} | Should | {score} | F-001      | 🔴     |
-| ...   |                                                    |          |        |         |            |        |
-
-**Total features**: {N} ({Must count} Must, {Should count} Should, {Could count} Could, {Won't count} Won't)
-
-## Domain: {Domain Name}
-
-> {1-2 sentence domain description. What area of the product this covers and why it exists as a distinct domain.}
-
-**Industry context**: {Brief web-research insight — what leading products do in this domain, or common patterns to be aware of.}
-
-**Features:**
-- [{F-001: Feature Name}](f-001-{slug}.feature.md)
-- [{F-002: Feature Name}](f-002-{slug}.feature.md)
-
-## Domain: {Domain Name 2}
-
-...
-
-_(Repeat for all domains.)_
-
-## Dependency Graph
-
-{Mermaid diagram showing feature dependencies.}
-
-**Enabler features** (many others depend on these — build first):
-
-- F-001: {name} — depended on by {N} features
-- F-00N: {name} — depended on by {N} features
-
-**Blocked features** (waiting on dependencies):
-
-- F-00N: {name} — blocked by {list}
-
-## Implementation Roadmap
-
-Suggested build order based on dependency chains and RICE scores.
-
-### Phase 1: Foundation (Must-have enablers)
-
-| Order | ID    | Feature | RICE    | Rationale              |
-| ----- | ----- | ------- | ------- | ---------------------- |
-| 1     | F-001 | {name}  | {score} | {Why build this first} |
-| 2     | F-00N | {name}  | {score} | {Why}                  |
-
-### Phase 2: Core Experience (Must-haves)
-
-| Order | ID  | Feature | RICE | Rationale |
-| ----- | --- | ------- | ---- | --------- |
-| ...   |     |         |      |           |
-
-### Phase 3: Differentiation (Should-haves with high RICE)
-
-| Order | ID  | Feature | RICE | Rationale |
-| ----- | --- | ------- | ---- | --------- |
-| ...   |     |         |      |           |
-
-### Phase 4: Polish (Could-haves)
-
-| Order | ID  | Feature | RICE | Rationale |
-| ----- | --- | ------- | ---- | --------- |
-| ...   |     |         |      |           |
-
-## Next Steps
-
-This feature map is ready for **`/story-decomposition`** — pass it as input to break features into user stories.
-
-For architecture decisions on technically complex features, consult **`@shai-architect`** (C-A01).
-```
+- `references/index.md`
 
 **Output location:** `docs/features/` — one `{name}.features.md` index + one `{id}-{feature-name}.feature.md` per feature
 
