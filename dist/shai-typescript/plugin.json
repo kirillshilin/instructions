@@ -15,7 +15,8 @@
   "instructions": [
     "instructions/shai-tsconfig.instructions.md",
     "instructions/shai-typescript-testing.instructions.md",
-    "instructions/shai-typescript.instructions.md"
+    "instructions/shai-typescript.instructions.md",
+    "instructions/shai-zod-schema.instructions.md"
   ],
   "skills": [
     "skills/shai-scaffold-ts-workspace",

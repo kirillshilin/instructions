@@ -27,15 +27,7 @@ See also: [typescript-testing instruction](../../instructions/typescript-testing
 
 ## Workflow
 
-### Progress Reporting (mandatory)
-
-At the start of each workflow step, output a progress indicator in bold blue:
-
-**🔹 Step M/N — {Step title}**
-
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
-
+<!-- missing: ../../../shared/\_progress.partial.md -->
 
 ### Step 1: Analyze the Source Code
 
@@ -48,19 +40,9 @@ Before writing any tests, read the source file to identify:
 
 Produce a brief test plan:
 
-```
-## Test Plan for {FileName}
+Before producing the test plan, read this reference first:
 
-### Exported: {ClassName}
-- methodA(params): {what it does} → {N test cases}
-- methodB(params): {what it does} → {N test cases}
-
-### Exported: {functionName}
-- {what it does} → {N test cases}
-
-### Dependencies to mock:
-- {ServiceName} — used by {methods}
-```
+- `references/test-plan.md`
 
 ### Step 2: Create the Test File
 

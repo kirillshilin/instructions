@@ -17,12 +17,11 @@ Write **intentionally simple** code. Every abstraction must solve a real, named 
 
 ## Rules
 
-## Naming Conventions
+### Naming Conventions
 
-Consistent, concise naming reduces cognitive load and makes code searchable.
-The goal: **shortest meaningful name that avoids ambiguity.**
+Use the shortest meaningful name that stays unambiguous.
 
-### Universal Principles
+#### Universal Principles
 
 - **Short names** — use the shortest name that is still unambiguous in context.
   One word is ideal. Two or three words only when a single word would be unclear.
@@ -30,9 +29,8 @@ The goal: **shortest meaningful name that avoids ambiguity.**
   searchability and force readers to decode context.
 - **Allowed abbreviations** — commonly understood terms that are clearer short:
   `id`, `db`, `url`, `api`, `config`, `env`, `auth`, `args`, `params`, `docs`.
-- **Reflect the data type** — a variable name should hint at what it stores.
-  `UserInfo` as a variable name is redundant — name it `user`. `OrderResponse`
-  → `order`. The variable name is the concept; the type carries the shape.
+- **Reflect the value** — name the concept, not the type. Use `user`, not
+  `UserInfo`. Use `order`, not `OrderResponse`.
 - **Plural for collections** — use plural nouns for arrays, lists, and sets
   instead of suffixes like `List` or `Array`.
 - **Private fields** — prefix with underscore: `_name`, `_count`. Not `#private`
@@ -55,15 +53,14 @@ Why: `userList` adds noise — the plural `users` already signals a collection.
 `orderResp` abbreviates without benefit. `errArr` is cryptic.
 
 
-## Member Ordering
+### Member Ordering
 
-Consistent ordering makes classes scannable — public API at the top, internals
-at the bottom.
+Keep the public API at the top and internals at the bottom.
 
-### Ordering
+#### Ordering
 
-Public members first, private members last. Within each visibility level, group
-by kind: fields → constructors → methods.
+Put public members first and private members last. Within each visibility
+level, group by kind: fields → constructors → methods.
 
 ```
 1. Public static fields / constants
@@ -75,15 +72,14 @@ by kind: fields → constructors → methods.
 7. Private methods
 ```
 
-Why: readers care about the public API first. Private implementation details are
-relevant only when digging deeper. Top-to-bottom matches how consumers discover
-a class.
+Why: readers look for the public API first. Private details matter later.
 
-### One Item Per File
+#### One Item Per File
 
 One class, interface, or component per file — a strong convention in .NET.
 
-**TypeScript exception:** private helper models used only by the main export may co-locate. Extract when the helper grows or is referenced elsewhere.
+**TypeScript exception:** private helper models used only by the main export may
+co-locate. Extract them when they grow or are reused.
 
 **Preferred:**
 
@@ -103,10 +99,10 @@ Models.cs               → contains User, Order, Product, Address
 helpers.ts              → contains 12 unrelated utility functions
 ```
 Why: multi-item files become dumping grounds. Single-item files are easier to
-find, rename, move, and review in diffs.
+find and review.
 
 
-## Early Returns
+### Early Returns
 
 Prefer early returns and guard clauses to reduce nesting — validate preconditions
 at the top, then proceed with the main logic unindented.
@@ -123,7 +119,7 @@ function process(input: string | null): Result {
 ```
 
 
-## No Inline Parameters
+### No Inline Parameters
 
 Extract method arguments into named variables before calling the method. The
 call site should read like a sentence — `service.Process(command)`, not
@@ -152,7 +148,7 @@ const result = await fetchData(url, { retries: 3, timeout: 5000 });
 - Fluent builder chains: `new UserBuilder().WithName("Alice").Build()`
 
 
-## Comments
+### Comments
 
 - **No comments during scaffolding** — freshly generated code speaks for itself.
 - **Class summary** — add a brief summary comment on classes unless asked not to.
@@ -164,16 +160,19 @@ const result = await fetchData(url, { retries: 3, timeout: 5000 });
   explicitly requested, or by the documentation agent.
 
 
-## Error Handling
+### Error Handling
 
-Prefer **fail fast** — let unexpected errors propagate. Rely on a global/top-level error handler (e.g. middleware, `process.on('uncaughtException')`, ASP.NET exception filter) to catch, log, and respond to unhandled exceptions consistently.
+Let unexpected errors propagate.
 
-Use `try/catch` **only** when you have a specific reason to act on the error locally:
+Use a global or top-level error handler to catch, log, and respond
+consistently.
 
-- You need to **translate** the error into a domain-specific type or message.
-- You are handling a **known, expected failure** (e.g. file not found, external API timeout) and can recover or provide a meaningful fallback.
-- You need to **clean up resources** (prefer `finally` or language constructs like `using`/`defer` for this).
+Use `try/catch` only when you must act on the error locally:
 
-**Do not** wrap code in `try/catch` just to silence or re-throw the same error — it adds noise without value.
+- Translate the error into a domain-specific type or message.
+- Handle a known failure and recover or return a meaningful fallback.
+- Clean up resources. Prefer `finally`, `using`, or `defer`.
+
+Do not wrap code in `try/catch` just to silence or re-throw the same error.
 
 

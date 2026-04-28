@@ -21,15 +21,7 @@ Ideas mostly focus on building software applications. The output should feel exc
 
 ## Workflow
 
-### Progress Reporting (mandatory)
-
-At the start of each workflow step, output a progress indicator in bold blue:
-
-**🔹 Step M/N — {Step title}**
-
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
-
+<!-- missing: ../../../shared/\_progress.partial.md -->
 
 ### Step 1: Capture the Idea
 
@@ -98,24 +90,9 @@ Compile everything into a structured Markdown file saved as `docs/product/{name}
 
 **Update the personas file:** After writing the `.idea.md` file, update (or create) `docs/product/personas.md` — a shared persona reference that downstream skills (`feature-mapping`, `story-decomposition`) read directly. If `personas.md` already exists, append new personas from this evaluation — don't overwrite personas from previous evaluations. Use this format:
 
-```markdown
-# Personas
+Before updating `personas.md`, read this reference first:
 
-Shared persona reference for the product discovery pipeline.  
-Source: idea evaluations in `docs/product/`.
-
-## {Persona Name}
-
-- **Source idea**: [{idea name}]({name}.idea.md)
-- **Role**: {Job title / life role}
-- **Pain Points**: {3 specific frustrations}
-- **Primary Goal**: {What success looks like for them}
-- **Context**: {Typical day, environment, constraints}
-
-## {Persona Name 2}
-
-...
-```
+- `references/personas.md`
 
 Each persona entry should match the persona sections in the `.idea.md` report but in a flattened, referenceable format. The `Source idea` field links back to the originating evaluation so downstream skills know where the persona came from.
 
@@ -126,25 +103,18 @@ Each persona entry should match the persona sections in the `.idea.md` report bu
 
 Index of all product idea evaluations.
 
-| Idea | File | Date | Delight Score | Status |
-| ---- | ---- | ---- | ------------- | ------ |
-| {Idea Name} | [{name}.idea.md]({name}.idea.md) | {YYYY-MM-DD} | {score}/10 | Evaluated |
+| Idea        | File                             | Date         | Delight Score | Status    |
+| ----------- | -------------------------------- | ------------ | ------------- | --------- |
+| {Idea Name} | [{name}.idea.md]({name}.idea.md) | {YYYY-MM-DD} | {score}/10    | Evaluated |
 ```
 
 Append a new row for each evaluation. If `ideas.md` already exists, add the row to the existing table — don't overwrite previous entries.
 
 ## Report Template
 
-Use this structure for the output file. Every section is mandatory.
+Before writing the report template, read this reference first:
 
-```markdown
-# {Idea Name} — Idea Evaluation
-
-> {One-liner pitch: what it is, who it's for, why it matters.}
-
-## Core Concept
-
-**Problem**: {What pain point does this solve?} **Solution**: {How does the product solve it — in 2-3 sentences?} **Why Now**: {What makes this idea timely — tech shift, behavior change, market gap?} **Core Concept in One Line**: {The elevator pitch.}
+- `references/report.md`
 
 ## Target Audience
 
@@ -257,7 +227,6 @@ Brief evaluations from three lenses:
 This report is ready for **`/feature-mapping`** — pass it as input to map these capabilities into a structured feature set.
 
 For technical architecture decisions, consult **`@shai-architect`** (C-A01).
-```
 
 **Output location:** `docs/product/{name}.idea.md`
 

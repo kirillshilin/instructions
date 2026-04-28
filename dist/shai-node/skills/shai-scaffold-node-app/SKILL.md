@@ -32,22 +32,11 @@ Scaffold a production-ready Node.js project using TypeScript in ESM mode. The sk
 
 ## Workflow
 
-### Progress Reporting (mandatory)
-
-At the start of each workflow step, output a progress indicator in bold blue:
-
-**🔹 Step M/N — {Step title}**
-
-where M is the current step number and N is the total number of steps in the
-workflow. This is mandatory for every step — never skip it.
-
+<!-- missing: ../../../shared/\_progress.partial.md -->
 
 ### Assets
 
-### Copy Asset Files
-
-This skill's `assets/` folder contains template files that must be copied into the project root when scaffolding from scratch. Copy every file from `assets/` to the new project directory, preserving relative paths.
-
+<!-- missing: ../../../shared/\_assets.partial.md -->
 
 ### Step 1: Gather Requirements
 
@@ -120,25 +109,7 @@ Create `tsconfig.json` with strict ESM settings — contents: [shared/assets/tsc
 
 ### Step 4: Set Up ESLint + Prettier
 
-The project already includes ESLint. Add Prettier integration:
-
-```bash
-npm install -D prettier eslint-config-prettier eslint-plugin-prettier
-```
-
-Add `prettierRecommended` to `eslint.config.js`:
-
-```js
-import prettierRecommended from "eslint-plugin-prettier/recommended";
-
-// Add to the extends array of the existing config:
-// extends: [...existingExtends, prettierRecommended]
-```
-
-The `.prettierrc` file is provided in the skill's `assets/` folder and will be
-copied to the project root automatically (All generated files MUST use LF (`\n`) line endings — never CRLF (`\r\n`). When Prettier is configured, set `"endOfLine": "lf"` in `.prettierrc`.
-).
-
+<!-- missing: ../../../shared/\_eslint-prettier.partial.md -->
 
 ### Step 5: Set Up Jest
 
