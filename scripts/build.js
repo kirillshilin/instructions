@@ -20,6 +20,25 @@ const ROOT = path.resolve(__dirname, "..");
 const SRC_DIR = path.join(ROOT, "src");
 const OUT_DIR = path.join(ROOT, "dist");
 const BUDGET_CONFIG_PATH = path.join(ROOT, "budget.yaml");
+const TOOL_TYPES = ["instructions", "skills", "agents", "hooks"];
+const TOOL_TYPE_CONFIG = {
+  instructions: {
+    dirName: "instructions",
+    include: (entry) => entry.isFile() && entry.name.endsWith(".instructions.md"),
+  },
+  skills: {
+    dirName: "skills",
+    include: (entry) => entry.isDirectory(),
+  },
+  agents: {
+    dirName: "agents",
+    include: (entry) => entry.isFile() && entry.name.endsWith(".agent.md"),
+  },
+  hooks: {
+    dirName: "hooks",
+    include: (entry) => entry.isFile() && entry.name.endsWith(".json"),
+  },
+};
 
 const PARTIAL_PATTERN = /\{([^}]+\.(rule|partial)\.md)\}/g;
 
@@ -31,6 +50,10 @@ function isPartialFile(filePath) {
 
 function isPartialDir(dirName) {
   return dirName === "rules";
+}
+
+function writeJsonFile(filePath, value) {
+  fs.writeFileSync(filePath, JSON.stringify(value, null, 2) + "\n", "utf-8");
 }
 
 /**
@@ -61,54 +84,93 @@ function resolvePartials(content, baseDir, seen) {
   });
 }
 
-/**
- * Scan a plugin source directory and collect its tools automatically.
- * Returns an object with `instructions`, `skills`, `hooks`, and `agents` arrays
- * containing plugin-relative paths (e.g. "skills/shai-code-review").
- */
 function collectPluginTools(pluginSrcDir) {
   const tools = {};
 
-  // instructions/ — collect *.instructions.md files
-  const instructionsDir = path.join(pluginSrcDir, "instructions");
-  if (fs.existsSync(instructionsDir)) {
-    const files = fs.readdirSync(instructionsDir).filter((f) => f.endsWith(".instructions.md"));
-    if (files.length > 0) {
-      tools.instructions = files.map((f) => `instructions/${f}`);
-    }
-  }
+  for (const type of TOOL_TYPES) {
+    const { dirName, include } = TOOL_TYPE_CONFIG[type];
+    const dirPath = path.join(pluginSrcDir, dirName);
 
-  // skills/ — collect subdirectories (each skill is a directory)
-  const skillsDir = path.join(pluginSrcDir, "skills");
-  if (fs.existsSync(skillsDir)) {
-    const dirs = fs
-      .readdirSync(skillsDir, { withFileTypes: true })
-      .filter((e) => e.isDirectory())
-      .map((e) => e.name);
-    if (dirs.length > 0) {
-      tools.skills = dirs.map((d) => `skills/${d}`);
+    if (!fs.existsSync(dirPath)) {
+      tools[type] = [];
+      continue;
     }
-  }
 
-  // hooks/ — collect *.json files
-  const hooksDir = path.join(pluginSrcDir, "hooks");
-  if (fs.existsSync(hooksDir)) {
-    const files = fs.readdirSync(hooksDir).filter((f) => f.endsWith(".json"));
-    if (files.length > 0) {
-      tools.hooks = files.map((f) => `hooks/${f}`);
-    }
-  }
-
-  // agents/ — collect *.agent.md files
-  const agentsDir = path.join(pluginSrcDir, "agents");
-  if (fs.existsSync(agentsDir)) {
-    const files = fs.readdirSync(agentsDir).filter((f) => f.endsWith(".agent.md"));
-    if (files.length > 0) {
-      tools.agents = files.map((f) => `agents/${f}`);
-    }
+    tools[type] = fs
+      .readdirSync(dirPath, { withFileTypes: true })
+      .filter(include)
+      .map((entry) => `${dirName}/${entry.name}`)
+      .sort();
   }
 
   return tools;
+}
+
+function getDuplicateValues(values) {
+  const seen = new Set();
+  const duplicates = new Set();
+
+  for (const value of values) {
+    if (seen.has(value)) {
+      duplicates.add(value);
+      continue;
+    }
+
+    seen.add(value);
+  }
+
+  return [...duplicates].sort();
+}
+
+function validatePluginTools(pluginSrcDir, metadata) {
+  const actualTools = collectPluginTools(pluginSrcDir);
+  const manifestPath = path.join(pluginSrcDir, "plugin.json");
+  const manifestName = path.relative(ROOT, manifestPath);
+  const errors = [];
+
+  for (const type of TOOL_TYPES) {
+    if (!Object.prototype.hasOwnProperty.call(metadata, type)) {
+      errors.push(`Missing explicit "${type}" array.`);
+      continue;
+    }
+
+    if (!Array.isArray(metadata[type])) {
+      errors.push(`"${type}" must be an array.`);
+      continue;
+    }
+
+    const listedTools = metadata[type];
+    const listedToolSet = new Set(listedTools);
+    const actualToolSet = new Set(actualTools[type]);
+    const duplicates = getDuplicateValues(listedTools);
+
+    for (const duplicate of duplicates) {
+      errors.push(`Duplicate ${type} asset entry: ${duplicate}`);
+    }
+
+    for (const toolPath of listedTools) {
+      const absoluteToolPath = path.join(pluginSrcDir, toolPath);
+
+      if (!fs.existsSync(absoluteToolPath)) {
+        errors.push(`Listed ${type} asset is missing: ${toolPath}`);
+        continue;
+      }
+
+      if (!actualToolSet.has(toolPath)) {
+        errors.push(`Listed ${type} asset has an unsupported path: ${toolPath}`);
+      }
+    }
+
+    for (const toolPath of actualTools[type]) {
+      if (!listedToolSet.has(toolPath)) {
+        errors.push(`Unlisted ${type} asset found in plugin folder: ${toolPath}`);
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`Invalid plugin manifest: ${manifestName}\n${errors.map((error) => `  - ${error}`).join("\n")}`);
+  }
 }
 
 /**
@@ -139,11 +201,9 @@ function buildDir(srcDir, destDir) {
     }
 
     if (entry.name === "plugin.json") {
-      // Enrich plugin.json with auto-collected tools from the plugin's src directory
       const metadata = JSON.parse(fs.readFileSync(srcPath, "utf-8"));
-      const collected = collectPluginTools(srcDir);
-      const enriched = Object.assign({}, metadata, collected);
-      fs.writeFileSync(destPath, JSON.stringify(enriched, null, 2), "utf-8");
+      validatePluginTools(srcDir, metadata);
+      writeJsonFile(destPath, metadata);
     } else if (entry.name.endsWith(".md")) {
       const raw = fs.readFileSync(srcPath, "utf-8");
       const resolved = resolvePartials(raw, path.dirname(srcPath), new Set());
@@ -158,30 +218,42 @@ function buildDir(srcDir, destDir) {
   }
 }
 
-// --- main ---
-console.log("Building instructions…\n");
-console.log(`  Source:  ${path.relative(ROOT, SRC_DIR)}/`);
-console.log(`  Output:  ${path.relative(ROOT, OUT_DIR)}/\n`);
+function main() {
+  console.log("Building instructions…\n");
+  console.log(`  Source:  ${path.relative(ROOT, SRC_DIR)}/`);
+  console.log(`  Output:  ${path.relative(ROOT, OUT_DIR)}/\n`);
 
-// Clean previous output
-if (fs.existsSync(OUT_DIR)) {
-  fs.rmSync(OUT_DIR, { recursive: true });
+  if (fs.existsSync(OUT_DIR)) {
+    fs.rmSync(OUT_DIR, { recursive: true });
+  }
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+
+  buildDir(SRC_DIR, OUT_DIR);
+
+  console.log();
+
+  const instructionSizeSummary = analyzeInstructionSizes({
+    distDir: OUT_DIR,
+    configPath: BUDGET_CONFIG_PATH,
+  });
+  reportInstructionSizes(instructionSizeSummary);
+
+  if (instructionSizeSummary.errors.length > 0) {
+    console.error("Build failed: instruction size budget exceeded.");
+    process.exit(1);
+  }
+
+  console.log("Done ✅");
 }
-fs.mkdirSync(OUT_DIR, { recursive: true });
 
-buildDir(SRC_DIR, OUT_DIR);
-
-console.log();
-
-const instructionSizeSummary = analyzeInstructionSizes({
-  distDir: OUT_DIR,
-  configPath: BUDGET_CONFIG_PATH,
-});
-reportInstructionSizes(instructionSizeSummary);
-
-if (instructionSizeSummary.errors.length > 0) {
-  console.error("Build failed: instruction size budget exceeded.");
-  process.exit(1);
+if (require.main === module) {
+  main();
 }
 
-console.log("Done ✅");
+module.exports = {
+  buildDir,
+  collectPluginTools,
+  main,
+  resolvePartials,
+  validatePluginTools,
+};
