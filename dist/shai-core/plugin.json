@@ -22,6 +22,7 @@
     "skills/shai-tdd-feature"
   ],
   "hooks": [
+    "hooks/scripts",
     "hooks/shai-format-on-edit.json",
     "hooks/shai-lint-on-edit.json"
   ]
