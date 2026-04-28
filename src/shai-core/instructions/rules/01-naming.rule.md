@@ -1,9 +1,8 @@
-## Naming Conventions
+### Naming Conventions
 
-Consistent, concise naming reduces cognitive load and makes code searchable.
-The goal: **shortest meaningful name that avoids ambiguity.**
+Use the shortest meaningful name that stays unambiguous.
 
-### Universal Principles
+#### Universal Principles
 
 - **Short names** — use the shortest name that is still unambiguous in context.
   One word is ideal. Two or three words only when a single word would be unclear.
@@ -11,9 +10,8 @@ The goal: **shortest meaningful name that avoids ambiguity.**
   searchability and force readers to decode context.
 - **Allowed abbreviations** — commonly understood terms that are clearer short:
   `id`, `db`, `url`, `api`, `config`, `env`, `auth`, `args`, `params`, `docs`.
-- **Reflect the data type** — a variable name should hint at what it stores.
-  `UserInfo` as a variable name is redundant — name it `user`. `OrderResponse`
-  → `order`. The variable name is the concept; the type carries the shape.
+- **Reflect the value** — name the concept, not the type. Use `user`, not
+  `UserInfo`. Use `order`, not `OrderResponse`.
 - **Plural for collections** — use plural nouns for arrays, lists, and sets
   instead of suffixes like `List` or `Array`.
 - **Private fields** — prefix with underscore: `_name`, `_count`. Not `#private`

@@ -1,4 +1,4 @@
-## Constants
+### Constants
 
 Use `ALL_CAPS` for all `const` declarations to clearly distinguish immutable
 values from mutable variables.

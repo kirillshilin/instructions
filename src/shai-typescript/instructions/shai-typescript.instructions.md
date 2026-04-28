@@ -14,6 +14,10 @@ TypeScript conventions for architecture, structure, and patterns not covered by 
 
 {rules/03-one-unit-per-file.rule.md}
 
+{rules/06-imports.rule.md}
+
+{rules/05-logging.rule.md}
+
 ## Constants
 
 Before applying constant naming rules, read and use this reference first:

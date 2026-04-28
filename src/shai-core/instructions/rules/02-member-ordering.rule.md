@@ -1,12 +1,11 @@
-## Member Ordering
+### Member Ordering
 
-Consistent ordering makes classes scannable — public API at the top, internals
-at the bottom.
+Keep the public API at the top and internals at the bottom.
 
-### Ordering
+#### Ordering
 
-Public members first, private members last. Within each visibility level, group
-by kind: fields → constructors → methods.
+Put public members first and private members last. Within each visibility
+level, group by kind: fields → constructors → methods.
 
 ```
 1. Public static fields / constants
@@ -18,15 +17,14 @@ by kind: fields → constructors → methods.
 7. Private methods
 ```
 
-Why: readers care about the public API first. Private implementation details are
-relevant only when digging deeper. Top-to-bottom matches how consumers discover
-a class.
+Why: readers look for the public API first. Private details matter later.
 
-### One Item Per File
+#### One Item Per File
 
 One class, interface, or component per file — a strong convention in .NET.
 
-**TypeScript exception:** private helper models used only by the main export may co-locate. Extract when the helper grows or is referenced elsewhere.
+**TypeScript exception:** private helper models used only by the main export may
+co-locate. Extract them when they grow or are reused.
 
 **Preferred:**
 
@@ -46,4 +44,4 @@ Models.cs               → contains User, Order, Product, Address
 helpers.ts              → contains 12 unrelated utility functions
 ```
 Why: multi-item files become dumping grounds. Single-item files are easier to
-find, rename, move, and review in diffs.
+find and review.

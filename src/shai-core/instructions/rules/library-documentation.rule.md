@@ -1,8 +1,8 @@
-## Library Documentation
+### Library Documentation
 
 Libraries need documentation that helps consumers adopt them quickly. The focus shifts from "what the app does" to "what the API offers."
 
-### README.md for libraries
+#### README.md for libraries
 
 Library `docs/README.md` emphasizes quick adoption:
 
@@ -32,7 +32,7 @@ Library `docs/README.md` emphasizes quick adoption:
 | 03  | [Examples](03-examples.md)               | Real-world usage patterns     |
 ```
 
-### API Reference format
+#### API Reference format
 
 Document every public export. For each function, class, or type:
 
@@ -56,7 +56,7 @@ const result = functionName('input', { timeout: 5000 });
 ```
 ```
 
-### Changelog conventions
+#### Changelog conventions
 
 - Keep a `CHANGELOG.md` at the repository root (not in `docs/`).
 - Group entries by version, newest first.

@@ -1,9 +1,6 @@
-## Component Structure
+### Component Structure
 
-Each React component is a focused, single-responsibility unit that fits on one
-screen. Smaller components are easier to read, test, and refactor.
-
-### One component per file
+#### One component per file
 
 Each `.tsx` / `.jsx` file exports **one** component. No sibling components,
 no helper functions, no constants — just the component and its types.
@@ -13,30 +10,25 @@ no helper functions, no constants — just the component and its types.
 // checkout-form.tsx → exports CheckoutForm
 ```
 
-Why: Single-export files are discoverable by filename, produce clean git blame,
-and allow bundlers to tree-shake effectively.
+Why: single-export files are easier to find, review, and tree-shake.
 
-### Target size: 50–70 lines
+#### Target size: 50–70 lines
 
-A component should fit in a single editor viewport — roughly **50–70 lines**
-including imports, types, and JSX. If it exceeds ~70 lines, that's a signal to
-decompose.
+A component should fit in one editor viewport, roughly **50–70 lines**
+including imports, types, and JSX. If it grows past ~70 lines, decompose it.
 
 **How to shrink an oversized component:**
 
 1. Extract a visual section into a child component
 2. Move logic into a custom hook (`hooks/useSomething.hook.ts`)
-3. Move constants to a separate file
-4. Simplify conditional rendering with early returns
+3. Move constants out of the file or simplify rendering with early returns
 
-**Exception:** A component at 80–90 lines that is purely declarative JSX (a
-form with many fields, a data table) can stay intact if splitting would harm
-readability. Use judgment — but default to splitting.
+**Exception:** A component at 80–90 lines can stay intact if it is mostly
+declarative JSX and splitting would hurt readability.
 
-### Single responsibility
+#### Single responsibility
 
-A component should have **one reason to change**. If you need to modify a
-component for two unrelated reasons, it's doing too much.
+A component should have one reason to change.
 
 Good signals:
 
@@ -50,8 +42,7 @@ Bad signals:
 - It handles two unrelated user interactions
 - Props span multiple domains (user data + cart state + theme)
 
-### shadcn components — leave intact
+#### shadcn components — leave intact
 
-Components in `src/components/ui/` are **shadcn design-system primitives**.
-Do not refactor, split, or restructure them. They follow shadcn's conventions,
-not ours. Treat them as an external library that happens to live in-tree.
+Components in `src/components/ui/` are shadcn primitives. Do not refactor,
+split, or restructure them. Treat them as an external library in-tree.

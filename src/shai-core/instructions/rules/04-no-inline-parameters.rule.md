@@ -1,4 +1,4 @@
-## No Inline Parameters
+### No Inline Parameters
 
 Extract method arguments into named variables before calling the method. The
 call site should read like a sentence — `service.Process(command)`, not

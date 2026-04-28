@@ -1,4 +1,4 @@
-## Comments
+### Comments
 
 - **No comments during scaffolding** — freshly generated code speaks for itself.
 - **Class summary** — add a brief summary comment on classes unless asked not to.

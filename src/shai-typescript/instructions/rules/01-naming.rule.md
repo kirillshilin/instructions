@@ -1,4 +1,4 @@
-# Naming — TypeScript
+### Naming — TypeScript
 
 These supplement — not repeat — TypeScript's widely-known conventions (camelCase
 functions, PascalCase types). Only non-obvious rules belong here.

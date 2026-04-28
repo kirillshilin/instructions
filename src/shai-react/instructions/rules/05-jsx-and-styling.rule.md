@@ -1,10 +1,8 @@
-## JSX and Styling
+### JSX and Styling
 
-Keep JSX clean, declarative, and styled with Tailwind CSS utility classes.
+#### JSX patterns
 
-### JSX patterns
-
-- Use `<>...</>` fragments to avoid unnecessary wrapper `<div>` elements
+- Use fragments instead of wrapper `<div>` elements
 - Prefer ternary for simple conditionals: `{isOpen ? <Panel /> : null}`
 - Use early returns for loading/error states instead of nested ternaries
 - Arrays: always provide a stable, unique `key` prop — never use index as key
@@ -47,21 +45,19 @@ const UserProfile = ({ user, isLoading }: UserProfileProps) => {
 };
 ```
 
-Why: Early returns flatten the component logic, making it easier to read and
-trace. Nested ternaries are hard to follow beyond one level.
+Why: early returns flatten control flow. Nested ternaries become hard to scan.
 
-### Styling with Tailwind
+#### Styling with Tailwind
 
-- **Tailwind utility classes are the default** styling approach. Prefer
-  composing utilities directly on JSX elements.
+- Tailwind utilities are the default. Compose them directly on JSX elements.
 - Use CSS modules only when explicitly requested or for complex animations
   that don't map well to utility classes.
-- For conditional classes, use `clsx` or `cn` (shadcn's `cn` utility):
+- For conditional classes, use `clsx` or `cn`:
   `className={cn("text-sm", isActive && "font-bold")}`
 - Extract repeated class combinations into component abstractions, not into
   CSS files.
 
-### Prop types
+#### Prop types
 
 - Define props with a `{ComponentName}Props` interface in the same file,
   above the component:
@@ -78,14 +74,14 @@ const UserCard = ({ user, onSelect, variant = "compact" }: UserCardProps) => {
 };
 ```
 
-- Use explicit props interfaces — do not use `React.FC` (it adds implicit
-  `children` prop and obscures the signature)
+- Use explicit props interfaces. Do not use `React.FC`.
 - Use discriminated unions for components with mutually exclusive prop sets
 - Avoid `any` in props — use `unknown` or proper generics
 
-### Component export
+#### Component export
 
-- Use **named exports**, not default exports — matches the one-component-per-file rule and improves refactoring support:
+- Use named exports, not default exports. This matches the one-component-per-file
+  rule and improves refactoring support.
 
 ```tsx
 // Preferred

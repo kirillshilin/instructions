@@ -1,14 +1,17 @@
-## Hook Delegation
+### Hook Delegation
 
-Components are for **displaying data and capturing user input**. All logic —
-data loading, state management, transformations, side effects — lives in custom
-hooks. This is the single most important architectural rule.
+Move data loading, state, transformations, side effects, and handler logic
+into custom hooks.
 
-### The principle
+#### Rule
 
-A component's body should be trivial: call hooks, destructure results, return
-JSX. If you're writing an `if` chain, a `.map().filter()`, or a `try/catch`
-inside a component — move it to a hook.
+Keep a component body trivial:
+
+- Call hooks
+- Destructure results
+- Return JSX
+
+Move `if` chains, `.map().filter()`, and `try/catch` blocks into a hook.
 
 **Preferred:**
 
@@ -72,11 +75,9 @@ const OrderList = ({ userId }: OrderListProps) => {
 };
 ```
 
-Why: The component is now coupled to the data-fetching implementation. You can't
-test the filtering logic without rendering the component. You can't reuse the
-data-fetching in another component.
+Why: logic in the component is harder to test, reuse, and replace.
 
-### What belongs in hooks
+#### What belongs in hooks
 
 | Concern                      | Where                            | Example hook                        |
 | ---------------------------- | -------------------------------- | ----------------------------------- |
@@ -87,24 +88,24 @@ data-fetching in another component.
 | Side effects / subscriptions | `hooks/useWebSocket.hook.ts`     | `useWebSocket`, `useInterval`       |
 | Event handlers with logic    | `hooks/useKeyboardNav.hook.ts`   | `useKeyboardNav`, `useDragDrop`     |
 
-### What stays in the component
+#### What stays in the component
 
-- Destructuring hook results
-- Early returns for loading / error states
-- Event handler wiring (passing hook callbacks to JSX)
-- Simple conditional rendering (ternary, `&&`)
-- Trivial derived values (a single `!isOpen` toggle — no need for a hook)
+- Destructure hook results
+- Return loading and error states
+- Wire hook callbacks to JSX
+- Render simple conditionals
+- Keep trivial derived values only
 
-### Hook file naming convention
+#### Hook file naming convention
 
 - File name: `useSomething.hook.ts`
 - Export name: `useSomething`
 - Location: `hooks/` subfolder co-located with the component, or top-level
   `src/hooks/` for shared hooks
 
-### No helper functions in components
+#### No helper functions in components
 
-Component files must not contain standalone helper functions. Extract them to:
+Do not keep standalone helper functions in component files. Extract them to:
 
 - A custom hook (if they use React state or effects)
 - A utility module in `src/utilities/` (if they're pure functions)

@@ -21,6 +21,11 @@
       "sourceType": "github",
       "computedHash": "a53df8c311cd180cf5c0a4d8c2aa33e992f62170e1b8f4d38bfc5257e5027b67"
     },
+    "javascript-typescript-jest": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "0073d19ab0275eb6a8200aced6789a53744667bd717b5d1f44ce708a1740e5d4"
+    },
     "startup-ideation": {
       "source": "refoundai/lenny-skills",
       "sourceType": "github",

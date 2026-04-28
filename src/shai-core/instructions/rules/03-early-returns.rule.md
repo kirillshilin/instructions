@@ -1,4 +1,4 @@
-## Early Returns
+### Early Returns
 
 Prefer early returns and guard clauses to reduce nesting — validate preconditions
 at the top, then proceed with the main logic unindented.

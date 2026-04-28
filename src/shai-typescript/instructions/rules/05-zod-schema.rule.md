@@ -1,4 +1,4 @@
-## Zod Schema Naming and Layout
+### Zod Schema Naming and Layout
 
 Use short model names and keep each schema in `/schemas/{modelName}.schema.ts`.
 

@@ -1,9 +1,6 @@
-## Folder Taxonomy
+### Folder Taxonomy
 
-React files are organized by **purpose and scale**, not by technical type. Each
-folder has a clear role — when creating a new component, pick the right home.
-
-### The five folders
+#### The five folders
 
 | Folder              | Purpose                                                   | Examples                                     |
 | ------------------- | --------------------------------------------------------- | -------------------------------------------- |
@@ -13,14 +10,14 @@ folder has a clear role — when creating a new component, pick the right home.
 | `src/organisms`     | **Large application-wide shells.** Layout and navigation  | `AppShell`, `Header`, `Sidebar`, `Footer`    |
 | `src/pages`         | **Navigatable screens.** Tied to routes                   | `DashboardPage`, `SettingsPage`, `LoginPage` |
 
-### Placement rules
+#### Placement rules
 
 - **`src/components/ui`** — installed by shadcn. Never modify, never add custom
   components here. If you need to extend a shadcn primitive, wrap it in
   `src/components` instead.
-- **`src/components`** — generic, reusable across any feature. No business logic.
-  If a component is used in only one place and carries domain meaning, it
-  belongs in `src/elements` instead.
+- **`src/components`** — generic and reusable across features. No business
+  logic. If a component is used in one place and carries domain meaning, move
+  it to `src/elements`.
 - **`src/elements`** — feature-specific components with domain knowledge. A
   `UserCard` knows what a user looks like; a `Card` in `src/components` does not.
 - **`src/organisms`** — application structural components. Layout shells, navigation
@@ -28,7 +25,7 @@ folder has a clear role — when creating a new component, pick the right home.
 - **`src/pages`** — one file per route. Pages compose organisms, elements, and
   components. They wire up data hooks and pass props down. Minimal logic.
 
-### Co-located hooks
+#### Co-located hooks
 
 Each component folder can have a `hooks/` subfolder for hooks specific to that
 component or feature group:
@@ -40,9 +37,9 @@ src/elements/
 │   └── useUserCard.hook.ts
 ```
 
-Shared hooks that serve multiple components live in `src/hooks/`.
+Shared hooks live in `src/hooks/`.
 
-### Where NOT to put things
+#### Where NOT to put things
 
 - **No `utils/` in component folders** — utility functions belong in a
   top-level `src/utilities/` or `src/lib/` folder.

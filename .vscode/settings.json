@@ -1,4 +1,7 @@
 {
+    "search.exclude": {
+        "dist": true
+    },
     "chat.tools.terminal.autoApprove": {
         "npx skills": true,
         "Rename-Item": true,
@@ -12,6 +15,7 @@
         "/^node scripts/build-md-tree\\.js.+/": {
             "approve": true,
             "matchCommandLine": true
-        }
+        },
+        ".gitignore": true
     }
 }

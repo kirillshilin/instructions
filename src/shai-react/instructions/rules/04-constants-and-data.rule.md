@@ -1,9 +1,10 @@
-## Constants and Data
+### Constants and Data
 
-Component files contain **zero** inline data — no hardcoded strings, magic
-numbers, configuration objects, or option arrays. Everything is imported.
+Do not keep inline data in component files.
 
-### No inline data in components
+Import strings, numbers, configuration objects, and option arrays.
+
+#### No inline data in components
 
 **Preferred:**
 
@@ -48,10 +49,10 @@ const OrderFilter = ({ onFilter }: OrderFilterProps) => {
 };
 ```
 
-Why: Inline data recreates on every render, can't be shared across components,
-and clutters the component with non-UI concerns.
+Why: inline data recreates on each render and mixes non-UI concerns into the
+component.
 
-### Where constants live
+#### Where constants live
 
 | Scope              | Location                     | Example                     |
 | ------------------ | ---------------------------- | --------------------------- |
@@ -59,14 +60,14 @@ and clutters the component with non-UI concerns.
 | Feature-specific   | `src/{feature}/constants.ts` | `src/checkout/constants.ts` |
 | Enum-like mappings | `src/constants/{domain}.ts`  | `src/constants/status.ts`   |
 
-### Naming
+#### Naming
 
 - Use `ALL_CAPS` for primitive constants: `MAX_ITEMS`, `API_TIMEOUT`
 - Use `PascalCase` or `ALL_CAPS` for object/array constants:
   `ORDER_STATUS_OPTIONS`, `ROUTES`
 - Never name a constant `data`, `values`, `items`, or `list` — be specific
 
-### Default prop values
+#### Default prop values
 
 Extract default prop objects to module-level constants, not inline:
 
@@ -88,6 +89,5 @@ const DataTable = ({ pagination = { page: 1, pageSize: 20 } }: DataTableProps) =
 };
 ```
 
-Why: Inline default objects create a new reference on every render, which can
-trigger unnecessary re-renders in child components that depend on referential
-equality.
+Why: inline default objects create a new reference on each render and can
+trigger unnecessary child re-renders.

@@ -34,37 +34,48 @@ function matchesPattern(filePath, pattern) {
   const normalized = filePath.replace(/\\/g, "/");
   const patternNorm = pattern.replace(/\\/g, "/");
 
-  // Simple glob matching without heavy regex manipulation
-  // Convert glob pattern to regex by escaping special chars, then replacing glob markers
-  let regex = patternNorm;
+  // Convert glob pattern to regex source.
+  // Rules:
+  // - *  matches within a segment (not '/').
+  // - ** matches across segments.
+  // - ?  matches one char within a segment.
+  let source = "";
+  for (let i = 0; i < patternNorm.length; i++) {
+    const char = patternNorm[i];
 
-  // Escape regex special characters (but not * and ? which are glob markers)
-  regex = regex.split("");
-  for (let i = 0; i < regex.length; i++) {
-    const char = regex[i];
-    if ("()[]{}.+^$|\\".indexOf(char) !== -1) {
-      regex[i] = "\\" + char;
+    if (char === "*") {
+      const next = patternNorm[i + 1];
+      if (next === "*") {
+        const after = patternNorm[i + 2];
+        // "**/" should match zero or more directories.
+        if (after === "/") {
+          source += "(?:.*/)?";
+          i += 2;
+        } else {
+          source += ".*";
+          i += 1;
+        }
+      } else {
+        source += "[^/]*";
+      }
+      continue;
+    }
+
+    if (char === "?") {
+      source += "[^/]";
+      continue;
+    }
+
+    if ("()[]{}.+^$|\\".includes(char)) {
+      source += "\\" + char;
+    } else {
+      source += char;
     }
   }
-  regex = regex.join("");
 
-  // Now convert glob patterns to regex
-  // ** -> match any path depth
-  regex = regex.replace(/\\\*\\\*/g, "___DOUBLE_STAR___");
-  // * -> match anything except /
-  regex = regex.replace(/\\\*/g, "[^/]*");
-  // ? -> match single char except /
-  regex = regex.replace(/\\\?/g, "[^/]");
-  // Restore ** handling
-  regex = regex.replace(/___DOUBLE_STAR___/g, "(?:.*)?");
-
-  // Match pattern at any directory level or at root
-  if (!regex.startsWith("^") && !regex.startsWith("(?:")) {
-    regex = `(?:^|.*/)${regex}`;
-  }
-  if (!regex.endsWith("$")) {
-    regex += "$";
-  }
+  // If no slash is present, match against any path segment.
+  const hasSlash = patternNorm.includes("/");
+  const regex = hasSlash ? `^${source}$` : `^(?:.*/)?${source}$`;
 
   try {
     return new RegExp(regex, "i").test(normalized);

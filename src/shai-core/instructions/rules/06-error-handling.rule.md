@@ -1,11 +1,14 @@
-## Error Handling
+### Error Handling
 
-Prefer **fail fast** — let unexpected errors propagate. Rely on a global/top-level error handler (e.g. middleware, `process.on('uncaughtException')`, ASP.NET exception filter) to catch, log, and respond to unhandled exceptions consistently.
+Let unexpected errors propagate.
 
-Use `try/catch` **only** when you have a specific reason to act on the error locally:
+Use a global or top-level error handler to catch, log, and respond
+consistently.
 
-- You need to **translate** the error into a domain-specific type or message.
-- You are handling a **known, expected failure** (e.g. file not found, external API timeout) and can recover or provide a meaningful fallback.
-- You need to **clean up resources** (prefer `finally` or language constructs like `using`/`defer` for this).
+Use `try/catch` only when you must act on the error locally:
 
-**Do not** wrap code in `try/catch` just to silence or re-throw the same error — it adds noise without value.
+- Translate the error into a domain-specific type or message.
+- Handle a known failure and recover or return a meaningful fallback.
+- Clean up resources. Prefer `finally`, `using`, or `defer`.
+
+Do not wrap code in `try/catch` just to silence or re-throw the same error.
