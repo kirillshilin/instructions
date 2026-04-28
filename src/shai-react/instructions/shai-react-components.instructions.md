@@ -1,5 +1,10 @@
 ---
+id: R-I01
+name: shai-react-components
 applyTo: "**/*.tsx,**/*.jsx"
+priority: must
+status: done
+related: [T-I01]
 ---
 
 # React Component Conventions

@@ -1,5 +1,9 @@
 ---
+id: T-S02
 name: shai-unit-testing-ts
+priority: should
+status: done
+related: [T-I01, T-I02, C-S02]
 description: >
   Comprehensive guide for writing TypeScript unit tests with Jest. Use this skill when the user asks to create, write, add, or generate unit tests for TypeScript code; when they mention "spec.ts", "test coverage", "write tests", "add tests", "test this class", or "test this function"; or when they need help with mocking, test structure, or assertion patterns in TypeScript. For Angular or React component testing, use the framework-specific testing skills instead — this skill covers general-purpose TypeScript tests.
 ---

@@ -1,8 +1,3 @@
----
-name: shai-scaffold-nextjs-app
-description: >
-  Scaffold a new Next.js project with App Router, TypeScript, Tailwind CSS, and sensible defaults. Use this skill when the user says "create a Next.js app", "scaffold Next.js project", "new next app", "set up Next.js", "init nextjs", "bootstrap nextjs", or wants to start a new Next.js project from scratch. Produces a production-ready folder structure with layouts, error boundaries, middleware stub, environment config, and recommended configuration.
----
 
 # scaffold-nextjs-app
 

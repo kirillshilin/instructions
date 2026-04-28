@@ -1,3 +1,9 @@
+---
+id: T-I01-r03
+priority: must
+status: done
+related: [T-I01]
+---
 ### One Unit per Module
 
 **Mandatory.** Every file holds exactly one primary exported unit. Pick the file pattern from the table below **before creating the file** — the suffix is the contract that tells readers (and the agent) what lives inside.

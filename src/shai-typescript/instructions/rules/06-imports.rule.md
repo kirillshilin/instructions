@@ -1,3 +1,9 @@
+---
+id: T-I01-r06
+priority: must
+status: done
+related: [T-I01]
+---
 ### Imports — TypeScript
 
 Use aliases and barrels across module boundaries. Use direct sibling imports

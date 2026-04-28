@@ -1,3 +1,9 @@
+---
+id: T-I04-r01
+priority: should
+status: done
+related: [T-I04]
+---
 ### Zod Schema Naming and Layout
 
 Use short model names and keep each schema in `/schemas/{modelName}.schema.ts`.

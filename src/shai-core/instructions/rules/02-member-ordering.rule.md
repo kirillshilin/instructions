@@ -1,3 +1,9 @@
+---
+id: C-I01-r02
+priority: must
+status: done
+related: [C-I01]
+---
 ### Member Ordering
 
 Keep the public API at the top and internals at the bottom.

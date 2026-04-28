@@ -1,6 +1,3 @@
----
-applyTo: "**"
----
 
 # General Coding Standards
 

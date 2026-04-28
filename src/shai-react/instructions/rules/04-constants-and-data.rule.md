@@ -1,3 +1,9 @@
+---
+id: R-I01-r04
+priority: must
+status: done
+related: [R-I01]
+---
 ### Constants and Data
 
 Do not keep inline data in component files.

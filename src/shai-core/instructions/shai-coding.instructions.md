@@ -1,5 +1,10 @@
 ---
+id: C-I01
+name: shai-coding
 applyTo: "**"
+priority: must
+status: done
+related: []
 ---
 
 # General Coding Standards

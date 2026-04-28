@@ -1,6 +1,3 @@
----
-applyTo: "**/*.ts,**/*.tsx"
----
 
 # TypeScript Coding Standards
 

@@ -1,3 +1,9 @@
+---
+id: T-I01-r05
+priority: should
+status: done
+related: [T-I01]
+---
 ### Logging — TypeScript
 
 Keep logs sparse by default. Add detailed logging only when the user asks.

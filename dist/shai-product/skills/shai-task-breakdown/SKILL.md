@@ -1,8 +1,3 @@
----
-name: shai-task-breakdown
-description: >
-  Break user stories into PR-scoped development tasks. Each task is the smallest useful change — one task, one PR, one change type. Produces individual .task.md files with acceptance criteria, PR templates, and dependency ordering. Use this skill when the user wants to break stories into tasks, plan implementation tasks, create a task list for a story, do task decomposition, sprint planning, or when passing output from story-decomposition to actual development. Also triggers on: task breakdown, dev tasks, implementation plan, "what tasks do I need for this story?", PR planning, or "break this into PRs."
----
 
 # Task Breakdown
 

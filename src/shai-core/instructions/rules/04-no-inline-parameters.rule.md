@@ -1,3 +1,9 @@
+---
+id: C-I01-r04
+priority: must
+status: done
+related: [C-I01]
+---
 ### No Inline Parameters
 
 Extract method arguments into named variables before calling the method. The

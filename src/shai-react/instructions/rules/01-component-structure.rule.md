@@ -1,3 +1,9 @@
+---
+id: R-I01-r01
+priority: must
+status: done
+related: [R-I01]
+---
 ### Component Structure
 
 #### One component per file

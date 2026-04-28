@@ -1,5 +1,10 @@
 ---
+id: D-I01
+name: shai-dotnet-coding-standards
 applyTo: "**/*.cs"
+priority: must
+status: done
+related: []
 ---
 
 # .NET / C# Coding Standards

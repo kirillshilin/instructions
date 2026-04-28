@@ -1,8 +1,3 @@
----
-name: shai-feature-mapping
-description: >
-  Map raw product capabilities into a structured feature set grouped by domain area. Produces a feature reference table with RICE-scored, MoSCoW-grouped feature cards and a dependency graph. Use this skill when the user wants to map features for a product idea, organize capabilities into domains, create a feature map, prioritize features with RICE scoring, build a feature reference, or when passing output from idea-evaluation to story-decomposition. Also triggers on: feature mapping, feature planning, feature inventory, capability mapping, domain decomposition, feature prioritization, or "what features do we need?"
----
 
 # Feature Mapping
 

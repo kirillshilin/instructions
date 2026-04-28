@@ -1,5 +1,9 @@
 ---
+id: X-S02
 name: shai-add-nextjs-page
+priority: should
+status: done
+related: [X-S01, T-I01]
 description: >
   Add a new page (route) to an existing Next.js App Router project. Use this skill when the user says "add a page", "create a route", "new page", "add route", "create page for /about", "scaffold a dashboard page", or wants to add any new route segment to a Next.js application. Handles layouts, loading states, error boundaries, dynamic routes, route groups, and metadata.
 ---

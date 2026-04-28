@@ -1,5 +1,9 @@
 ---
+id: C-S12
 name: shai-software-design
+priority: must
+status: done
+related: [C-I01]
 description: >
   Software design advisor: proposes component structures, applies SOLID principles, selects GoF design patterns, and enforces KISS (Keep It Smart Simple)/DRY/YAGNI. Use this skill when the user asks how to design a module, class, or system within a single application; wants to choose a design pattern; needs to refactor toward SOLID; asks about composition vs inheritance; or when the shai-architect agent needs design guidance for a new feature, service, or architectural boundary. For system design questions (how services interact), use a system design skill instead.
 ---

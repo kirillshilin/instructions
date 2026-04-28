@@ -1,3 +1,9 @@
+---
+id: C-I03-r01
+priority: should
+status: done
+related: [C-I03]
+---
 ### Library Documentation
 
 Libraries need documentation that helps consumers adopt them quickly. The focus shifts from "what the app does" to "what the API offers."

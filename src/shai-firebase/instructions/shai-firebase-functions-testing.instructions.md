@@ -1,5 +1,10 @@
 ---
+id: F-I04
+name: shai-firebase-functions-testing
 applyTo: "**/*.fn.spec.ts"
+priority: should
+status: done
+related: [F-I03, T-I01]
 description: "Firebase Cloud Function test conventions: thin-facade wiring tests, mocked services, firebase-functions-test wrapper, Zod-validated event data."
 ---
 

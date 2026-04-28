@@ -1,3 +1,9 @@
+---
+id: T-I01-r02
+priority: must
+status: done
+related: [T-I01]
+---
 ### Folder Structure — TypeScript
 
 Keep folders flat and semantically named.
