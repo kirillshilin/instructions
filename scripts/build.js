@@ -52,6 +52,10 @@ function isPartialDir(dirName) {
   return dirName === "rules";
 }
 
+function writeJsonFile(filePath, value) {
+  fs.writeFileSync(filePath, JSON.stringify(value, null, 2) + "\n", "utf-8");
+}
+
 /**
  * Resolve all partial references in `content`.
  * `baseDir` is the directory of the file being processed (for relative paths).
@@ -199,7 +203,7 @@ function buildDir(srcDir, destDir) {
     if (entry.name === "plugin.json") {
       const metadata = JSON.parse(fs.readFileSync(srcPath, "utf-8"));
       validatePluginTools(srcDir, metadata);
-      fs.writeFileSync(destPath, JSON.stringify(metadata, null, 2) + "\n", "utf-8");
+      writeJsonFile(destPath, metadata);
     } else if (entry.name.endsWith(".md")) {
       const raw = fs.readFileSync(srcPath, "utf-8");
       const resolved = resolvePartials(raw, path.dirname(srcPath), new Set());
